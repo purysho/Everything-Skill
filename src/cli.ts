@@ -8,6 +8,8 @@ import { retrievalModes, type RetrievalMode } from './retrieval.js';
 import { rerankLocal } from './transformer.js';
 import { collectDiscovery, discover, listDiscoveries, providers, saveDiscovery, type Provider } from './discovery.js';
 
+import { assessResource, blocked, cachedEligible, listSuggestions, preferenceFor, readReports, recordAssessment, scopes, setPreference, suggest, verifyCandidate, type Scope } from './governance.js';
+
 const help = `Everything Skill · Phase 1
 npm run skill -- init [--empty]
 npm run skill -- search "your terms" [--kind repository] [--category software] [--limit 5] [--mode routed] [--json]
@@ -17,6 +19,11 @@ npm run skill -- restore <backup-file>
 npm run skill -- discover "<public query>" [--provider github|mcp|web]
 npm run skill -- remember <resource-url> [--terms "local section keywords"]
 npm run skill -- private-list
+npm run skill -- scan <github-repository>
+npm run skill -- reports
+npm run skill -- suggest <resource-url>
+npm run skill -- suggestions
+npm run skill -- preference <resource-url> --decision allow|deny --scope global|topic|project|session
 
 All commands accept --data-dir <directory>. Default: ~/.everything-skill.
 Restore requires an absent private.sqlite. Use a new directory to inspect a backup.
@@ -29,6 +36,15 @@ function markdownText(value: string) {
 
 function showJson(data: unknown) {
   console.log(JSON.stringify(data, null, 2));
+}
+
+function optionalPrivate(path: string, writable = false) {
+  try {
+    return openIndex(path, 'private', writable);
+  } catch (error) {
+    if (!writable && (error as NodeJS.ErrnoException).code === 'ENOENT') return null;
+    throw error;
+  }
 }
 
 async function main() {
@@ -45,6 +61,14 @@ async function main() {
       thresholds: { type: 'string' },
       'local-models': { type: 'string' },
       provider: { type: 'string' },
+      verify: { type: 'boolean' },
+      decision: { type: 'string' },
+      scope: { type: 'string' },
+      context: { type: 'string' },
+      acknowledge: { type: 'boolean' },
+      topic: { type: 'string' },
+      project: { type: 'string' },
+      session: { type: 'string' },
       terms: { type: 'string' },
       help: { type: 'boolean' },
     },
@@ -55,15 +79,16 @@ async function main() {
     return;
   }
   const accepted = {
-    init: ['empty'], search: ['kind', 'category', 'limit', 'json', 'mode', 'thresholds', 'local-models'], export: ['json'],
-    backup: [], restore: [], discover: ['provider'], remember: ['terms'], 'private-list': [],
+    init: ['empty'], search: ['kind', 'category', 'limit', 'json', 'mode', 'thresholds', 'local-models', 'verify', 'topic', 'project', 'session'], export: ['json'],
+    backup: [], restore: [], discover: ['provider'], remember: ['terms'], 'private-list': [], scan: [], reports: [], suggest: [], suggestions: [],
+    preference: ['decision', 'scope', 'context', 'acknowledge'],
   };
   if (!Object.hasOwn(accepted, command)) throw new Error('Unknown command. Run with --help.');
   const allowed: readonly string[] = accepted[command as keyof typeof accepted];
   for (const key of Object.keys(values)) {
     if (key !== 'data-dir' && !allowed.includes(key)) throw new Error(`--${key} is invalid for ${command}.`);
   }
-  const expected = ['search', 'backup', 'restore', 'discover', 'remember'].includes(command) ? 1 : 0;
+  const expected = ['search', 'backup', 'restore', 'discover', 'remember', 'scan', 'suggest', 'preference'].includes(command) ? 1 : 0;
   if (args.length !== expected || args.some((arg) => !arg.trim())) {
     throw new Error('Invalid arguments. Run with --help and quote search queries.');
   }
@@ -86,7 +111,10 @@ async function main() {
   if (command === 'discover') {
     const provider = values.provider ?? 'github';
     if (!providers.some((known) => known === provider)) throw new Error('Unknown discovery provider.');
-    showJson(await discover(args[0]!, provider as Provider));
+    const leads = await discover(args[0]!, provider as Provider);
+    const db = optionalPrivate(privatePath);
+    try { showJson(db ? leads.filter((lead) => !blocked(db, lead.url, lead.sourceId)) : leads); }
+    finally { db?.close(); }
     return;
   }
   if (command === 'remember' || command === 'private-list') {
@@ -94,12 +122,38 @@ async function main() {
     try {
       if (command === 'remember') {
         const entry = await collectDiscovery(args[0]!, values.terms);
+        if (entry.assessment) recordAssessment(db, entry.assessment);
+        if (blocked(db, entry.url, entry.sourceId)) throw new Error('A security block prevents storing this discovery.');
         saveDiscovery(db, entry);
         showJson({ url: entry.url, stage: entry.stage });
-      } else showJson(listDiscoveries(db));
+      } else showJson(listDiscoveries(db).filter((entry) => !blocked(db, entry.url, entry.sourceId)));
     } finally {
       db.close();
     }
+    return;
+  }
+
+  if (['scan', 'reports', 'suggest', 'suggestions', 'preference'].includes(command)) {
+    const writable = ['scan', 'suggest', 'preference'].includes(command);
+    const db = openIndex(privatePath, 'private', writable);
+    try {
+      if (command === 'scan') {
+        const report = await assessResource(args[0]!);
+        recordAssessment(db, report);
+        showJson({ level: report.level, flags: report.flags });
+      } else if (command === 'reports') showJson(readReports(db));
+      else if (command === 'suggest') showJson(suggest(db, args[0]!));
+      else if (command === 'suggestions') showJson(listSuggestions(db));
+      else {
+        if (!scopes.some((scope) => scope === values.scope) ||
+            (values.decision !== 'allow' && values.decision !== 'deny')) {
+          throw new Error('Provide an explicit --scope and --decision.');
+        }
+        setPreference(db, args[0]!, { scope: values.scope as Scope, context: values.context ?? '',
+          decision: values.decision, acknowledged: values.acknowledge === true });
+        console.log('Local preference saved.');
+      }
+    } finally { db.close(); }
     return;
   }
 
@@ -116,8 +170,25 @@ async function main() {
         kind: kind ?? null, category: category ?? null, limit: Number(limit ?? 5),
         mode: mode as RetrievalMode, ...(thresholds ? { thresholds } : {}),
       });
+      const privateDb = optionalPrivate(privatePath, values.verify === true);
+      let privateExclusions = 0;
+      try {
+        if (privateDb) {
+          const contexts = { ...(values.topic ? { topic: values.topic } : {}),
+            ...(values.project ? { project: values.project } : {}),
+            ...(values.session ? { session: values.session } : {}) };
+          const visible = [];
+          for (const card of output.results) {
+            if (blocked(privateDb, card.url, card.sourceId) || preferenceFor(privateDb, card.url, contexts) === 'deny' ||
+                (values.verify ? !(await verifyCandidate(privateDb, card)) : !cachedEligible(privateDb, card))) {
+              privateExclusions++;
+            } else visible.push(card);
+          }
+          output.results = visible;
+        }
+      } finally { privateDb?.close(); }
       if (values['local-models']) output.results = await rerankLocal(args[0]!, output.results, values['local-models']);
-      if (values.json) showJson(output);
+      if (values.json) showJson(privateExclusions ? { ...output, privateExclusions } : output);
       else {
         console.log('| Resource | Score | Label | Evidence and summary |');
         console.log('| --- | ---: | --- | --- |');
@@ -127,9 +198,15 @@ async function main() {
         if (output.results.length) console.log('\nConditional entries have metadata review only.');
         else console.log('\nNo eligible matches in the local index.');
         console.log('Excluded matches:', JSON.stringify(output.excluded));
+        if (privateExclusions) console.log(`Private policy or online verification excluded ${privateExclusions} additional matches.`);
       }
     } else {
-      const output = exportCatalog(db);
+      let output = exportCatalog(db);
+      const privateDb = optionalPrivate(privatePath);
+      try {
+        if (privateDb) output = output.filter((card) =>
+          cachedEligible(privateDb, card) && preferenceFor(privateDb, card.url, {}) !== 'deny');
+      } finally { privateDb?.close(); }
       if (values.json) showJson(output);
       else {
         console.log('# Everything Skill · starter index\n\nEntries have metadata review only.\n');

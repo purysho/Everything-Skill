@@ -82,12 +82,13 @@ const eligibility = `CASE
 END`;
 
 const fields = `
-  r.kind, r.category, r.title, r.url, r.summary, r.version,
+  r.source_id AS sourceId, r.kind, r.category, r.title, r.url, r.summary, r.version,
   r.checked_on AS checkedOn, r.evidence_url AS evidenceUrl,
   r.license_id AS licence, r.license_url AS licenceUrl
 `;
 
 export interface EvidenceCard {
+  sourceId: string;
   kind: Kind;
   category: string;
   title: string;

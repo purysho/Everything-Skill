@@ -91,7 +91,7 @@ CREATE TABLE discoveries (
     v1.close();
     const db = openIndex(path, 'private', true);
     try {
-      assert.equal(db.prepare('PRAGMA user_version').get()?.user_version, 2);
+      assert.equal(db.prepare('PRAGMA user_version').get()?.user_version, 3);
       assert.equal(db.prepare('SELECT notes FROM discoveries').get()?.notes, 'old data');
     } finally { db.close(); }
   } finally { rmSync(directory, { recursive: true, force: true }); }

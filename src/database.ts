@@ -18,9 +18,40 @@ const discoveryEvidenceSchema = `CREATE TABLE discovery_evidence (
   evidence TEXT NOT NULL
 ) STRICT`;
 
+const governanceSchema = [
+  `CREATE TABLE security_reports (
+  id INTEGER PRIMARY KEY,
+  url TEXT NOT NULL,
+  source_id TEXT NOT NULL,
+  revision TEXT,
+  observed_at TEXT NOT NULL,
+  level TEXT NOT NULL CHECK (level IN ('metadata-only','warning','blocked')),
+  flags TEXT NOT NULL
+) STRICT`,
+  `CREATE INDEX report_resource ON security_reports(url, level, id)`,
+  `CREATE INDEX report_source ON security_reports(source_id, level, id)`,
+  `CREATE TRIGGER no_report_update BEFORE UPDATE ON security_reports
+BEGIN SELECT RAISE(ABORT, 'Security reports are append-only'); END`,
+  `CREATE TRIGGER no_report_delete BEFORE DELETE ON security_reports
+BEGIN SELECT RAISE(ABORT, 'Security reports are append-only'); END`,
+  `CREATE TABLE suggestions (
+  url TEXT PRIMARY KEY NOT NULL,
+  tally INTEGER NOT NULL CHECK (tally > 0),
+  last_seen TEXT NOT NULL
+) STRICT`,
+  `CREATE TABLE preferences (
+  url TEXT NOT NULL,
+  scope TEXT NOT NULL CHECK (scope IN ('global','topic','project','session')),
+  context TEXT NOT NULL,
+  decision TEXT NOT NULL CHECK (decision IN ('allow','deny')),
+  PRIMARY KEY (url, scope, context)
+) STRICT`,
+];
+
 const privateMigrations: readonly (readonly string[])[] = [
   [privateSchema],
   [discoveryEvidenceSchema],
+  governanceSchema,
 ];
 
 const migrations = {

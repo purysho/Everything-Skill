@@ -4,6 +4,7 @@ import { gitHubEndpoint, inspectGitHub } from './github.js';
 import { object, readJson, type ReadJson } from './http.js';
 import { canonicalGitHub, canonicalResource } from './identity.js';
 import { termsFor } from './retrieval.js';
+import { inspectSurface, type Assessment } from './governance.js';
 
 export const providers = ['github', 'mcp', 'web'] as const;
 export type Provider = typeof providers[number];
@@ -67,18 +68,22 @@ export async function collectDiscovery(input: string, terms: string | undefined,
   const url = canonicalResource(input);
   if (new URL(url).hostname !== 'github.com') {
     if (terms) throw new Error('Section indexing requires a licence-eligible GitHub repository.');
-    return { url, sourceId: url, revision: null, licence: null, stage: 'metadata' as const, evidence: {} };
+    return { url, sourceId: url, revision: null, licence: null, stage: 'metadata' as const, evidence: {}, assessment: null };
   }
   const repo = await inspectGitHub(url, read);
   const sectionTerms = terms ? termsFor(terms).slice(0, 12) : [];
   const sections = [];
+  let assessment: Assessment | null = null;
   if (sectionTerms.length && !repo.archived && repo.licenceId) {
     const request = gitHubEndpoint(`/repos${new URL(repo.url).pathname}/readme`);
     request.searchParams.set('ref', repo.version);
     const doc = object(await read(request));
     if (doc.encoding === 'base64' && typeof doc.content === 'string' && doc.content.length <= 350_000) {
       const markdown = Buffer.from(doc.content, 'base64').toString('utf8');
-      const parts = markdown.split(/(?=^#{1,6}[ \t])/m).slice(0, 80);
+      const surface = inspectSurface(markdown);
+      if (surface.flags.length) assessment = { url: repo.url, sourceId: repo.sourceId, revision: repo.version,
+        licence: repo.licenceId, level: surface.blocked ? 'blocked' : 'warning', flags: surface.flags };
+      const parts = (surface.blocked ? '' : markdown).split(/(?=^#{1,6}[ \t])/m).slice(0, 80);
       for (const [index, section] of parts.entries()) {
         const words = new Set(termsFor(section));
         const hits = sectionTerms.filter((term) => words.has(term)).length;
@@ -88,7 +93,7 @@ export async function collectDiscovery(input: string, terms: string | undefined,
     }
   }
   return { url: repo.url, sourceId: repo.sourceId, revision: repo.version, licence: repo.licenceId,
-    stage: sections.length ? 'sections' as const : 'metadata' as const,
+    assessment, stage: sections.length ? 'sections' as const : 'metadata' as const,
     evidence: { pinnedUrl: repo.pinnedUrl, licenceUrl: repo.licenceUrl, archived: repo.archived,
       sections: sections.sort((a, b) => b.hits - a.hits).slice(0, 8) } };
 }

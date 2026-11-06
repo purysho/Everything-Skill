@@ -104,3 +104,13 @@ Verified public GitHub, MCP Registry and MediaWiki searches and staged a previou
 ### Phase 5 plan
 
 Add a bounded, non-executing scanner and an append-only private report store. Suppress credible blocks before projection and deny overrides at the policy boundary. Store scope-labelled overrides and deduplicated suggestions locally. Rescan uncertain or changed candidates when the user explicitly chooses online verification.
+
+### Phase 5 · Security and local governance
+
+Added fixed redacted safety findings, licence-gated pinned GitHub surface scans and official MCP Registry transport inspection. Security records use append-only triggers. Public search and export apply sticky blocks by URL or provider ID and withhold a cached revision when the latest observation conflicts. Explicit `--verify` records new observations. Private suggestions deduplicate and tally, and preferences require a scope and acknowledgement for an allow exception. Only the maintainer's Git review process can change public seeds.
+
+Seventeen tests passed, including injection and credential fixtures, plaintext MCP secret handling, historical blocking, scope precedence, immutable audit rows and changed revision handling. Two Code Review Brains requests timed out. The local review added suppression before export, checks by stable ID and source screening before a staged section can be recorded. The scanner is heuristic and surfaces only a limited set of files. It does not certify code as safe. Archived and licence-changing resources require maintainer review before an updated public snapshot can include them.
+
+### Phase 6 plan
+
+Generate private synthetic MCP fixture adapters from fixed templates. Execute each new generated file with the Node permission model, empty environment apart from required OS configuration, bounded stdio and a timeout. Keep network and credentials out of the runtime. Persist the generated contract status and never publish an adapter.
