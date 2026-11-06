@@ -191,28 +191,44 @@ async function main() {
       const mode = values.mode ?? 'routed';
       if (!retrievalModes.some((candidate) => candidate === mode)) throw new Error('Unknown retrieval mode.');
       const thresholds = values.thresholds?.split(',').map(Number);
-      const output = search(db, args[0]!, {
-        kind: kind ?? null, category: category ?? null, limit: Number(limit ?? 5),
-        mode: mode as RetrievalMode, ...(thresholds ? { thresholds } : {}),
-      });
+      const localModels = values['local-models'];
+      const resultLimit = Number(limit ?? (localModels ? 3 : 5));
+      if (!Number.isInteger(resultLimit) || resultLimit < 1 || resultLimit > 25) {
+        throw new Error('Search limit must be an integer from 1 to 25.');
+      }
       const privateDb = optionalPrivate(privatePath, values.verify === true);
       let privateExclusions = 0;
-      try {
-        if (privateDb) {
+      const output = await (async () => {
+        try {
           const contexts = { ...(values.topic ? { topic: values.topic } : {}),
             ...(values.project ? { project: values.project } : {}),
             ...(values.session ? { session: values.session } : {}) };
-          const visible = [];
-          for (const card of output.results) {
-            if (blocked(privateDb, card.url, card.sourceId) || preferenceFor(privateDb, card.url, contexts) === 'deny' ||
-                (values.verify ? !(await verifyCandidate(privateDb, card)) : !cachedEligible(privateDb, card))) {
-              privateExclusions++;
-            } else visible.push(card);
+          const candidateMode = localModels && mode === 'routed' ? 'hybrid' : mode as RetrievalMode;
+          const found = search(db, args[0]!, {
+            kind: kind ?? null, category: category ?? null, limit: localModels ? 25 : resultLimit,
+            mode: candidateMode, ...(thresholds ? { thresholds } : {}),
+            accept(card) {
+              if (!privateDb) return true;
+              const allowed = !blocked(privateDb, card.url, card.sourceId) &&
+                preferenceFor(privateDb, card.url, contexts) !== 'deny' &&
+                (values.verify || cachedEligible(privateDb, card));
+              if (!allowed) privateExclusions++;
+              return allowed;
+            },
+          });
+          if (values.verify && privateDb) {
+            const visible = [];
+            // An explicit verification searches at most eight candidates per invocation.
+            for (const card of found.results.slice(0, 8)) {
+              if (await verifyCandidate(privateDb, card)) visible.push(card);
+              else privateExclusions++;
+            }
+            found.results = visible;
           }
-          output.results = visible;
-        }
-      } finally { privateDb?.close(); }
-      if (values['local-models']) output.results = await rerankLocal(args[0]!, output.results, values['local-models']);
+          return found;
+        } finally { privateDb?.close(); }
+      })();
+      if (localModels) output.results = (await rerankLocal(args[0]!, output.results, localModels)).slice(0, resultLimit);
       if (values.json) showJson(privateExclusions ? { ...output, privateExclusions } : output);
       else {
         console.log('| Resource | Score | Label | Evidence and summary |');

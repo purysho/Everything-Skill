@@ -61,9 +61,9 @@ An update or rollback verifies the target, backs up private data and then switch
 
 ## Demo and model options
 
-The [static demo](demo/README.md) filters the public snapshot in your browser. Its weekly workflow checks evidence and flags changes for maintainer review.
+The [static demo](demo/README.md) filters the public snapshot in your browser. Its weekly workflow checks evidence and flags changes for maintainer review. To host the demo, choose **Settings → Pages → GitHub Actions**, then run **Publish static demo** from the repository's Actions tab.
 
-The default retrieval uses local lexical and hashed-vector search. For optional local reranking, install the reviewed Transformers.js dependency separately with `npm install --no-save --package-lock=false @huggingface/transformers@4.3.2`. Provision the [upstream cross-encoder](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) at a trusted pinned revision under `<models>/cross-encoder/ms-marco-MiniLM-L-6-v2`, including the tokenizer, config and `onnx/model.onnx`. Then run `npm run skill -- search "your query" --local-models "<models>"`. The CLI disables remote model fetching for this command.
+The default retrieval uses local lexical and hashed-vector search. For optional local reranking, install the reviewed Transformers.js dependency separately with `npm install --no-save --package-lock=false @huggingface/transformers@4.3.2`. Provision the [upstream cross-encoder](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) at a trusted pinned revision under `<models>/cross-encoder/ms-marco-MiniLM-L-6-v2`, including the tokenizer, config and `onnx/model.onnx`. The evaluated model revision is `233902d25c440f23af6f7d6e94d2946bac0bee0a`. Then run `npm run skill -- search "your query" --local-models "<models>"`. The CLI disables remote model fetching for this command. With this option, it ranks up to 25 policy-eligible candidates locally and returns three by default. Use `--limit` to change the output count. The displayed score remains the retrieval score, while the cross-encoder sets the order. See the [held-out results](evaluation/README.md) for the quality, token and latency trade-offs.
 
 [Security](SECURITY.md) · [Build plan](BUILD_PLAN.md) · [Work log](WORK_LOG.md)
 

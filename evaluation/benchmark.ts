@@ -7,7 +7,7 @@ import encoding from 'js-tiktoken/ranks/o200k_base';
 import { search, seedCatalog, type SeedResource } from '../src/catalog.js';
 import { initialize, openIndex } from '../src/database.js';
 import { retrievalModes } from '../src/retrieval.js';
-import { rerankLocal } from '../src/transformer.js';
+import { createLocalReranker } from '../src/transformer.js';
 
 interface Source {
   repo: string;
@@ -68,45 +68,58 @@ try {
   const indexMs = performance.now() - start;
   const db = openIndex(join(directory, 'public.sqlite'), 'public');
   try {
-    const modes = [...retrievalModes, ...(models ? ['reranked' as const] : [])];
+    const reranker = models ? await createLocalReranker(models) : null;
+    const modes = [...retrievalModes, 'lexical-compact', 'hybrid-compact',
+      ...(reranker ? ['reranked', 'reranked-compact'] as const : [])] as const;
+    const rankedByQuery = new Map<string, ReturnType<typeof search>['results']>();
+    const isReranked = (mode: typeof modes[number]): mode is 'reranked' | 'reranked-compact' =>
+      mode === 'reranked' || mode === 'reranked-compact';
     const metrics = [];
-    for (const mode of modes) {
-      const measured: Array<{
-        recallAt5: number; recallAt10: number; successAt5: number; mrr: number;
-        ndcgAt5: number; unjudged: number; returned: number; tokens: number; elapsed: number;
-      }> = [];
-      for (const { query, relevant } of queries) {
-        const started = performance.now();
-        const found = search(db, query, { kind: null, category: null, limit: 10,
-          mode: mode === 'reranked' ? 'routed' : mode });
-        const results = mode === 'reranked' ? await rerankLocal(query, found.results, models!) : found.results;
-        const elapsed = performance.now() - started;
-        const hits = results.map((result) => relevant.includes(result.sourceId) ? 1 : 0);
-        const top5 = hits.slice(0, 5);
-        const first = hits.indexOf(1);
-        const ideal = total(relevant.slice(0, 5).map((_, index) => discount(index)));
-        measured.push({
-          recallAt5: total(top5) / relevant.length,
-          recallAt10: total(hits) / relevant.length,
-          successAt5: total(top5) > 0 ? 1 : 0,
-          mrr: first === -1 ? 0 : 1 / (first + 1),
-          ndcgAt5: total(top5.map((hit, index) => hit * discount(index))) / ideal,
-          unjudged: top5.length - total(top5), returned: top5.length,
-          tokens: tokenizer.encode(JSON.stringify({ ...found, results: results.slice(0, 5) })).length,
-          elapsed,
+    try {
+      for (const mode of modes) {
+        const measured: Array<{
+          recallAt5: number; recallAt10: number; successAt5: number; mrr: number;
+          ndcgAt5: number; unjudged: number; returned: number; tokens: number; elapsed: number;
+        }> = [];
+        for (const { query, relevant } of queries) {
+          const started = performance.now();
+          const reranked = isReranked(mode);
+          const candidateMode = reranked || mode === 'hybrid-compact' ? 'hybrid' :
+            mode === 'lexical-compact' ? 'lexical' : mode;
+          const found = search(db, query, { kind: null, category: null, limit: reranked ? 25 : 10,
+            mode: candidateMode });
+          const previous = rankedByQuery.get(query);
+          const ranked = reranker && reranked ? previous ?? await reranker.rank(query, found.results) : found.results;
+          if (mode === 'reranked') rankedByQuery.set(query, ranked);
+          const elapsed = performance.now() - started;
+          const results = ranked.slice(0, mode.endsWith('-compact') ? 3 : 10);
+          const hits = results.map((result) => relevant.includes(result.sourceId) ? 1 : 0);
+          const top5 = hits.slice(0, 5);
+          const first = hits.indexOf(1);
+          const ideal = total(relevant.slice(0, 5).map((_, index) => discount(index)));
+          measured.push({
+            recallAt5: total(top5) / relevant.length,
+            recallAt10: total(hits) / relevant.length,
+            successAt5: total(top5) > 0 ? 1 : 0,
+            mrr: first === -1 ? 0 : 1 / (first + 1),
+            ndcgAt5: total(top5.map((hit, index) => hit * discount(index))) / ideal,
+            unjudged: top5.length - total(top5), returned: top5.length,
+            tokens: tokenizer.encode(JSON.stringify({ ...found, results: results.slice(0, 5) })).length,
+            elapsed,
+          });
+        }
+        const avg = (key: keyof typeof measured[number]) =>
+          total(measured.map((row) => row[key])) / measured.length;
+        metrics.push({
+          mode, contextLimit: mode.endsWith('-compact') ? 3 : 5, recallAt5: avg('recallAt5'), recallAt10: avg('recallAt10'), successAt5: avg('successAt5'),
+          mrr: avg('mrr'), ndcgAt5: avg('ndcgAt5'),
+          unjudgedFractionAt5: avg('unjudged') / (avg('returned') || 1),
+          tokens: total(measured.map((row) => row.tokens)),
+          p50Ms: mode === 'reranked-compact' ? null : measured.map((row) => row.elapsed).sort((a, b) => a - b)[Math.floor(measured.length / 2)],
+          p95Ms: mode === 'reranked-compact' ? null : measured.map((row) => row.elapsed).sort((a, b) => a - b)[Math.ceil(measured.length * 0.95) - 1],
         });
       }
-      const avg = (key: keyof typeof measured[number]) =>
-        total(measured.map((row) => row[key])) / measured.length;
-      metrics.push({
-        mode, recallAt5: avg('recallAt5'), recallAt10: avg('recallAt10'), successAt5: avg('successAt5'),
-        mrr: avg('mrr'), ndcgAt5: avg('ndcgAt5'),
-        unjudgedFractionAt5: avg('unjudged') / (avg('returned') || 1),
-        tokens: total(measured.map((row) => row.tokens)),
-        p50Ms: measured.map((row) => row.elapsed).sort((a, b) => a - b)[Math.floor(measured.length / 2)],
-        p95Ms: measured.map((row) => row.elapsed).sort((a, b) => a - b)[Math.ceil(measured.length * 0.95) - 1],
-      });
-    }
+    } finally { await reranker?.close(); }
     console.log(JSON.stringify({ resources: rows.length, queries: queries.length, dataHash,
       contextTokenizer: 'o200k_base', node: process.version, indexMs, metrics }, null, 2));
   } finally { db.close(); }

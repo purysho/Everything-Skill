@@ -24,6 +24,11 @@ Metrics:
 
 Success criterion: routed hybrid retrieval finds the correct specialised candidate in the top five while using materially fewer model-context tokens than flat retrieval.
 
+### Observed closeout results
+
+The [held-out report](evaluation/README.md) contains 109 pinned pages and 30 labelled questions. The initial routed and flat hybrid runs tied at 20 questions with a relevant result in the top five and 33,900 context tokens. The opt-in local cross-encoder at a three-result budget found 21 of 30 and used 20,779 tokens, 39% fewer than the five-result flat hybrid baseline. At the same three-result budget, flat hybrid found 16 of 30 and lexical search found 18 of 30. Full reranking found 23 of 30 at a five-result budget. The compact improvement applies to the optional model on this corpus. Default routed superiority and cross-domain calibration remain unestablished.
+
+
 ## Security benchmark
 
 Create safe fixtures for:

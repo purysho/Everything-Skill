@@ -108,6 +108,7 @@ export interface SearchOptions {
   mode?: RetrievalMode;
   embed?: Embed;
   thresholds?: readonly number[];
+  accept?: (card: EvidenceCard) => boolean;
 }
 
 export function search(db: DatabaseSync, query: string, options: SearchOptions) {
@@ -159,7 +160,8 @@ export function search(db: DatabaseSync, query: string, options: SearchOptions) 
   const similarities = new Map(denseRanks.map(({ row, similarity }) => [row.url, similarity]));
   const candidates = new Map([...lexical, ...denseRanks.map(({ row }) => row)].map((row) => [row.url, row]));
   const rank = fuseRankings([lexical.map((row) => row.url), denseRanks.map(({ row }) => row.url)]);
-  const ranked = Array.from(candidates.values(), ({ tags, ...card }) => {
+  const eligible = [...candidates.values()].filter((card) => options.accept?.(card) ?? true);
+  const ranked = eligible.map(({ tags, ...card }) => {
     const words = new Set(termsFor(`${card.title} ${card.summary} ${tags} ${card.url}`));
     const coverage = terms.filter((term) => words.has(term)).length / terms.length;
     const semantic = similarities.get(card.url) ?? 0;

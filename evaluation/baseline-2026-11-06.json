@@ -1,0 +1,58 @@
+{
+  "resources": 109,
+  "queries": 30,
+  "dataHash": "934467ed3312a9dbb90ebe8abb9a3aa21becbb87c7cde76b908cb075d71c94f4",
+  "contextTokenizer": "o200k_base",
+  "node": "v24.22.1",
+  "indexMs": 30.64611100000002,
+  "metrics": [
+    {
+      "mode": "lexical",
+      "recallAt5": 0.65,
+      "recallAt10": 0.7,
+      "successAt5": 0.6666666666666666,
+      "mrr": 0.5650000000000001,
+      "ndcgAt5": 0.5730845355072103,
+      "unjudgedFractionAt5": 0.86,
+      "tokens": 33987,
+      "p50Ms": 1.4346020000000408,
+      "p95Ms": 2.90863800000011
+    },
+    {
+      "mode": "dense",
+      "recallAt5": 0.48333333333333334,
+      "recallAt10": 0.5166666666666667,
+      "successAt5": 0.5,
+      "mrr": 0.38920634920634917,
+      "ndcgAt5": 0.39669781098746265,
+      "unjudgedFractionAt5": 0.8719999999999999,
+      "tokens": 28344,
+      "p50Ms": 13.375131999999894,
+      "p95Ms": 38.757404999999835
+    },
+    {
+      "mode": "hybrid",
+      "recallAt5": 0.65,
+      "recallAt10": 0.7,
+      "successAt5": 0.6666666666666666,
+      "mrr": 0.4808730158730159,
+      "ndcgAt5": 0.5105249562835337,
+      "unjudgedFractionAt5": 0.86,
+      "tokens": 33900,
+      "p50Ms": 15.114814999999908,
+      "p95Ms": 18.089386000000104
+    },
+    {
+      "mode": "routed",
+      "recallAt5": 0.65,
+      "recallAt10": 0.7,
+      "successAt5": 0.6666666666666666,
+      "mrr": 0.4808730158730159,
+      "ndcgAt5": 0.5105249562835337,
+      "unjudgedFractionAt5": 0.86,
+      "tokens": 33900,
+      "p50Ms": 14.160836000000018,
+      "p95Ms": 19.602065999999922
+    }
+  ]
+}

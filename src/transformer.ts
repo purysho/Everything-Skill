@@ -1,11 +1,7 @@
 import { resolve } from 'node:path';
 import { object } from './http.js';
 
-export async function rerankLocal<T extends { title: string; summary: string }>(
-  query: string, cards: readonly T[], modelsDirectory: string,
-): Promise<T[]> {
-  const shortlist = cards.slice(0, 10);
-  if (shortlist.length === 0) return [];
+export async function createLocalReranker(modelsDirectory: string) {
   const packageName = '@huggingface/transformers';
   let module: Record<string, unknown>;
   try {
@@ -26,7 +22,9 @@ export async function rerankLocal<T extends { title: string; summary: string }>(
   const local = { local_files_only: true };
   const tokenizer = await tokenizerFactory.from_pretrained(modelId, local);
   const model = await modelFactory.from_pretrained(modelId, { ...local, dtype: 'fp32' });
-  try {
+  async function rank<T extends { title: string; summary: string }>(query: string, cards: readonly T[]) {
+    const shortlist = cards.slice(0, 25);
+    if (shortlist.length === 0) return [];
     const input = tokenizer(shortlist.map(() => query), {
       text_pair: shortlist.map((card) => `${card.title}. ${card.summary}`),
       padding: true, truncation: true,
@@ -36,8 +34,16 @@ export async function rerankLocal<T extends { title: string; summary: string }>(
         values.some((value) => !Number.isFinite(value))) throw new Error('Invalid local reranker output.');
     const ranked = shortlist.map((card, index) => ({ card, score: values[index]! }))
       .sort((a, b) => b.score - a.score).map(({ card }) => card);
-    return [...ranked, ...cards.slice(10)];
-  } finally {
-    await model.dispose();
+    return [...ranked, ...cards.slice(25)];
   }
+  return { rank, close: () => model.dispose() };
+}
+
+export async function rerankLocal<T extends { title: string; summary: string }>(
+  query: string, cards: readonly T[], modelsDirectory: string,
+): Promise<T[]> {
+  if (cards.length === 0) return [];
+  const reranker = await createLocalReranker(modelsDirectory);
+  try { return await reranker.rank(query, cards); }
+  finally { await reranker.close(); }
 }

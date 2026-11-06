@@ -40,18 +40,22 @@ const tool = {
     required: [profile.key], additionalProperties: false },
   annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
 };
+let negotiated = false;
 let initialised = false;
 function handle(message) {
   const id = message?.id ?? null;
   if (!message || message.jsonrpc !== '2.0' || typeof message.method !== 'string') {
-    return { id, error: { code: -32600, message: 'Invalid request' } };
+    return { id: null, error: { code: -32600, message: 'Invalid request' } };
   }
-  if (!Object.hasOwn(message, 'id')) return null;
+  if (!Object.hasOwn(message, 'id')) {
+    if (negotiated && message.method === 'notifications/initialized') initialised = true;
+    return null;
+  }
   if (typeof id !== 'string' && !(typeof id === 'number' && Number.isSafeInteger(id))) {
     return { id: null, error: { code: -32600, message: 'Invalid request ID' } };
   }
   if (message.method === 'initialize') {
-    initialised = true;
+    negotiated = true;
     return { id, result: { protocolVersion, capabilities: { tools: {} },
       serverInfo: { name: 'everything-skill-private-preview', version: '0.1.0' } } };
   }

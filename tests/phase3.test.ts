@@ -37,3 +37,20 @@ test('routed retrieval finds a synonym-only healthcare match while lexical basel
     rmSync(directory, { recursive: true, force: true });
   }
 });
+
+test('a denied top candidate cannot take up a shortlist slot', async () => {
+  const directory = mkdtempSync(join(tmpdir(), 'everything-routed-'));
+  try {
+    await initialize(directory, (db) => seedCatalog(db, starterResources));
+    const db = openIndex(join(directory, 'public.sqlite'), 'public');
+    try {
+      const options = { kind: null, category: null, limit: 1, mode: 'lexical' as const };
+      const top = search(db, 'catalogue directory', options).results[0];
+      assert.ok(top);
+      const remaining = search(db, 'catalogue directory', { ...options,
+        accept: (card) => card.sourceId !== top.sourceId }).results;
+      assert.equal(remaining.length, 1);
+      assert.notEqual(remaining[0]?.sourceId, top.sourceId);
+    } finally { db.close(); }
+  } finally { rmSync(directory, { recursive: true, force: true }); }
+});
