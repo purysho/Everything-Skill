@@ -69,11 +69,11 @@ test('starter CLI searches, filters and exports evidence without exposing unclea
   assert.match(response.results[0].licenceUrl, /blob\/[0-9a-f]{40}\/LICENSE$/);
   const mcp = JSON.parse(ok(directory, 'search', 'mcp', '--json'));
   assert.equal(mcp.excluded['licence-unclear'], 2);
-  assert.deepEqual(mcp.results, []);
+  assert.equal(mcp.results[0]?.title, 'Awesome MCP Servers by mcpHQ');
   assert.deepEqual(JSON.parse(ok(directory, 'search', 'retrieval', '--kind', 'dataset', '--json')).results, []);
   assert.deepEqual(JSON.parse(ok(directory, 'search', 'retrieval', '--category', 'finance', '--json')).results, []);
   const jsonExport = JSON.parse(ok(directory, 'export', '--json'));
-  assert.equal(jsonExport.length, 2);
+  assert.equal(jsonExport.length, 5);
   assert.equal(JSON.stringify(jsonExport).includes('modelcontextprotocol'), false);
   assert.match(ok(directory, 'export'), /Awesome-RAG/);
   assert.match(ok(directory, 'search', 'retrieval'), /\[Evidence\]/);

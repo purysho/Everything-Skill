@@ -68,3 +68,21 @@ The retry of the design review returned public-source guidance on strict typing,
 - Phase 1 is verified on Linux. Windows/macOS CI, Bun/Deno, and installation inside Codex/ChatGPT and Claude Code are unverified. Private backups use local filesystem permissions and Windows folder ACLs. A filesystem without hard-link support fails without overwriting the destination.
 - The public catalogue is reproducibly built from bundled metadata at init. Distributed versioned database snapshots, updates/rollback, lifecycle reviews, live discovery, security scans, and hybrid retrieval remain planned. Schema v1 is the only supported version. Runtime security and freshness of seed resources are unverified.
 - After fresh confirmation for the public GitHub write, publish the Phase 1 commit to the empty `main` and inspect all three CI jobs. For Phase 2, start with an offline fixture and a bounded, unauthenticated GitHub evidence collector. Capture a numeric repository ID, pinned SHA, licence path and version, and availability. Verify archive handling and fail-closed behaviour for licence transitions and duplicate conflicts before expanding the seed set. Ask Code Review Brains for stage-specific lenses, record the actual code and test findings, and update this log.
+
+## 2026-11-06 · Remaining phases
+
+Phase 1 was published as [0ac7d4b](https://github.com/purysho/Everything-Skill/commit/0ac7d4b7160337ee05f18d93e81ce6e5cf9b0bd8) with the confirmed Oliver Mclennan notice. [CI run 42201215158](https://github.com/purysho/Everything-Skill/actions/runs/42201215158) passed on Ubuntu, macOS and Windows.
+
+Delivery order follows BUILD_PLAN.md. Build and verify the pinned seed collector first. Next add routed hybrid retrieval behind the existing CLI, then explicit live discovery and private persistence, security and governance, private adapters, the static demo and safe index updates, and the runtime matrix. Test each user-visible boundary before advancing. Keep optional models isolated from default offline commands and keep untrusted content out of execution paths. Record any phase whose acceptance criteria remain unverified.
+
+### Phase 2 · Pinned seeds
+
+Expanded the seven-record starter set with ECC, Awesome Healthcare and the mcpHQ catalogue. The seed audit made 21 unauthenticated GitHub requests and matched all seven pinned versions, licence signals and archive states. The evidence ledger records the checked date, commit date, licence path and digest. Registry and reference servers retain link-only state. The official reference Everything server is represented by its repository record. Per-package approval still needs package-specific evidence.
+
+The bounded connector retains only structured provenance. Nine tests passed, including a licence transition, archived source, absent licence and rate limit. The reviewer was called after the tests. Keep the same ledger when reproducing the seed check and review any changed head before approving updated metadata.
+
+The Phase 2 Code Review Brains retry returned source excerpts after an initial timeout. Its review guidance reinforced validating external shapes at runtime and keeping real integration checks. The actual run used structured-only fields and fixed-origin requests. [Theo Browne](https://www.youtube.com/watch?v=CtIZiEzdZZc) · [DHH](https://world.hey.com/dhh/turbo-8-is-dropping-typescript-70165c01) · [Matt Pocock](https://www.totaltypescript.com/typescript-types-dont-exist-at-runtime)
+
+### Phase 3 plan
+
+Keep the Phase 1 lexical score available as a baseline. Add a local embedding provider, category routing, reciprocal rank fusion and an opt-in local transformer reranker. Measure three baselines and routed fusion against labelled queries. Keep the metadata-only security cap in effect.
