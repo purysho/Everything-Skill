@@ -1,0 +1,13 @@
+node_modules/
+dist/
+coverage/
+*.db-wal
+*.db-shm
+private-data/
+secrets/
+*.log
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+.everything-skill/
