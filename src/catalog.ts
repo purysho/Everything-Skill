@@ -1,5 +1,6 @@
 import type { DatabaseSync } from 'node:sqlite';
 import { canonicalResource } from './identity.js';
+import { dot, fuseRankings, labelFor, localEmbed, route, termsFor, type Embed, type RetrievalMode } from './retrieval.js';
 
 export const kinds = ['repository', 'mcp', 'dataset', 'paper', 'api', 'model', 'tool', 'other'] as const;
 export type Kind = typeof kinds[number];
@@ -86,7 +87,7 @@ const fields = `
   r.license_id AS licence, r.license_url AS licenceUrl
 `;
 
-interface EvidenceCard {
+export interface EvidenceCard {
   kind: Kind;
   category: string;
   title: string;
@@ -103,6 +104,9 @@ export interface SearchOptions {
   kind: string | null;
   category: string | null;
   limit: number;
+  mode?: RetrievalMode;
+  embed?: Embed;
+  thresholds?: readonly number[];
 }
 
 export function search(db: DatabaseSync, query: string, options: SearchOptions) {
@@ -111,8 +115,10 @@ export function search(db: DatabaseSync, query: string, options: SearchOptions) 
   if (!Number.isInteger(options.limit) || options.limit < 1 || options.limit > 25) {
     throw new Error('Search limit must be an integer from 1 to 25.');
   }
-  const terms = [...new Set(query.toLowerCase().match(/[\p{L}\p{N}\p{M}]+/gu) ?? [])].slice(0, 24);
+  const terms = termsFor(query).slice(0, 24);
   if (terms.length === 0) return { results: [], excluded };
+  const mode = options.mode ?? 'routed';
+  const routedCategory = mode === 'routed' && !options.category ? route(terms) : null;
 
   // Only token characters can appear inside the quoted FTS literals.
   const literal = terms.map((word) => `"${word}"`).join(' OR ');
@@ -128,26 +134,45 @@ export function search(db: DatabaseSync, query: string, options: SearchOptions) 
   `).all(...args);
   for (const row of counts) {
     const state = String(row.state);
-    if (state in excluded) excluded[state as keyof typeof excluded] = Number(row.count);
+    if (Object.hasOwn(excluded, state)) excluded[state as keyof typeof excluded] = Number(row.count);
   }
-  const rows = db.prepare(`
+  type Candidate = EvidenceCard & { tags: string };
+  const lexical = mode === 'dense' ? [] : db.prepare(`
     SELECT ${fields}, r.tags ${match} AND (${eligibility}) = 'conditional'
-    ORDER BY bm25(resource_fts, 8, 1, 5, 2), r.url LIMIT ?
-  `).all(...args, 100) as unknown as (EvidenceCard & { tags: string })[];
-
+    ORDER BY bm25(resource_fts, 8, 1, 5, 2), r.url LIMIT 100
+  `).all(...args) as unknown as Candidate[];
+  const dense = mode === 'lexical' ? [] : db.prepare(`
+    SELECT ${fields}, r.tags FROM resources r
+    WHERE (${eligibility}) = 'conditional'
+      AND (? IS NULL OR r.kind = ?) AND (? IS NULL OR r.category = ?)
+      AND (? IS NULL OR r.category = ? OR substr(r.category, 1, length(?) + 1) = ? || '/')
+    ORDER BY r.url LIMIT 1000
+  `).all(kind, kind, category, category, routedCategory, routedCategory,
+    routedCategory, routedCategory) as unknown as Candidate[];
+  const embed = options.embed ?? localEmbed;
+  const queryVector = dense.length ? embed(terms.join(' ')) : new Float32Array(0);
+  const denseRanks = dense.map((row) => ({
+    row, similarity: dot(queryVector, embed(`${row.title} ${row.summary} ${row.tags}`)),
+  })).filter(({ similarity }) => similarity >= 0.13)
+    .sort((a, b) => b.similarity - a.similarity || a.row.url.localeCompare(b.row.url)).slice(0, 100);
+  const similarities = new Map(denseRanks.map(({ row, similarity }) => [row.url, similarity]));
+  const candidates = new Map([...lexical, ...denseRanks.map(({ row }) => row)].map((row) => [row.url, row]));
+  const rank = fuseRankings([lexical.map((row) => row.url), denseRanks.map(({ row }) => row.url)]);
+  const ranked = Array.from(candidates.values(), ({ tags, ...card }) => {
+    const words = new Set(termsFor(`${card.title} ${card.summary} ${tags} ${card.url}`));
+    const coverage = terms.filter((term) => words.has(term)).length / terms.length;
+    const semantic = similarities.get(card.url) ?? 0;
+    const fusion = Math.min(1, (rank.get(card.url) ?? 0) * (mode === 'lexical' || mode === 'dense' ? 61 : 30.5));
+    const precise = terms.length <= 3;
+    const relevance = mode === 'lexical' ? coverage : mode === 'dense' ? semantic :
+      coverage * (precise ? 0.6 : 0.45) + semantic * (precise ? 0.2 : 0.35) + 0.2 * fusion;
+    const score = Math.round(40 + 29 * Math.min(1, relevance));
+    const { name: label, colour } = labelFor(score, 'Conditional', options.thresholds);
+    return { ...card, score, label, colour, fusion,
+      reason: 'Metadata and licence reviewed. Runtime security, cost and current freshness are unverified.' };
+  }).sort((a, b) => b.score - a.score || b.fusion - a.fusion);
   return {
-    results: rows.map(({ tags, ...card }) => {
-      const searchable = `${card.title} ${card.summary} ${tags} ${card.url}`.toLowerCase()
-        .normalize('NFD').replace(/\p{M}/gu, '');
-      const words = new Set(searchable.match(/[\p{L}\p{N}]+/gu) ?? []);
-      const hits = terms.filter((term) => words.has(term.normalize('NFD').replace(/\p{M}/gu, ''))).length;
-      return {
-        ...card,
-        score: Math.round(40 + 29 * hits / terms.length),
-        label: 'Conditional',
-        reason: 'Metadata and licence reviewed. Runtime security and current freshness are unverified.',
-      };
-    }).sort((a, b) => b.score - a.score).slice(0, limit),
+    results: ranked.slice(0, limit).map(({ fusion: _fusion, ...card }) => card),
     excluded,
   };
 }

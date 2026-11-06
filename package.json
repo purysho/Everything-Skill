@@ -12,7 +12,8 @@
     "lint": "tsc -p tsconfig.json --noEmit --noUnusedLocals --noUnusedParameters",
     "test": "npm run build && node --test dist/tests/*.test.js",
     "skill": "node dist/src/cli.js",
-    "audit-seeds": "node dist/src/seed-audit.js"
+    "audit-seeds": "node dist/src/seed-audit.js",
+    "benchmark": "node dist/src/benchmark.js"
   },
   "devDependencies": {
     "@types/node": "^24.10.0",

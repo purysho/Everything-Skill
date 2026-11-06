@@ -4,10 +4,12 @@ import { parseArgs } from 'node:util';
 import { starterResources } from '../database/seeds/starter.js';
 import { exportCatalog, kinds, search, seedCatalog } from './catalog.js';
 import { copyPrivateIndex, initialize, openIndex } from './database.js';
+import { retrievalModes, type RetrievalMode } from './retrieval.js';
+import { rerankLocal } from './transformer.js';
 
 const help = `Everything Skill · Phase 1
 npm run skill -- init [--empty]
-npm run skill -- search "your terms" [--kind repository] [--category software] [--limit 5] [--json]
+npm run skill -- search "your terms" [--kind repository] [--category software] [--limit 5] [--mode routed] [--json]
 npm run skill -- export [--json]
 npm run skill -- backup <new-file>
 npm run skill -- restore <backup-file>
@@ -35,6 +37,9 @@ async function main() {
       category: { type: 'string' },
       limit: { type: 'string' },
       json: { type: 'boolean' },
+      mode: { type: 'string' },
+      thresholds: { type: 'string' },
+      'local-models': { type: 'string' },
       help: { type: 'boolean' },
     },
   });
@@ -44,7 +49,7 @@ async function main() {
     return;
   }
   const accepted = {
-    init: ['empty'], search: ['kind', 'category', 'limit', 'json'], export: ['json'],
+    init: ['empty'], search: ['kind', 'category', 'limit', 'json', 'mode', 'thresholds', 'local-models'], export: ['json'],
     backup: [], restore: [],
   };
   if (!Object.hasOwn(accepted, command)) throw new Error('Unknown command. Run with --help.');
@@ -78,9 +83,14 @@ async function main() {
       const { kind, category, limit } = values;
       if (kind && !kinds.some((known) => known === kind)) throw new Error('Unknown resource kind.');
       if (limit !== undefined && !/^\d+$/.test(limit)) throw new Error('Limit must be an integer.');
+      const mode = values.mode ?? 'routed';
+      if (!retrievalModes.some((candidate) => candidate === mode)) throw new Error('Unknown retrieval mode.');
+      const thresholds = values.thresholds?.split(',').map(Number);
       const output = search(db, args[0]!, {
         kind: kind ?? null, category: category ?? null, limit: Number(limit ?? 5),
+        mode: mode as RetrievalMode, ...(thresholds ? { thresholds } : {}),
       });
+      if (values['local-models']) output.results = await rerankLocal(args[0]!, output.results, values['local-models']);
       if (values.json) showJson(output);
       else {
         console.log('| Resource | Score | Label | Evidence and summary |');

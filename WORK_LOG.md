@@ -86,3 +86,13 @@ The Phase 2 Code Review Brains retry returned source excerpts after an initial t
 ### Phase 3 plan
 
 Keep the Phase 1 lexical score available as a baseline. Add a local embedding provider, category routing, reciprocal rank fusion and an opt-in local transformer reranker. Measure three baselines and routed fusion against labelled queries. Keep the metadata-only security cap in effect.
+
+### Phase 3 · Routed retrieval
+
+Added hashed local vectors behind an embedding interface, bounded category routing, reciprocal rank fusion, score weighting by query specificity and configurable colour labels with a safety cap. The optional Transformers.js path uses only explicitly provisioned local assets. Eleven tests passed. Code Review Brains returned source excerpts on keeping implementation and feedback loops small. [Theo Browne](https://www.youtube.com/watch?v=2iu5u3sUukc) · [DHH](https://www.youtube.com/watch?v=gcwzWzC7gUA) · [Matt Pocock](https://www.aihero.dev/essential-ai-coding-feedback-loops-for-type-script-projects)
+
+On the 12-query starter smoke benchmark, Recall@3 was 0.917 lexical and 1.000 dense, hybrid and routed. nDCG@3 was 0.875 lexical, 1.000 dense, 0.969 hybrid and 1.000 routed. Output word counts were 334, 340, 354 and 350 respectively. The small run does not establish superiority over the dense baseline or lower context use. A representative held-out benchmark remains a release gate. The optional ONNX install initially hit a proxy timeout.
+
+### Phase 4 plan
+
+Keep offline queries unchanged. Add explicit fixed-origin public discovery and local private evidence records. Fetch no repository content during candidate discovery. Stage only selected, licence-eligible GitHub documentation sections using provenance and hashes. Never send staged private data to a provider. Migrate private v1 without deleting existing discoveries.
