@@ -5,6 +5,7 @@ import { starterResources } from '../database/seeds/starter.js';
 import { exportCatalog, kinds, search, seedCatalog } from './catalog.js';
 import { copyPrivateIndex, initialize, openIndex } from './database.js';
 import { retrievalModes, type RetrievalMode } from './retrieval.js';
+import { adapterKinds, generateAdapter, type AdapterKind } from './adapters.js';
 import { rerankLocal } from './transformer.js';
 import { collectDiscovery, discover, listDiscoveries, providers, saveDiscovery, type Provider } from './discovery.js';
 
@@ -21,6 +22,7 @@ npm run skill -- remember <resource-url> [--terms "local section keywords"]
 npm run skill -- private-list
 npm run skill -- scan <github-repository>
 npm run skill -- reports
+npm run skill -- generate-adapter <url-to-markdown|openapi|browser-workflow|recorded-session>
 npm run skill -- suggest <resource-url>
 npm run skill -- suggestions
 npm run skill -- preference <resource-url> --decision allow|deny --scope global|topic|project|session
@@ -80,7 +82,7 @@ async function main() {
   }
   const accepted = {
     init: ['empty'], search: ['kind', 'category', 'limit', 'json', 'mode', 'thresholds', 'local-models', 'verify', 'topic', 'project', 'session'], export: ['json'],
-    backup: [], restore: [], discover: ['provider'], remember: ['terms'], 'private-list': [], scan: [], reports: [], suggest: [], suggestions: [],
+    backup: [], restore: [], discover: ['provider'], remember: ['terms'], 'private-list': [], 'generate-adapter': [], scan: [], reports: [], suggest: [], suggestions: [],
     preference: ['decision', 'scope', 'context', 'acknowledge'],
   };
   if (!Object.hasOwn(accepted, command)) throw new Error('Unknown command. Run with --help.');
@@ -88,7 +90,7 @@ async function main() {
   for (const key of Object.keys(values)) {
     if (key !== 'data-dir' && !allowed.includes(key)) throw new Error(`--${key} is invalid for ${command}.`);
   }
-  const expected = ['search', 'backup', 'restore', 'discover', 'remember', 'scan', 'suggest', 'preference'].includes(command) ? 1 : 0;
+  const expected = ['search', 'backup', 'restore', 'discover', 'remember', 'scan', 'suggest', 'preference', 'generate-adapter'].includes(command) ? 1 : 0;
   if (args.length !== expected || args.some((arg) => !arg.trim())) {
     throw new Error('Invalid arguments. Run with --help and quote search queries.');
   }
@@ -108,6 +110,14 @@ async function main() {
     return;
   }
 
+  if (command === 'generate-adapter') {
+    const kind = args[0];
+    if (!adapterKinds.some((candidate) => candidate === kind)) throw new Error('Unknown adapter template.');
+    const report = generateAdapter(directory, kind as AdapterKind);
+    showJson(report);
+    if (report.status === 'failed-synthetic') process.exitCode = 1;
+    return;
+  }
   if (command === 'discover') {
     const provider = values.provider ?? 'github';
     if (!providers.some((known) => known === provider)) throw new Error('Unknown discovery provider.');

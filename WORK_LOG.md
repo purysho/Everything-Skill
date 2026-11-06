@@ -114,3 +114,11 @@ Seventeen tests passed, including injection and credential fixtures, plaintext M
 ### Phase 6 plan
 
 Generate private synthetic MCP fixture adapters from fixed templates. Execute each new generated file with the Node permission model, empty environment apart from required OS configuration, bounded stdio and a timeout. Keep network and credentials out of the runtime. Persist the generated contract status and never publish an adapter.
+
+### Phase 6 · Private MCP templates
+
+Implemented URL-to-Markdown, OpenAPI, browser workflow and recorded-session synthetic profiles in one private stdio server template. All four passed the handshake, tool list, preview, and rejection of credential and write-like inputs under a timed subprocess and Node permissions. Eighteen tests passed. The runner exercises fixed generated code and is not a sandbox for arbitrary third-party JavaScript. Code Review Brains returned guidance on limiting abstraction and verifying real execution paths. [Theo Browne](https://www.youtube.com/watch?v=pzUn9wTCgcw) · [DHH](https://www.youtube.com/watch?v=Tc5z64XIwIY) · [Matt Pocock](https://www.aihero.dev/essential-ai-coding-feedback-loops-for-type-script-projects)
+
+### Phase 7 plan
+
+Ship an immutable checksum-verified SQLite snapshot and matching JSON/Markdown exports. Explicit selection backs up private data and records prior catalogue selection. Add a static Pages-compatible demo and a weekly evidence and safety review workflow. The demo uses pinned links and stays offline after the static files are loaded.
