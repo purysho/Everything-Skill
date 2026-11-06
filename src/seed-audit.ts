@@ -1,5 +1,5 @@
 import { starterResources } from '../database/seeds/starter.js';
-import { inspectGitHub } from './github.js';
+import { catalogueGitHubSource, checkPinnedGitHubFile, inspectGitHub } from './github.js';
 import { assessGitHubRevision } from './governance.js';
 import { HttpError } from './http.js';
 
@@ -7,9 +7,11 @@ const rows = [];
 const scan = process.argv.includes('--scan');
 for (const seed of starterResources) {
   try {
-    const evidence = await inspectGitHub(seed.url);
+    const target = catalogueGitHubSource(seed.url, seed.version, seed.evidenceUrl);
+    const evidence = await inspectGitHub(target.repository);
+    const fileBlob = target.path ? await checkPinnedGitHubFile(target.repository, target.path, seed.version) : null;
     const surface = scan && evidence.licenceId ? await assessGitHubRevision(evidence) : null;
-    rows.push({ ...evidence, scan: surface ? { level: surface.level, flags: surface.flags } : null, checkedOn: new Date().toISOString().slice(0, 10),
+    rows.push({ ...evidence, resourceUrl: seed.url, fileBlob, scan: surface ? { level: surface.level, flags: surface.flags } : null, checkedOn: new Date().toISOString().slice(0, 10),
       recordedVersion: seed.version, security: seed.security,
       state: evidence.sourceId !== seed.sourceId || evidence.archived ||
         (surface && (surface.level === 'blocked' || surface.revision !== evidence.version ||

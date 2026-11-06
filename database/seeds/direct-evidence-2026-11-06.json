@@ -1,0 +1,142 @@
+[
+  {
+    "sourceId": "github:268163609",
+    "url": "https://github.com/qdrant/qdrant",
+    "version": "222b2e44ab1c3f17e8246396ead6558e45041df7",
+    "pinnedUrl": "https://github.com/qdrant/qdrant/tree/222b2e44ab1c3f17e8246396ead6558e45041df7",
+    "licenceUrl": "https://github.com/qdrant/qdrant/blob/222b2e44ab1c3f17e8246396ead6558e45041df7/LICENSE",
+    "licencePath": "LICENSE",
+    "licenceId": "Apache-2.0",
+    "licenceSha256": "210b508429e913d9de5301f90508bc2cbf5b2281de5b45e607c04d58f0f3bd8f",
+    "licenceBlob": "456fb05e0e936f439cf42c517b19797dafd53ff9",
+    "archived": false,
+    "committedAt": "2026-10-21T17:45:09Z",
+    "resourceUrl": "https://github.com/qdrant/qdrant",
+    "fileBlob": null,
+    "scan": {
+      "level": "metadata-only",
+      "flags": []
+    },
+    "checkedOn": "2026-11-06",
+    "recordedVersion": "222b2e44ab1c3f17e8246396ead6558e45041df7",
+    "security": "metadata-only",
+    "state": "unchanged"
+  },
+  {
+    "sourceId": "github:138754790",
+    "url": "https://github.com/duckdb/duckdb",
+    "version": "90fd938fd55b30f65a544f3a6eec3886207d5319",
+    "pinnedUrl": "https://github.com/duckdb/duckdb/tree/90fd938fd55b30f65a544f3a6eec3886207d5319",
+    "licenceUrl": "https://github.com/duckdb/duckdb/blob/90fd938fd55b30f65a544f3a6eec3886207d5319/LICENSE",
+    "licencePath": "LICENSE",
+    "licenceId": "MIT",
+    "licenceSha256": "075c33400ffcb0c586dd106a029d3e733e9da3693f8fcb9cebfc651c8a2f14e3",
+    "licenceBlob": "2719c9a23d2a37c1dfb7402e79f03bd615701e53",
+    "archived": false,
+    "committedAt": "2026-11-06T10:29:02Z",
+    "resourceUrl": "https://github.com/duckdb/duckdb",
+    "fileBlob": null,
+    "scan": {
+      "level": "metadata-only",
+      "flags": []
+    },
+    "checkedOn": "2026-11-06",
+    "recordedVersion": "90fd938fd55b30f65a544f3a6eec3886207d5319",
+    "security": "metadata-only",
+    "state": "unchanged"
+  },
+  {
+    "sourceId": "github:952688112",
+    "url": "https://github.com/microsoft/playwright-mcp",
+    "version": "3d49ff2615216fcef64fb7748d9f660d3c000ad7",
+    "pinnedUrl": "https://github.com/microsoft/playwright-mcp/tree/3d49ff2615216fcef64fb7748d9f660d3c000ad7",
+    "licenceUrl": "https://github.com/microsoft/playwright-mcp/blob/3d49ff2615216fcef64fb7748d9f660d3c000ad7/LICENSE",
+    "licencePath": "LICENSE",
+    "licenceId": "Apache-2.0",
+    "licenceSha256": "9a7110fc2d2f964038e5dc49128f908f29f47a574c961cba16085914e879cbda",
+    "licenceBlob": "cefe596afef12e19a8e5e923f1a04c7da3188760",
+    "archived": false,
+    "committedAt": "2026-11-05T18:38:45Z",
+    "resourceUrl": "https://github.com/microsoft/playwright-mcp",
+    "fileBlob": null,
+    "scan": {
+      "level": "metadata-only",
+      "flags": []
+    },
+    "checkedOn": "2026-11-06",
+    "recordedVersion": "3d49ff2615216fcef64fb7748d9f660d3c000ad7",
+    "security": "metadata-only",
+    "state": "unchanged"
+  },
+  {
+    "sourceId": "github:142366775",
+    "url": "https://github.com/hapifhir/hapi-fhir-jpaserver-starter",
+    "version": "8db622874c2d1e3d26fe636978e00d77b75c0d2b",
+    "pinnedUrl": "https://github.com/hapifhir/hapi-fhir-jpaserver-starter/tree/8db622874c2d1e3d26fe636978e00d77b75c0d2b",
+    "licenceUrl": "https://github.com/hapifhir/hapi-fhir-jpaserver-starter/blob/8db622874c2d1e3d26fe636978e00d77b75c0d2b/LICENSE",
+    "licencePath": "LICENSE",
+    "licenceId": "Apache-2.0",
+    "licenceSha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "licenceBlob": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+    "archived": false,
+    "committedAt": "2026-10-22T16:01:30Z",
+    "resourceUrl": "https://github.com/hapifhir/hapi-fhir-jpaserver-starter",
+    "fileBlob": null,
+    "scan": {
+      "level": "metadata-only",
+      "flags": []
+    },
+    "checkedOn": "2026-11-06",
+    "recordedVersion": "8db622874c2d1e3d26fe636978e00d77b75c0d2b",
+    "security": "metadata-only",
+    "state": "unchanged"
+  },
+  {
+    "sourceId": "github:269674245",
+    "url": "https://github.com/allisonhorst/palmerpenguins",
+    "version": "8957207b78d6ccd1b4654a9dd9c9041b657478ab",
+    "pinnedUrl": "https://github.com/allisonhorst/palmerpenguins/tree/8957207b78d6ccd1b4654a9dd9c9041b657478ab",
+    "licenceUrl": "https://github.com/allisonhorst/palmerpenguins/blob/8957207b78d6ccd1b4654a9dd9c9041b657478ab/LICENSE.md",
+    "licencePath": "LICENSE.md",
+    "licenceId": "CC0-1.0",
+    "licenceSha256": "8e2c443dd9aea6fcd6c293dbf66935bd5ef502fc0ca9b466c773cf9316d5e04c",
+    "licenceBlob": "139c68e01e28bba8d0b30d1d804f4039f35f66b4",
+    "archived": false,
+    "committedAt": "2024-09-19T22:17:00Z",
+    "resourceUrl": "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/8957207b78d6ccd1b4654a9dd9c9041b657478ab/inst/extdata/penguins.csv",
+    "fileBlob": "25b46d384bf81f8399188500ea54917bb49d8890",
+    "scan": {
+      "level": "metadata-only",
+      "flags": []
+    },
+    "checkedOn": "2026-11-06",
+    "recordedVersion": "8957207b78d6ccd1b4654a9dd9c9041b657478ab",
+    "security": "metadata-only",
+    "state": "unchanged"
+  },
+  {
+    "sourceId": "github:17372733",
+    "url": "https://github.com/oai/openapi-specification",
+    "version": "4f86429f134f7e48b6351563549b4502fc69de52",
+    "pinnedUrl": "https://github.com/oai/openapi-specification/tree/4f86429f134f7e48b6351563549b4502fc69de52",
+    "licenceUrl": "https://github.com/oai/openapi-specification/blob/4f86429f134f7e48b6351563549b4502fc69de52/LICENSE",
+    "licencePath": "LICENSE",
+    "licenceId": "Apache-2.0",
+    "licenceSha256": "4948367c65e1ce06690e2cadc6e86fce1a6a6db55ef874ce4b78c0f472ce5f13",
+    "licenceBlob": "23b34fdff275c143d8a862afbb81995a82d30af5",
+    "archived": false,
+    "committedAt": "2026-10-18T17:34:56Z",
+    "resourceUrl": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/4f86429f134f7e48b6351563549b4502fc69de52/versions/3.2.0.md",
+    "fileBlob": "0b04a6acd6e0999b27d0f24750af23319f6881c1",
+    "scan": {
+      "level": "warning",
+      "flags": [
+        "external-dependency"
+      ]
+    },
+    "checkedOn": "2026-11-06",
+    "recordedVersion": "4f86429f134f7e48b6351563549b4502fc69de52",
+    "security": "metadata-only",
+    "state": "unchanged"
+  }
+]

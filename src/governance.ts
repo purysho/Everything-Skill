@@ -1,7 +1,7 @@
 import type { DatabaseSync } from 'node:sqlite';
-import { gitHubEndpoint, inspectGitHub } from './github.js';
+import { catalogueGitHubSource, checkPinnedGitHubFile, gitHubEndpoint, inspectGitHub } from './github.js';
 import { HttpError, object, readJson, type ReadJson } from './http.js';
-import { canonicalGitHub, canonicalResource } from './identity.js';
+import { canonicalResource } from './identity.js';
 
 const sensitive = String.raw`(?:\.env\b|credentials|api[ _-]?keys?|access[ _-]?tokens?|private\s+(?:ssh\s+)?keys?|id_ed25519)`;
 const destination = String.raw`(?:https?:\/\/|external\s+endpoint)`;
@@ -189,7 +189,7 @@ export function listSuggestions(db: DatabaseSync) {
     .filter((row) => typeof row.url === 'string' && !blocked(db, row.url));
 }
 
-type Candidate = { url: string; sourceId: string; version: string; licence: string };
+type Candidate = { url: string; sourceId: string; version: string; licence: string; evidenceUrl?: string };
 
 export function cachedEligible(db: DatabaseSync, card: Candidate) {
   if (!hasGovernance(db)) return true;
@@ -204,11 +204,16 @@ export function cachedEligible(db: DatabaseSync, card: Candidate) {
 
 export async function verifyCandidate(db: DatabaseSync, card: Candidate,
     read: ReadJson = readJson) {
-  const url = canonicalGitHub(card.url);
+  const url = canonicalResource(card.url);
   if (blocked(db, url, card.sourceId)) return false;
   let report: Assessment;
   try {
-    report = await assessGitHub(url, read);
+    const source = catalogueGitHubSource(url, card.version, card.evidenceUrl);
+    report = await assessGitHub(source.repository, read);
+    if (source.path && report.revision === card.version && report.level !== 'blocked') {
+      await checkPinnedGitHubFile(source.repository, source.path, card.version, read);
+    }
+    report.url = url;
   } catch {
     report = { url, sourceId: card.sourceId, revision: null, licence: null, level: 'warning', flags: ['unavailable'] };
   }

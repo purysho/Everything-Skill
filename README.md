@@ -1,6 +1,6 @@
 # Everything Skill
 
-Find public resources and see the evidence behind each recommendation. Start with a local catalogue of curated research, coding, healthcare and MCP resources. Use live discovery separately when you need a wider search.
+Find public resources and see the evidence behind each recommendation. Start with individual sources, including a dataset file, a specification, an MCP server and runnable tools. Use live discovery separately when you need a wider search.
 
 ## Try it
 
@@ -12,7 +12,7 @@ Find public resources and see the evidence behind each recommendation. Start wit
 npm ci --ignore-scripts
 npm run build
 npm run skill -- init
-npm run skill -- search "retrieval catalogue"
+npm run skill -- search "vector database"
 ```
 
 The default search is offline. Each card includes an evidence link, licence, review date and suitability label. All displayed starter entries are capped at **Conditional** because their review covers metadata. Licence-unclear and blocked records are excluded from normal results. This release does not establish runtime safety for listed projects.
@@ -57,7 +57,7 @@ Your data defaults to `~/.everything-skill`. Set `--data-dir` to use another use
 | Restore private data into an existing empty folder | `npm run skill -- restore "/path/to/backup.sqlite" --data-dir "/path/to/empty-folder"` |
 | Export the eligible catalogue | `npm run skill -- export` or `npm run skill -- export --json` |
 
-An update or rollback verifies the target, backs up private data and then switches the public selection. Keep your backups private. If a process stops mid-update, check that no update is running before removing a leftover `.catalogue-lock` folder and retrying.
+Existing installations can select the individual-source snapshot with `npm run skill -- update` after updating the checkout. An update or rollback verifies the target, backs up private data and then switches the public selection. Keep your backups private. If a process stops mid-update, check that no update is running before removing a leftover `.catalogue-lock` folder and retrying.
 
 ## Demo and model options
 

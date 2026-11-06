@@ -61,21 +61,25 @@ test('starter CLI searches, filters and exports evidence without exposing unclea
   const privatePath = join(directory, 'private.sqlite');
   const publicBefore = readFileSync(publicPath);
   const privateBefore = readFileSync(privatePath);
-  const response = JSON.parse(ok(directory, 'search', 'retrieval catalogue', '--json', '--limit', '1'));
+  const response = JSON.parse(ok(directory, 'search', 'vector database', '--json', '--limit', '1'));
   assert.equal(response.results.length, 1);
-  assert.equal(response.results[0].url, 'https://github.com/danielskry/awesome-rag');
+  assert.equal(response.results[0].url, 'https://github.com/qdrant/qdrant');
   assert.equal(response.results[0].label, 'Conditional');
-  assert.equal(response.results[0].licence, 'CC0-1.0');
+  assert.equal(response.results[0].licence, 'Apache-2.0');
   assert.match(response.results[0].licenceUrl, /blob\/[0-9a-f]{40}\/LICENSE$/);
   const mcp = JSON.parse(ok(directory, 'search', 'mcp', '--json'));
-  assert.equal(mcp.excluded['licence-unclear'], 2);
-  assert.equal(mcp.results[0]?.title, 'Awesome MCP Servers by mcpHQ');
+  assert.equal(mcp.excluded['licence-unclear'], 0);
+  assert.equal(mcp.results[0]?.title, 'Playwright MCP');
   assert.deepEqual(JSON.parse(ok(directory, 'search', 'retrieval', '--kind', 'dataset', '--json')).results, []);
   assert.deepEqual(JSON.parse(ok(directory, 'search', 'retrieval', '--category', 'finance', '--json')).results, []);
   const jsonExport = JSON.parse(ok(directory, 'export', '--json'));
-  assert.equal(jsonExport.length, 5);
-  assert.equal(JSON.stringify(jsonExport).includes('modelcontextprotocol'), false);
-  assert.match(ok(directory, 'export'), /Awesome-RAG/);
+  assert.equal(jsonExport.length, starterResources.length);
+  assert.ok(jsonExport.some((item: { title: string; url: string }) =>
+    item.title === 'Palmer Penguins CSV' && item.url.endsWith('/inst/extdata/penguins.csv')));
+  assert.ok(jsonExport.some((item: { title: string; evidenceUrl: string }) =>
+    item.title === 'OpenAPI Specification 3.2.0' && item.evidenceUrl.endsWith('/versions/3.2.0.md')));
+  assert.ok(jsonExport.every((item: { title: string }) => !/awesome|registry/i.test(item.title)));
+  assert.match(ok(directory, 'export'), /Qdrant/);
   assert.match(ok(directory, 'search', 'retrieval'), /\[Evidence\]/);
   ok(directory, 'init', '--empty');
   assert.deepEqual(readFileSync(publicPath), publicBefore);

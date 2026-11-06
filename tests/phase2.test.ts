@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { inspectGitHub } from '../src/github.js';
+import { catalogueGitHubSource, checkPinnedGitHubFile, inspectGitHub } from '../src/github.js';
 import { HttpError } from '../src/http.js';
 
 const sha = 'a'.repeat(40);
@@ -43,4 +43,29 @@ test('GitHub evidence fails closed for unrecognised, absent, or transitional lic
     assert.equal((await inspectGitHub(root, mock(options))).licenceId, null);
   }
   await assert.rejects(inspectGitHub(root, async () => { throw new HttpError(429); }), /429/);
+});
+
+test('standard Apache wording is recognised and separate additional terms still require review', async () => {
+  const standard = 'Apache License\nVersion 2.0\nthis License, without any additional terms or conditions.';
+  assert.equal((await inspectGitHub(root, mock({ text: standard, spdx: 'Apache-2.0' }))).licenceId, 'Apache-2.0');
+  assert.equal((await inspectGitHub(root, mock({
+    text: standard + '\nAdditional restrictions apply.', spdx: 'Apache-2.0',
+  }))).licenceId, null);
+});
+
+test('direct source evidence binds the exact file and revision', async () => {
+  const path = 'data/table.csv';
+  const raw = `https://raw.githubusercontent.com/owner/repo/${sha}/${path}`;
+  const evidence = `${root}/blob/${sha}/${path}`;
+  assert.deepEqual(catalogueGitHubSource(raw, sha, evidence), { repository: root, path });
+  assert.throws(() => catalogueGitHubSource(raw, sha, evidence.replace('table.csv', 'other.csv')), /pinned/);
+  assert.throws(() => catalogueGitHubSource(raw, 'c'.repeat(40), evidence), /pinned/);
+  assert.equal(await checkPinnedGitHubFile(root, path, sha, async (url) => {
+    assert.equal(url.hostname, 'api.github.com');
+    assert.equal(url.pathname, '/repos/owner/repo/contents/data/table.csv');
+    assert.equal(url.searchParams.get('ref'), sha);
+    return { path, type: 'file', sha: 'b'.repeat(40) };
+  }), 'b'.repeat(40));
+  await assert.rejects(checkPinnedGitHubFile(root, path, sha, async () =>
+    ({ path, type: 'dir', sha: 'b'.repeat(40) })), /did not confirm/);
 });

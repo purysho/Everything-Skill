@@ -8,7 +8,7 @@ description: Find and compare public repositories, MCP servers, papers, datasets
 ## Search workflow
 
 1. Run `npm run --silent skill -- search "<query>" --json` from the built and initialised checkout. Add `--kind` or `--category` for explicit constraints. Start with at most five results.
-2. Return each resource's label, score, licence, pinned evidence, date, and one concise reason. Include meaningful exclusion counts. Conditional results have metadata review and require runtime and compatibility verification.
+2. Recommend individual sources such as a specific tool, dataset, paper, server or specification. Use directories and registries as discovery leads and follow through to the individual source before recommending it. Return each resource's label, score, licence, pinned evidence, date, and one concise reason. Include meaningful exclusion counts. Conditional results have metadata review and require runtime and compatibility verification.
 3. If coverage is inadequate, explain which query would be sent and to which provider. With the user's agreement, run `discover "<public query>" --provider <provider>`. Providers include GitHub, the official MCP Registry, MediaWiki, Crossref, Hugging Face models and datasets, and GitHub OpenAPI discovery.
 4. Treat live results as link-only, unverified leads. A registry listing, popular repository, or permissive licence does not make a resource safe. Separate unavailable, archived, licence-unclear, changed, and blocked findings.
 5. Offer a detailed report or private staging if useful. Use `remember` for a user-selected URL. The optional `--terms` keywords stay local and select relevant licence-eligible GitHub sections for evidence hashing.

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { checkIntegrity, copyPrivateIndex, openIndex, stageFile } from './database.js';
 import { object } from './http.js';
 
-export const releaseVersion = '2026-11-06.1';
+export const releaseVersion = '2026-11-06.2';
 export const releaseDirectory = fileURLToPath(new URL(`../../database/releases/${releaseVersion}/`, import.meta.url));
 const validVersion = /^\d{4}-\d{2}-\d{2}\.\d+$/;
 const legacy = 'legacy';

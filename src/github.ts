@@ -40,11 +40,14 @@ export async function inspectGitHub(input: string, read: ReadJson = readJson) {
     ? Buffer.from(licence.content, 'base64') : Buffer.alloc(0);
   const licenceUrl = licencePath ? `${url}/blob/${sha}/${licencePath}` : null;
   const text = content.toString('utf8');
+  // Apache 2.0 itself says that a contribution is covered without additional terms.
+  const restrictions = declared === 'Apache-2.0'
+    ? text.replace('this License, without any additional terms or conditions.', '') : text;
   const recognised = (
     (declared === 'MIT' && /permission is hereby granted, free of charge/i.test(text)) ||
     (declared === 'CC0-1.0' && /CC0 1\.0 Universal/i.test(text)) ||
     (declared === 'Apache-2.0' && /apache license\s+version 2\.0/i.test(text))
-  ) && !/licen[cs]ing transition|dual.licen[cs]|additional (?:terms|restrictions)/i.test(text);
+  ) && !/licen[cs]ing transition|dual.licen[cs]|additional (?:terms|restrictions)/i.test(restrictions);
   const sourceCommit = object(commit.commit);
   const timestamp = object(sourceCommit.committer).date;
   return {
@@ -57,4 +60,33 @@ export async function inspectGitHub(input: string, read: ReadJson = readJson) {
     committedAt: typeof timestamp === 'string' && /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$/.test(timestamp)
       ? timestamp : null,
   };
+}
+
+
+export function catalogueGitHubSource(url: string, version: string, evidenceUrl?: string) {
+  const source = new URL(url);
+  if (source.origin !== 'https://raw.githubusercontent.com') return { repository: canonicalGitHub(url), path: null };
+  const evidence = new URL(evidenceUrl ?? '');
+  const match = /^\/([\w.-]+)\/([\w.-]+)\/blob\/([a-f0-9]{40})\/([\w.-]+(?:\/[\w.-]+)*)$/.exec(evidence.pathname);
+  if (source.username || source.password || source.search || source.hash ||
+      evidence.origin !== 'https://github.com' || evidence.username || evidence.password ||
+      evidence.search || evidence.hash || !match || match[3] !== version || !match[4] ||
+      match[4].split('/').some((part) => part === '.' || part === '..') ||
+      source.pathname !== `/${match[1]}/${match[2]}/${version}/${match[4]}`) {
+    throw new Error('The direct file does not match its pinned GitHub evidence.');
+  }
+  return { repository: canonicalGitHub(evidence.href), path: match[4] };
+}
+
+export async function checkPinnedGitHubFile(repository: string, path: string, version: string,
+    read: ReadJson = readJson) {
+  const root = new URL(canonicalGitHub(repository)).pathname;
+  const encodedPath = path.split('/').map(encodeURIComponent).join('/');
+  const url = gitHubEndpoint(`/repos${root}/contents/${encodedPath}`);
+  url.searchParams.set('ref', version);
+  const file = object(await read(url));
+  if (file.type !== 'file' || file.path !== path || typeof file.sha !== 'string' || !/^[a-f0-9]{40}$/.test(file.sha)) {
+    throw new Error('GitHub did not confirm the pinned file.');
+  }
+  return file.sha;
 }

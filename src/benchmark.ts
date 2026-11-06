@@ -7,18 +7,18 @@ import { initialize, openIndex } from './database.js';
 import { retrievalModes } from './retrieval.js';
 
 const queries = [
-  ['repository for fhir and clinical software', 'Awesome Healthcare'],
-  ['hospital', 'Awesome Healthcare'],
-  ['medical interoperability', 'Awesome Healthcare'],
-  ['list of healthcare software', 'Awesome Healthcare'],
-  ['grounding and embeddings papers', 'Awesome-RAG'],
-  ['rag retrieval catalogue', 'Awesome-RAG'],
-  ['semantic grounding research', 'Awesome-RAG'],
-  ['configure claude and codex', 'ECC'],
-  ['coding assistants workflow', 'ECC'],
-  ['directories of curated resources', 'Awesome'],
-  ['mcp servers catalogue', 'Awesome MCP Servers by mcpHQ'],
-  ['modelcontextprotocol directory', 'Awesome MCP Servers by mcpHQ'],
+  ['vector search with embeddings', 'Qdrant'],
+  ['rag retrieval vector database', 'Qdrant'],
+  ['FHIR REST server for clinical data', 'HAPI FHIR JPA Server Starter'],
+  ['medical interoperability', 'HAPI FHIR JPA Server Starter'],
+  ['query parquet using SQL', 'DuckDB'],
+  ['analytical database CLI', 'DuckDB'],
+  ['MCP server browser navigation', 'Playwright MCP'],
+  ['playwright browser automation', 'Playwright MCP'],
+  ['penguins species measurements CSV', 'Palmer Penguins CSV'],
+  ['penguin flipper length dataset', 'Palmer Penguins CSV'],
+  ['OpenAPI 3.2 HTTP specification', 'OpenAPI Specification 3.2.0'],
+  ['HTTP API description inputs and responses', 'OpenAPI Specification 3.2.0'],
 ] as const;
 const directory = mkdtempSync(join(tmpdir(), 'everything-benchmark-'));
 try {

@@ -2,6 +2,10 @@ const query = document.querySelector('#query');
 const topic = document.querySelector('#topic');
 const status = document.querySelector('#status');
 const results = document.querySelector('#results');
+const kindNames = new Map([
+  ['tool', 'Tool'], ['api', 'API implementation'], ['mcp', 'MCP server'],
+  ['dataset', 'Dataset'], ['other', 'Reference'],
+]);
 
 function element(name, text) {
   const node = document.createElement(name);
@@ -33,7 +37,7 @@ try {
     const terms = [...new Set(words(query.value))];
     const matching = entries.map((entry) => {
       const title = new Set(words(entry.title));
-      const full = new Set(words(`${entry.title} ${entry.summary} ${entry.category}`));
+      const full = new Set(words(`${entry.title} ${entry.summary} ${entry.category} ${kindNames.get(entry.kind) ?? entry.kind}`));
       const score = terms.reduce((sum, word) => sum + (title.has(word) ? 2 : full.has(word) ? 1 : 0), 0);
       return { entry, score };
     }).filter(({ entry, score }) => (!terms.length || score) && (!topic.value || entry.category === topic.value))
@@ -45,7 +49,9 @@ try {
       const provenance = element('p', '');
       const badge = element('span', 'Conditional');
       badge.className = 'badge';
-      provenance.append(badge, ' · ', link(entry.licence, entry.licenceUrl), ` · checked ${entry.checkedOn}`);
+      provenance.append(kindNames.get(entry.kind) ?? entry.kind, ' · ', badge,
+        ' · ', link(entry.licence, entry.licenceUrl), ` · checked ${entry.checkedOn}`);
+      if (entry.kind === 'dataset') provenance.append(' · ', link('Open data file', entry.url));
       item.append(heading, element('p', entry.summary), provenance);
       return item;
     }));

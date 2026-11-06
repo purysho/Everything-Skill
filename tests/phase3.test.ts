@@ -23,12 +23,15 @@ test('fusion rewards agreement once per list and policy caps every configurable 
 test('routed retrieval finds a synonym-only healthcare match while lexical baseline returns none', async () => {
   const directory = mkdtempSync(join(tmpdir(), 'everything-retrieval-'));
   try {
-    await initialize(directory, (db) => seedCatalog(db, starterResources));
+    await initialize(directory, (db) => seedCatalog(db, [{
+      ...starterResources[3],
+      title: 'FHIR server fixture', summary: 'Clinical and medical data.', tags: 'healthcare',
+    }]));
     const db = openIndex(join(directory, 'public.sqlite'), 'public');
     try {
       const options = { kind: null, category: null, limit: 3 };
       assert.equal(search(db, 'hospital', { ...options, mode: 'lexical' }).results.length, 0);
-      assert.equal(search(db, 'hospital', options).results[0]?.title, 'Awesome Healthcare');
+      assert.equal(search(db, 'hospital', options).results[0]?.title, 'FHIR server fixture');
       assert.equal(search(db, 'hospital', { ...options, category: 'software' }).results.length, 0);
     } finally {
       db.close();
@@ -45,9 +48,9 @@ test('a denied top candidate cannot take up a shortlist slot', async () => {
     const db = openIndex(join(directory, 'public.sqlite'), 'public');
     try {
       const options = { kind: null, category: null, limit: 1, mode: 'lexical' as const };
-      const top = search(db, 'catalogue directory', options).results[0];
+      const top = search(db, 'database', options).results[0];
       assert.ok(top);
-      const remaining = search(db, 'catalogue directory', { ...options,
+      const remaining = search(db, 'database', { ...options,
         accept: (card) => card.sourceId !== top.sourceId }).results;
       assert.equal(remaining.length, 1);
       assert.notEqual(remaining[0]?.sourceId, top.sourceId);
