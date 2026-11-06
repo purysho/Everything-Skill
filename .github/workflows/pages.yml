@@ -1,6 +1,11 @@
 name: Publish static demo
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'demo/**'
+      - '.github/workflows/pages.yml'
 permissions: {}
 concurrency:
   group: everything-skill-pages
