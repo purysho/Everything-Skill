@@ -6,7 +6,7 @@ import { canonicalGitHub, canonicalResource } from './identity.js';
 import { termsFor } from './retrieval.js';
 import { inspectSurface, type Assessment } from './governance.js';
 
-export const providers = ['github', 'mcp', 'web'] as const;
+export const providers = ['github', 'mcp', 'web', 'papers', 'models', 'datasets', 'api'] as const;
 export type Provider = typeof providers[number];
 interface Lead {
   sourceId: string;
@@ -17,11 +17,12 @@ interface Lead {
 export async function discover(query: string, provider: Provider, read: ReadJson = readJson) {
   if (query.length > 160 || !query.trim()) throw new Error('Use a discovery query of 1–160 characters.');
   const found: Lead[] = [];
-  if (provider === 'github') {
+  if (provider === 'github' || provider === 'api') {
     const url = gitHubEndpoint('/search/repositories');
     const terms = termsFor(query).join(' ');
     if (!terms) throw new Error('GitHub discovery needs at least one search term.');
-    url.searchParams.set('q', terms + ' is:public archived:false');
+    const filter = provider === 'api' ? ' is:public archived:false topic:openapi' : ' is:public archived:false';
+    url.searchParams.set('q', terms + filter);
     url.searchParams.set('per_page', '8');
     const data = object(await read(url));
     for (const item of Array.isArray(data.items) ? data.items.slice(0, 8) : []) {
@@ -45,6 +46,33 @@ export async function discover(query: string, provider: Provider, read: ReadJson
       const encodedName = encodeURIComponent(row.name);
       found.push({ sourceId: `mcp:${row.name}`,
         url: `https://registry.modelcontextprotocol.io/v0.1/servers/${encodedName}/versions/latest`, provider });
+    }
+  } else if (provider === 'papers') {
+    const url = new URL('https://api.crossref.org/works');
+    url.searchParams.set('query.bibliographic', query);
+    url.searchParams.set('rows', '8');
+    url.searchParams.set('select', 'DOI');
+    const message = object(object(await read(url)).message);
+    for (const item of Array.isArray(message.items) ? message.items.slice(0, 8) : []) {
+      const doi = object(item).DOI;
+      if (typeof doi !== 'string' || !/^10\.\d{4,9}\/[\w.();/:+-]{1,160}$/i.test(doi)) continue;
+      const components = doi.toLowerCase().split('/');
+      if (components.some((part) => !part || part === '.' || part === '..')) continue;
+      found.push({ sourceId: `doi:${doi.toLowerCase()}`,
+        url: `https://doi.org/${components.map(encodeURIComponent).join('/')}`, provider });
+    }
+  } else if (provider === 'models' || provider === 'datasets') {
+    const url = new URL(`https://huggingface.co/api/${provider}`);
+    url.searchParams.set('search', query);
+    url.searchParams.set('limit', '8');
+    const payload = await read(url);
+    for (const item of Array.isArray(payload) ? payload.slice(0, 8) : []) {
+      const row = object(item);
+      if (typeof row.id !== 'string' || row.private === true || row.gated ||
+          !/^[a-z0-9][\w.-]{0,95}(?:\/[a-z0-9][\w.-]{0,95})?$/i.test(row.id)) continue;
+      const prefix = provider === 'datasets' ? '/datasets' : '';
+      found.push({ sourceId: `huggingface:${provider}:${row.id}`,
+        url: `https://huggingface.co${prefix}/${row.id}`, provider });
     }
   } else {
     const url = new URL('https://en.wikipedia.org/w/api.php');

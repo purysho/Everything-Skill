@@ -11,7 +11,7 @@ import { exportCatalog, search, seedCatalog, type SeedResource } from '../src/ca
 import { initialize, openIndex } from '../src/database.js';
 import { canonicalGitHub, canonicalResource } from '../src/identity.js';
 
-const cli = fileURLToPath(new URL('../src/cli.js', import.meta.url));
+const cli = fileURLToPath(new URL('../src/entry.js', import.meta.url));
 
 function workspace(t: TestContext) {
   const directory = mkdtempSync(join(tmpdir(), 'everything-skill-test-'));

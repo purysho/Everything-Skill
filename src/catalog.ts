@@ -172,8 +172,11 @@ export function search(db: DatabaseSync, query: string, options: SearchOptions) 
     return { ...card, score, label, colour, fusion,
       reason: 'Metadata and licence reviewed. Runtime security, cost and current freshness are unverified.' };
   }).sort((a, b) => b.score - a.score || b.fusion - a.fusion);
+  const focused = routedCategory ? ranked.filter((card) => card.category === routedCategory ||
+    card.category.startsWith(routedCategory + '/')) : [];
+  const shortlist = focused[0] && focused[0].score >= 50 ? focused : ranked;
   return {
-    results: ranked.slice(0, limit).map(({ fusion: _fusion, ...card }) => card),
+    results: shortlist.slice(0, limit).map(({ fusion: _fusion, ...card }) => card),
     excluded,
   };
 }

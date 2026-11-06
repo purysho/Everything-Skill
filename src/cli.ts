@@ -13,7 +13,7 @@ import { assessResource, blocked, cachedEligible, listSuggestions, preferenceFor
 
 import { selectCatalogue, selectedPublicPath, selection } from './releases.js';
 
-const help = `Everything Skill · Phase 1
+const help = `Everything Skill
 npm run skill -- init [--empty]
 npm run skill -- search "your terms" [--kind repository] [--category software] [--limit 5] [--mode routed] [--json]
 npm run skill -- export [--json]
@@ -22,7 +22,7 @@ npm run skill -- update [version]
 npm run skill -- rollback [version]
 npm run skill -- backup <new-file>
 npm run skill -- restore <backup-file>
-npm run skill -- discover "<public query>" [--provider github|mcp|web]
+npm run skill -- discover "<public query>" [--provider github|mcp|web|papers|models|datasets|api]
 npm run skill -- remember <resource-url> [--terms "local section keywords"]
 npm run skill -- private-list
 npm run skill -- scan <github-repository>
@@ -84,6 +84,11 @@ async function main() {
   if (values.help || command === undefined) {
     console.log(help);
     return;
+  }
+  const alternative = process.versions.bun ? 'Bun' : process.versions.deno ? 'Deno' : null;
+  if (alternative && (!['search', 'export', 'catalogue-status'].includes(command) ||
+      values.verify || values['local-models'])) {
+    throw new Error(`${alternative} supports read-only commands here. Run this operation with Node.js 24 LTS.`);
   }
   const accepted = {
     init: ['empty'], search: ['kind', 'category', 'limit', 'json', 'mode', 'thresholds', 'local-models', 'verify', 'topic', 'project', 'session'], export: ['json'],

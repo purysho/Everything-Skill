@@ -134,3 +134,19 @@ The published Phase 6 checkpoint passed Linux and Windows and caught a macOS syn
 ### Phase 8 plan
 
 Check the clean package contents, canonical Node runtime and cross-platform workflow. Probe the same compiled CLI under Bun and Deno, limit alternatives to verified read-only commands, and give a clear Node fallback for missing SQLite or unsafe operations. Run the final review against outstanding acceptance criteria.
+
+### Phase 8 · Runtime checks and final audit
+
+- The [Phase 7 hosted run](https://github.com/purysho/Everything-Skill/actions/runs/42205150560) passed on Ubuntu, macOS and Windows, confirming the adapter real-path correction and release rollback tests.
+- Added a guarded Node entry point and a private npm tarball manifest. Built, packed, installed in a disposable directory, then exercised init, version selection and search from its installed executable. The package includes the immutable public SQLite file and excludes private data and runtime dependencies. Twenty local tests passed after the final discovery and routing changes.
+- Bun 1.4.4 and Deno 2.9.6 returned the expected offline search, export and selected-version output on Linux. Both reject write commands with a Node fallback. Full host installation and alternative-runtime checks on Windows and macOS remain unverified.
+- Final integration review added explicit Crossref papers, Hugging Face model and dataset discovery, and GitHub OpenAPI repository discovery. Each provider returned eight link-only leads in a live smoke test. Providers retain canonical links only. The source licence and safety checks still apply before private indexing or public inclusion. [Crossref REST](https://www.crossref.org/documentation/retrieve-metadata/rest-api/) · [Hugging Face Hub API](https://huggingface.co/docs/hub/en/api) · [GitHub REST](https://docs.github.com/en/rest)
+- Routing now narrows the shortlist when a single topic has a strong match. The same smoke benchmark retained Recall@3 and nDCG@3 of 1.000 with 286 output words, versus 334 lexical and 340 dense. It ties dense on relevance. The 12-query starter benchmark is a regression check rather than a held-out corpus result.
+- Code Review Brains was invoked after each stage and in a final pass. The Phase 5 and Phase 7 calls timed out. Other reviews returned public-source guidance, without independent approval of the implementation. The final local review exercised the packaged path and recorded portability and safety boundaries. [Theo Browne](https://www.youtube.com/watch?v=aFcVKzfkJPk) · [DHH](https://www.youtube.com/watch?v=9LfmrkyP81M) · [Matt Pocock](https://www.aihero.dev/skills-pr)
+
+### Next verification steps
+
+1. Evaluate the keyword, dense, hybrid and routed modes on a held-out corpus of at least 100 independently licence-checked resources and 30 labelled queries. Capture tokens using the target host tokenizer and measure latency, relevance and exclusion errors. The current data does not establish the Phase 3 superiority requirement or calibrated quality, cost and maintenance scoring across domains.
+2. Complete hands-on installation and first-use checks in Codex, ChatGPT and Claude Code. The static Pages-ready folder has a DOM smoke test. Live Pages hosting and first-time-user usability remain unverified.
+3. Review weekly audit flags against pinned source evidence. Keep the last immutable snapshot and append the archive or replacement decision to the demo history. Only maintainers can approve the next public snapshot. Live online verification stays opt-in and provider outages can prevent verification.
+4. Expand adversarial evaluation before relying on scanners for broader safety claims. The four generated adapters demonstrate a restricted synthetic contract. Real authenticated, browser and state-changing integration remains outside this implementation.

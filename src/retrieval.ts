@@ -2,7 +2,7 @@ export const retrievalModes = ['lexical', 'dense', 'hybrid', 'routed'] as const;
 export type RetrievalMode = typeof retrievalModes[number];
 
 const routeTerms = {
-  healthcare: ['healthcare', 'medical', 'fhir', 'clinical', 'health'],
+  healthcare: ['healthcare', 'medical', 'fhir', 'clinical', 'health', 'hospital'],
   mcp: ['mcp', 'modelcontextprotocol'],
   software: ['coding', 'programming', 'codex', 'rag', 'software'],
 };

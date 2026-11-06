@@ -183,11 +183,11 @@ type Candidate = { url: string; sourceId: string; version: string; licence: stri
 export function cachedEligible(db: DatabaseSync, card: Candidate) {
   if (!hasGovernance(db)) return true;
   if (blocked(db, card.url, card.sourceId)) return false;
-  const last = db.prepare(`SELECT revision,flags FROM security_reports
+  const last = db.prepare(`SELECT source_id,revision,flags FROM security_reports
     WHERE url=? OR source_id=? ORDER BY id DESC LIMIT 1`).get(card.url, card.sourceId);
   if (!last) return true;
   const flags = JSON.parse(String(last.flags)) as Flag[];
-  return last.revision === card.version && !flags.some((flag) =>
+  return last.source_id === card.sourceId && last.revision === card.version && !flags.some((flag) =>
     flag === 'archived' || flag === 'licence-unclear' || flag === 'unavailable');
 }
 

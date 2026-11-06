@@ -96,3 +96,24 @@ CREATE TABLE discoveries (
     } finally { db.close(); }
   } finally { rmSync(directory, { recursive: true, force: true }); }
 });
+
+test('discovery returns only canonical public links for papers, models, datasets and API repositories', async () => {
+  const papers = await discover('grounding', 'papers', async (url) => {
+    assert.equal(url.origin, 'https://api.crossref.org');
+    assert.equal(url.searchParams.get('select'), 'DOI');
+    return { message: { items: [{ DOI: '10.1000/Fake' }, { DOI: '10.1000/../../secret' }] } };
+  });
+  assert.deepEqual(papers.map((row) => row.url), ['https://doi.org/10.1000/fake']);
+  for (const provider of ['models', 'datasets'] as const) {
+    const rows = await discover('classifier', provider, async (url) => {
+      assert.equal(url.href.startsWith('https://huggingface.co/api/' + provider), true);
+      return [{ id: 'owner/model' }, { id: 'private/model', private: true }, { id: 'gated/model', gated: 'auto' }];
+    });
+    assert.equal(rows.length, 1);
+    assert.equal(rows[0]?.url, `https://huggingface.co${provider === 'datasets' ? '/datasets' : ''}/owner/model`);
+  }
+  await discover('medication', 'api', async (url) => {
+    assert.match(url.searchParams.get('q') ?? '', /topic:openapi/);
+    return { items: [] };
+  });
+});

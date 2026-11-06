@@ -1,6 +1,6 @@
 import { chmodSync, linkSync, lstatSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { backup, DatabaseSync } from 'node:sqlite';
+import { DatabaseSync } from 'node:sqlite';
 
 const privateSchema = `CREATE TABLE discoveries (
   url TEXT PRIMARY KEY NOT NULL,
@@ -232,6 +232,8 @@ export async function initialize(
 export async function copyPrivateIndex(source: string, destination: string) {
   const db = openIndex(source, 'private');
   try {
+    const { backup } = await import('node:sqlite');
+    if (typeof backup !== 'function') throw new Error('This runtime does not support SQLite backup. Use Node.js 24 LTS.');
     await stageFile(destination, async (temporary) => {
       await backup(db, temporary);
       const snapshot = openIndex(temporary, 'private');

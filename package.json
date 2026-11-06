@@ -11,7 +11,7 @@
     "build": "tsc -p tsconfig.json",
     "lint": "tsc -p tsconfig.json --noEmit --noUnusedLocals --noUnusedParameters",
     "test": "npm run build && node --test dist/tests/*.test.js",
-    "skill": "node dist/src/cli.js",
+    "skill": "node dist/src/entry.js",
     "audit-seeds": "node dist/src/seed-audit.js",
     "benchmark": "node dist/src/benchmark.js",
     "build-catalogue": "node dist/src/build-catalogue.js"
@@ -19,5 +19,19 @@
   "devDependencies": {
     "@types/node": "^24.10.0",
     "typescript": "~5.9.3"
-  }
+  },
+  "bin": {
+    "everything-skill": "dist/src/entry.js"
+  },
+  "files": [
+    "dist/src",
+    "dist/database/seeds",
+    "database/releases",
+    "exports/catalogue.json",
+    "exports/CATALOGUE.md",
+    "demo",
+    "SKILL.md",
+    "SECURITY.md",
+    "NOTICE"
+  ]
 }

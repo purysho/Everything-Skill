@@ -33,6 +33,7 @@ Keep `SKILL.md`, the npm project, and the bundled catalogue together. Directory 
 | Get JSON or choose a retrieval mode | `npm run skill -- search "retrieval" --mode routed --json` |
 | Explicitly send a public query to a provider | `npm run skill -- discover "fhir parser rust" --provider github` |
 | Find MCP leads or encyclopaedic web references | Use `--provider mcp` or `--provider web` with `discover`. The web provider is MediaWiki. |
+| Find papers, public models, datasets or OpenAPI repositories | Use `--provider papers\|models\|datasets\|api` with `discover`. These results are unverified links. |
 | Save metadata and stage relevant documentation | `npm run skill -- remember "https://github.com/expressjs/express" --terms "installation features"` |
 | Read private discoveries | `npm run skill -- private-list` |
 | Recheck a shortlist and append private reports | `npm run skill -- search "retrieval" --verify` |
@@ -62,8 +63,14 @@ An update or rollback verifies the target, backs up private data and then switch
 
 The [static demo](demo/README.md) filters the public snapshot in your browser. Its weekly workflow checks evidence and flags changes for maintainer review.
 
-The default retrieval uses local lexical and hashed-vector search. For optional local reranking, install the reviewed Transformers.js dependency separately. Provision the [upstream cross-encoder](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) at a trusted pinned revision under `<models>/cross-encoder/ms-marco-MiniLM-L-6-v2`, including the tokenizer, config and `onnx/model.onnx`. Then run `npm run skill -- search "your query" --local-models "<models>"`. The CLI disables remote model fetching for this command.
+The default retrieval uses local lexical and hashed-vector search. For optional local reranking, install the reviewed Transformers.js dependency separately with `npm install --no-save --package-lock=false @huggingface/transformers@4.3.2`. Provision the [upstream cross-encoder](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) at a trusted pinned revision under `<models>/cross-encoder/ms-marco-MiniLM-L-6-v2`, including the tokenizer, config and `onnx/model.onnx`. Then run `npm run skill -- search "your query" --local-models "<models>"`. The CLI disables remote model fetching for this command.
 
 [Security](SECURITY.md) · [Build plan](BUILD_PLAN.md) · [Work log](WORK_LOG.md)
 
 Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE). Commercial use requires a separate licence. Keep the [required notice](NOTICE) with distributions.
+
+## Runtime checks
+
+Node.js 24 LTS is the full runtime for writes, updates, backup, restore, live discovery, scans and adapter tests. The GitHub Actions matrix checks Ubuntu, macOS and Windows.
+
+On Linux, Bun 1.4.4 and Deno 2.9.6 can run offline search, export and catalogue status against a directory already initialised by Node. Use `bun dist/src/entry.js` or `deno run --no-prompt --allow-read="<checkout>,<data-directory>" dist/src/entry.js`, followed by the command and an explicit `--data-dir`. Use Node for online verification, transformer reranking and mutations. Bun and Deno were checked on Linux only.
