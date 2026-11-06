@@ -8,6 +8,21 @@ const privateSchema = `CREATE TABLE discoveries (
   notes TEXT NOT NULL
 ) STRICT`;
 
+const discoveryEvidenceSchema = `CREATE TABLE discovery_evidence (
+  url TEXT PRIMARY KEY NOT NULL REFERENCES discoveries(url),
+  source_id TEXT NOT NULL UNIQUE,
+  revision TEXT,
+  licence TEXT,
+  observed_at TEXT NOT NULL,
+  stage TEXT NOT NULL CHECK (stage IN ('metadata','sections')),
+  evidence TEXT NOT NULL
+) STRICT`;
+
+const privateMigrations: readonly (readonly string[])[] = [
+  [privateSchema],
+  [discoveryEvidenceSchema],
+];
+
 const migrations = {
   public: [`
     CREATE TABLE resources (
@@ -50,7 +65,7 @@ const migrations = {
       VALUES (new.id, new.title, new.summary, new.tags, new.url);
     END;
   `],
-  private: [privateSchema],
+  private: privateMigrations.map((schema) => schema.join(';\n')),
 } as const;
 
 export type Store = keyof typeof migrations;
@@ -66,12 +81,13 @@ function header(db: DatabaseSync) {
 
 function assertHeader(db: DatabaseSync, store: Store) {
   const { id, version } = header(db);
-  if (id !== applicationIds[store] || version !== migrations[store].length) {
+  if (id !== applicationIds[store] || (!Number.isInteger(version) || version < 1 || version > migrations[store].length)) {
     throw new Error(`Wrong database identity or unsupported ${store} schema version.`);
   }
   if (store === 'private') {
     const objects = db.prepare('SELECT sql FROM sqlite_schema WHERE sql IS NOT NULL').all();
-    if (objects.length !== 1 || objects[0]?.sql !== privateSchema) {
+    const expected = privateMigrations.slice(0, version).flat();
+    if (objects.length !== expected.length || objects.some((row) => !expected.includes(String(row.sql)))) {
       throw new Error('Invalid private index schema.');
     }
   }
@@ -92,13 +108,28 @@ function migrateNew(db: DatabaseSync, store: Store) {
   }
 }
 
-export function openIndex(path: string, store: Store): DatabaseSync {
+export function openIndex(path: string, store: Store, writable = false): DatabaseSync {
   const file = lstatSync(path);
   if (!file.isFile() || file.isSymbolicLink()) throw new Error('Expected a regular SQLite file.');
-  const db = new DatabaseSync(path, { readOnly: true, timeout: 5000 });
+  if (writable && store !== 'private') throw new Error('Public index is read-only.');
+  const db = new DatabaseSync(path, { readOnly: !writable, timeout: 5000 });
   try {
     db.exec('PRAGMA trusted_schema = OFF');
     assertHeader(db, store);
+    if (writable && header(db).version < migrations.private.length) {
+      db.exec('BEGIN IMMEDIATE');
+      try {
+        for (const [index, sql] of migrations.private.entries()) {
+          if (index < header(db).version) continue;
+          db.exec(sql);
+          db.exec(`PRAGMA user_version = ${index + 1}`);
+        }
+        db.exec('COMMIT');
+      } catch (error) {
+        db.exec('ROLLBACK');
+        throw error;
+      }
+    }
     return db;
   } catch (error) {
     db.close();
@@ -106,7 +137,7 @@ export function openIndex(path: string, store: Store): DatabaseSync {
   }
 }
 
-function checkIntegrity(db: DatabaseSync) {
+export function checkIntegrity(db: DatabaseSync) {
   if (db.prepare('PRAGMA quick_check').get()?.quick_check !== 'ok') {
     throw new Error('SQLite integrity check failed.');
   }

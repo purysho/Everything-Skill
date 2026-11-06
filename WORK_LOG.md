@@ -96,3 +96,11 @@ On the 12-query starter smoke benchmark, Recall@3 was 0.917 lexical and 1.000 de
 ### Phase 4 plan
 
 Keep offline queries unchanged. Add explicit fixed-origin public discovery and local private evidence records. Fetch no repository content during candidate discovery. Stage only selected, licence-eligible GitHub documentation sections using provenance and hashes. Never send staged private data to a provider. Migrate private v1 without deleting existing discoveries.
+
+### Phase 4 · Live discovery and private stages
+
+Verified public GitHub, MCP Registry and MediaWiki searches and staged a previously unseeded MIT repository into a disposable private store. Three matching README sections became hashes, ordinals and hit counts. The network request did not contain the private keywords. Fourteen tests passed, including v1 migration, licence downgrade invalidation and unchanged public bytes. Code Review Brains returned general guidance on simple interfaces and real validation. [Theo Browne](https://www.youtube.com/watch?v=NLA7S-MVS9A) · [DHH](https://www.youtube.com/watch?v=gcwzWzC7gUA) · [Matt Pocock](https://www.totaltypescript.com/typescript-types-dont-exist-at-runtime)
+
+### Phase 5 plan
+
+Add a bounded, non-executing scanner and an append-only private report store. Suppress credible blocks before projection and deny overrides at the policy boundary. Store scope-labelled overrides and deduplicated suggestions locally. Rescan uncertain or changed candidates when the user explicitly chooses online verification.

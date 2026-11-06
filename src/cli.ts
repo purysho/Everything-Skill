@@ -6,6 +6,7 @@ import { exportCatalog, kinds, search, seedCatalog } from './catalog.js';
 import { copyPrivateIndex, initialize, openIndex } from './database.js';
 import { retrievalModes, type RetrievalMode } from './retrieval.js';
 import { rerankLocal } from './transformer.js';
+import { collectDiscovery, discover, listDiscoveries, providers, saveDiscovery, type Provider } from './discovery.js';
 
 const help = `Everything Skill · Phase 1
 npm run skill -- init [--empty]
@@ -13,6 +14,9 @@ npm run skill -- search "your terms" [--kind repository] [--category software] [
 npm run skill -- export [--json]
 npm run skill -- backup <new-file>
 npm run skill -- restore <backup-file>
+npm run skill -- discover "<public query>" [--provider github|mcp|web]
+npm run skill -- remember <resource-url> [--terms "local section keywords"]
+npm run skill -- private-list
 
 All commands accept --data-dir <directory>. Default: ~/.everything-skill.
 Restore requires an absent private.sqlite. Use a new directory to inspect a backup.
@@ -40,6 +44,8 @@ async function main() {
       mode: { type: 'string' },
       thresholds: { type: 'string' },
       'local-models': { type: 'string' },
+      provider: { type: 'string' },
+      terms: { type: 'string' },
       help: { type: 'boolean' },
     },
   });
@@ -50,14 +56,14 @@ async function main() {
   }
   const accepted = {
     init: ['empty'], search: ['kind', 'category', 'limit', 'json', 'mode', 'thresholds', 'local-models'], export: ['json'],
-    backup: [], restore: [],
+    backup: [], restore: [], discover: ['provider'], remember: ['terms'], 'private-list': [],
   };
   if (!Object.hasOwn(accepted, command)) throw new Error('Unknown command. Run with --help.');
   const allowed: readonly string[] = accepted[command as keyof typeof accepted];
   for (const key of Object.keys(values)) {
     if (key !== 'data-dir' && !allowed.includes(key)) throw new Error(`--${key} is invalid for ${command}.`);
   }
-  const expected = ['search', 'backup', 'restore'].includes(command) ? 1 : 0;
+  const expected = ['search', 'backup', 'restore', 'discover', 'remember'].includes(command) ? 1 : 0;
   if (args.length !== expected || args.some((arg) => !arg.trim())) {
     throw new Error('Invalid arguments. Run with --help and quote search queries.');
   }
@@ -74,6 +80,26 @@ async function main() {
     if (command === 'backup') await copyPrivateIndex(privatePath, path);
     else await copyPrivateIndex(path, privatePath);
     console.log(command === 'backup' ? 'Private backup created.' : 'Private index restored.');
+    return;
+  }
+
+  if (command === 'discover') {
+    const provider = values.provider ?? 'github';
+    if (!providers.some((known) => known === provider)) throw new Error('Unknown discovery provider.');
+    showJson(await discover(args[0]!, provider as Provider));
+    return;
+  }
+  if (command === 'remember' || command === 'private-list') {
+    const db = openIndex(privatePath, 'private', command === 'remember');
+    try {
+      if (command === 'remember') {
+        const entry = await collectDiscovery(args[0]!, values.terms);
+        saveDiscovery(db, entry);
+        showJson({ url: entry.url, stage: entry.stage });
+      } else showJson(listDiscoveries(db));
+    } finally {
+      db.close();
+    }
     return;
   }
 

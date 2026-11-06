@@ -22,10 +22,10 @@ export async function rerankLocal<T extends { title: string; summary: string }>(
   const modelFactory = module.AutoModelForSequenceClassification as { from_pretrained: (id: string, options: object) => Promise<Model> };
   if (typeof tokenizerFactory?.from_pretrained !== 'function' ||
       typeof modelFactory?.from_pretrained !== 'function') throw new Error('Incompatible transformer package.');
-  const modelId = 'Xenova/ms-marco-MiniLM-L-6-v2';
+  const modelId = 'cross-encoder/ms-marco-MiniLM-L-6-v2';
   const local = { local_files_only: true };
   const tokenizer = await tokenizerFactory.from_pretrained(modelId, local);
-  const model = await modelFactory.from_pretrained(modelId, { ...local, dtype: 'q8' });
+  const model = await modelFactory.from_pretrained(modelId, { ...local, dtype: 'fp32' });
   try {
     const input = tokenizer(shortlist.map(() => query), {
       text_pair: shortlist.map((card) => `${card.title}. ${card.summary}`),
