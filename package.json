@@ -14,10 +14,12 @@
     "skill": "node dist/src/entry.js",
     "audit-seeds": "node dist/src/seed-audit.js",
     "benchmark": "node dist/src/benchmark.js",
-    "build-catalogue": "node dist/src/build-catalogue.js"
+    "build-catalogue": "node dist/src/build-catalogue.js",
+    "benchmark:heldout": "node dist/evaluation/benchmark.js"
   },
   "devDependencies": {
     "@types/node": "^24.10.0",
+    "js-tiktoken": "1.0.21",
     "typescript": "~5.9.3"
   },
   "bin": {

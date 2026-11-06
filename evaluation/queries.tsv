@@ -1,0 +1,30 @@
+How can a terminal tool accept verb-like subcommands and generate usage automatically?	python:argparse
+My asynchronous jobs need a deadline and some must be cancelled as a group.	python:asyncio-task
+We need exact currency rounding without binary floating-point errors.	python:decimal
+Which standard module verifies that a message came from a party with the same private signing key?	python:hmac
+Check whether an IPv6 host lies within a CIDR range.	python:ipaddress
+Limit the size of a log file and automatically keep older copies.	python:logging.handlers
+Read a pyproject-style settings file using the standard library.	python:tomllib
+Replace a dependency with a spy and assert that it was invoked.	python:unittest.mock
+Represent an ambiguous local time when the clocks fall back in Europe.	python:zoneinfo
+Shift a sampled waveform into frequency space to identify its dominant components.	numpy:routines.fft
+Solve simultaneous equations and get the eigenvalues of their coefficient matrix.	numpy:routines.linalg
+Combine a two-dimensional numerical matrix with a row of offsets without allocating a repeated copy.	numpy:arrays.broadcasting
+Compute which of two numerical arrays contain common distinct values.	numpy:routines.set
+Find median and percentile values along a particular axis.	numpy:routines.statistics
+How do I compare two arrays with small floating-point differences in a unit test?	numpy:testing
+Which vectorized operations can I use to extract parts of an array of text?	numpy:routines.strings
+Check if predicted event probabilities are actually aligned with observed frequencies.	sklearn:calibration
+Choose when a classifier says positive based on the cost of a false alarm.	sklearn:classification_threshold
+Compare a grid of estimator settings while keeping the validation folds fixed.	sklearn:grid_search	sklearn:cross_validation
+Use previous samples to fill feature gaps before fitting a machine learning estimator.	sklearn:impute
+Learn a lower dimensional linear representation of high-dimensional predictors.	sklearn:decomposition
+Find observations that look unlike the training data without needing labels.	sklearn:outlier_detection
+Measure how much prediction performance changes when one column is shuffled.	sklearn:permutation_importance
+Apply categorical encoding and fit a predictor without leaking preprocessing across folds.	sklearn:pipeline	sklearn:preprocessing
+Find documentation for joining trades to the most recent quote by timestamp.	pandas:merging
+Calculate a moving or exponentially weighted average of a price column.	pandas:window
+Convert dated records to weekly buckets and handle time zones.	pandas:timeseries
+Convert a wide table of monthly measures into one row per observation.	pandas:reshaping
+Import an Excel file or a Parquet table into a data frame.	pandas:io
+Calculate totals for each customer independently by splitting transactions on a key.	pandas:groupby

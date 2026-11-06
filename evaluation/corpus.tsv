@@ -1,0 +1,109 @@
+python	argparse	Command-line arguments	Parse subcommands and command line options with generated help.
+python	array	Typed arrays	Store compact homogeneous numeric values in a mutable sequence.
+python	ast	Abstract syntax trees	Parse and walk Python code as a syntax tree.
+python	asyncio	Async I/O	Coordinate coroutines and event loops for nonblocking work.
+python	asyncio-task	Tasks and cancellation	Schedule concurrent coroutines and handle timeouts or cancellation.
+python	base64	Binary-to-text encodings	Encode or decode bytes for transport in text.
+python	bisect	Binary insertion	Maintain order by finding insertion points in sorted lists.
+python	calendar	Calendar layouts	Build month tables and calendar displays.
+python	collections	Container types	Use deques, counters, defaults and named tuples.
+python	concurrent.futures	Future-based executors	Distribute work to threads or worker processes and collect results.
+python	configparser	INI configuration	Read named sections and key-value settings from INI files.
+python	contextlib	Context manager utilities	Compose resource cleanup and build context managers.
+python	contextvars	Context-local variables	Track independent state across asynchronous contexts.
+python	csv	Delimited text	Read and write comma separated tabular files and dialects.
+python	dataclasses	Data classes	Generate initialization and comparison methods from field declarations.
+python	datetime	Date and time values	Represent instants and time intervals with optional timezone information.
+python	decimal	Decimal arithmetic	Control precision and rounding for decimal quantities and money.
+python	enum	Enumerations	Declare named members with constant values.
+python	fractions	Rational arithmetic	Represent exact fractions without floating point approximations.
+python	functools	Higher-order functions	Cache call results, partially apply arguments and wrap functions.
+python	gzip	Gzip compression	Open and create gzip-compressed byte streams.
+python	hashlib	Cryptographic hashes	Calculate digests such as SHA-256 for bytes or files.
+python	heapq	Priority queues	Maintain a min heap and find the smallest elements.
+python	hmac	Keyed authentication codes	Verify message integrity with a shared secret and a hash function.
+python	http.client	HTTP client protocol	Make HTTP and HTTPS requests with a low-level connection API.
+python	ipaddress	IP address and network operations	Validate IPv4 and IPv6 addresses and calculate network containment.
+python	itertools	Iterator building blocks	Generate combinations and compose lazy iterator pipelines.
+python	json	JSON serialization	Convert Python objects to and from JSON data.
+python	logging.handlers	Log output handlers	Route log records to rotating files, queues or remote services.
+python	multiprocessing	Process-based parallelism	Run CPU-bound tasks in worker processes with interprocess communication.
+python	pathlib	Object-oriented filesystem paths	Construct paths, walk directories and read filesystem entries.
+python	re	Regular expressions	Match, extract and replace text patterns.
+python	secrets	Cryptographic randomness	Generate unpredictable tokens and choose secure random values.
+python	sqlite3	SQLite database access	Query an embedded SQL database from Python and manage transactions.
+python	statistics	Descriptive statistics	Calculate mean, median, variation and correlations for small data collections.
+python	subprocess	Child processes	Run external commands and capture output and return codes.
+python	tempfile	Temporary files and directories	Create and clean up private temporary filesystem objects.
+python	tomllib	TOML parsing	Read TOML configuration as Python dictionaries.
+python	unittest.mock	Test doubles	Replace call targets during tests and inspect recorded interactions.
+python	zoneinfo	IANA timezone data	Attach regional timezone rules and handle daylight saving transitions.
+numpy	arrays.broadcasting	Array broadcasting	Combine compatible shapes without explicitly copying a smaller array.	user/basics.broadcasting
+numpy	arrays.dtypes	Array data types	Represent numeric, text and structured element types.
+numpy	arrays.ndarray	Multidimensional arrays	Understand array dimensions, strides, attributes and methods.
+numpy	maskedarray	Masked arrays	Exclude invalid values while computing over numeric arrays.
+numpy	routines.array-creation	Array creation	Allocate and populate numeric arrays, ranges and matrices.
+numpy	routines.array-manipulation	Shape manipulation	Reshape, transpose, join and split multidimensional data.
+numpy	routines.bitwise	Bitwise array operations	Apply shifts and binary bit operations element by element.
+numpy	routines.datetime	Datetime array operations	Handle date units and calculate valid business days.
+numpy	routines.fft	Discrete Fourier transforms	Move sampled signals between time and frequency representations.
+numpy	routines.indexing	Array indexing	Select positions, slices and subsets using index arrays.
+numpy	routines.io	Numerical array I/O	Store arrays on disk and read delimited numeric data.
+numpy	routines.linalg	Linear algebra	Solve matrix systems and compute eigenvalues, decompositions and norms.
+numpy	routines.logic	Array comparisons	Test elementwise relationships and combine Boolean conditions.
+numpy	routines.math	Mathematical array functions	Apply logarithms, trigonometry and cumulative arithmetic to arrays.
+numpy	routines.polynomials	Polynomial operations	Represent and evaluate polynomial functions and coefficients.
+numpy	routines.set	Array set operations	Find distinct values and calculate intersections and differences.
+numpy	routines.sort	Sorting and partitioning	Rank arrays, find insertion indices and select partitions.
+numpy	routines.statistics	Numerical statistics	Calculate percentiles, dispersion and correlation across array axes.
+numpy	routines.strings	Vectorized string operations	Compare and transform arrays of strings.
+numpy	routines.window	Signal window functions	Generate tapering windows for sampled signals.
+numpy	testing	Array test helpers	Compare floating point arrays with tolerances in tests.
+numpy	ufuncs	Universal functions	Apply vectorized elementwise functions with broadcasting.
+sklearn	calibration	Probability calibration	Align classifier confidence estimates with observed event frequencies.
+sklearn	classification_threshold	Decision thresholds	Choose a classification cutoff independently of predicted probability.
+sklearn	clustering	Clustering	Group unlabelled observations using density or distance.
+sklearn	covariance	Covariance estimation	Estimate and regularize covariance matrices.
+sklearn	cross_validation	Cross-validation	Assess generalization with folds, groups and temporal splits.
+sklearn	decomposition	Component decomposition	Reduce feature dimensions with PCA and related transforms.
+sklearn	density	Density estimation	Estimate an underlying distribution from observations.
+sklearn	ensemble	Ensemble models	Combine estimators with random forests, bagging and gradient boosting.
+sklearn	feature_extraction	Feature extraction	Convert documents and dictionaries into numeric feature vectors.
+sklearn	feature_selection	Feature selection	Reduce the number of predictors using statistical tests or model weights.
+sklearn	gaussian_process	Gaussian processes	Use probabilistic kernel models for predictions and uncertainty.
+sklearn	grid_search	Hyperparameter search	Compare estimator settings with cross-validated grid or random search.
+sklearn	impute	Missing-value imputation	Replace missing features with simple or model-based estimates.
+sklearn	kernel_approximation	Kernel approximation	Approximate nonlinear kernels with explicit feature mappings.
+sklearn	learning_curve	Learning and validation curves	Inspect whether model error changes with training-set size.
+sklearn	linear_model	Linear models	Fit linear, logistic and regularized regression estimators.
+sklearn	manifold	Manifold learning	Project data into a lower-dimensional nonlinear representation.
+sklearn	mixture	Mixture models	Fit mixtures of probability distributions to unlabelled data.
+sklearn	model_evaluation	Model evaluation metrics	Score classifiers and regressors and choose evaluation functions.
+sklearn	multiclass	Multiclass and multioutput learning	Adapt estimators for several classes, labels or targets.
+sklearn	naive_bayes	Naive Bayes classifiers	Classify data from conditional feature distributions.
+sklearn	neighbors	Nearest-neighbour methods	Predict from distance-based neighbourhoods or search for nearby observations.
+sklearn	neural_networks_supervised	Supervised neural networks	Train multilayer perceptrons on labelled data.
+sklearn	outlier_detection	Outlier and novelty detection	Identify anomalous observations or data outside a fitted distribution.
+sklearn	partial_dependence	Partial dependence	Inspect changes in model predictions over a feature grid.
+sklearn	permutation_importance	Permutation importance	Estimate feature influence by shuffling input values and rescoring.
+sklearn	pipeline	Pipelines and composite estimators	Chain preprocessing and prediction and tune them together.
+sklearn	preprocessing	Feature preprocessing	Scale numeric columns and encode categorical values.
+sklearn	semi_supervised	Semi-supervised learning	Combine labelled and unlabelled examples during training.
+sklearn	svm	Support vector machines	Fit maximum-margin models for classification and regression.
+sklearn	tree	Decision trees	Fit rule-based classification or regression models.
+pandas	basics	Essential pandas operations	Inspect labels, align tabular objects and apply functions.
+pandas	categorical	Categorical data	Store repeated labels with fixed categories and ordering.
+pandas	cookbook	Data analysis recipes	Work through common patterns for manipulating labelled data.
+pandas	duplicates	Duplicate labels	Identify and handle repeated row or column names.
+pandas	groupby	Group by operations	Split records by keys, apply a function and combine results.
+pandas	indexing	Indexing and selecting data	Select rows by position, label or Boolean conditions.
+pandas	io	Data input and output	Read and write tabular formats such as CSV, Excel and Parquet.
+pandas	merging	Combining tabular data	Join tables by keys, concatenate them and align nearby timestamps.
+pandas	missing_data	Missing data	Detect null values and choose how to fill or drop them.
+pandas	reshaping	Reshaping tabular data	Pivot, melt, stack and unstack labelled data.
+pandas	scale	Scaling data analysis	Reduce memory use and process tables in manageable chunks.
+pandas	sparse	Sparse data structures	Store data dominated by a fill value efficiently.
+pandas	text	Working with text data	Apply string methods to a column of values.
+pandas	timeseries	Time series tools	Convert and resample timestamped observations with timezone support.
+pandas	timedeltas	Time deltas	Represent and calculate durations between tabular timestamps.
+pandas	window	Window operations	Compute rolling, expanding and exponentially weighted statistics.

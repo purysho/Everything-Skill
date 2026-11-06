@@ -1,0 +1,38 @@
+{
+  "python": {
+    "repo": "python/cpython",
+    "revision": "6cb20a219a860eaf687b2d968b41c480c7461909",
+    "tag": "v3.13.5",
+    "path": "Doc/library/",
+    "site": "https://docs.python.org/3.13/library/",
+    "licence": "PSF-2.0",
+    "notice": "Doc/license.rst"
+  },
+  "numpy": {
+    "repo": "numpy/numpy",
+    "revision": "2b686f659642080e2fc708719385de6e8be0955f",
+    "tag": "v2.2.6",
+    "path": "doc/source/reference/",
+    "site": "https://numpy.org/doc/2.2/reference/",
+    "licence": "BSD-3-Clause",
+    "notice": "LICENSE.txt"
+  },
+  "sklearn": {
+    "repo": "scikit-learn/scikit-learn",
+    "revision": "5194440b5d41e73ff436c45e35aa1476223f753c",
+    "tag": "1.7.0",
+    "path": "doc/modules/",
+    "site": "https://scikit-learn.org/1.7/modules/",
+    "licence": "BSD-3-Clause",
+    "notice": "COPYING"
+  },
+  "pandas": {
+    "repo": "pandas-dev/pandas",
+    "revision": "0691c5cf90477d3503834d983f69350f250a6ff7",
+    "tag": "v2.2.3",
+    "path": "doc/source/user_guide/",
+    "site": "https://pandas.pydata.org/pandas-docs/version/2.2/user_guide/",
+    "licence": "BSD-3-Clause",
+    "notice": "LICENSE"
+  }
+}
