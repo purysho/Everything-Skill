@@ -34,7 +34,11 @@ export function inspectSurface(content: string) {
 }
 
 export async function assessGitHub(input: string, read: ReadJson = readJson): Promise<Assessment> {
-  const repo = await inspectGitHub(input, read);
+  return assessGitHubRevision(await inspectGitHub(input, read), read);
+}
+
+export async function assessGitHubRevision(repo: Awaited<ReturnType<typeof inspectGitHub>>,
+    read: ReadJson = readJson): Promise<Assessment> {
   const result: Assessment = { url: repo.url, sourceId: repo.sourceId, revision: repo.version,
     level: 'metadata-only', flags: [], licence: repo.licenceId };
   if (repo.archived || !repo.licenceId) {

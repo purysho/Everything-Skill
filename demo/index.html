@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; form-action 'none'">
+  <title>Everything Skill · Browse the catalogue</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">EVERYTHING SKILL · PUBLIC CATALOGUE</p>
+      <h1>Find a starting point.</h1>
+      <p>Browse curated resources for research, coding, healthcare and MCP. Each entry links to the exact version reviewed.</p>
+    </header>
+    <section aria-labelledby="browse">
+      <h2 id="browse">Browse resources</h2>
+      <div class="controls">
+        <label>Search the catalogue <input type="search" id="query" placeholder="Try healthcare or retrieval" maxlength="100"></label>
+        <label>Topic <select id="topic"><option value="">All topics</option></select></label>
+      </div>
+      <p id="status" role="status" aria-live="polite">Loading the public catalogue…</p>
+      <ul id="results"></ul>
+    </section>
+    <footer>
+      <p>This demo filters a static snapshot in your browser. Conditional entries have metadata and licence evidence. Runtime security requires a separate review.</p>
+      <p><a href="https://github.com/purysho/Everything-Skill">Install the skill</a> · <a href="https://github.com/purysho/Everything-Skill/blob/main/LICENSE">Project licence</a></p>
+    </footer>
+  </main>
+</body>
+</html>

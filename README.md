@@ -1,43 +1,69 @@
 # Everything Skill
 
-Find relevant public resources and inspect the evidence behind each recommendation. The Phase 1 preview searches a small local starter catalogue.
+Find public resources and see the evidence behind each recommendation. Start with a local catalogue of curated research, coding, healthcare and MCP resources. Use live discovery separately when you need a wider search.
 
 ## Try it
 
 1. Install [Node.js 24 LTS](https://nodejs.org/en/download), version 24.14 or later in the 24 series. It includes npm.
-2. On the [GitHub repository](https://github.com/purysho/Everything-Skill), choose **Code → Download ZIP** once the files are available. Unzip it and open a terminal in the extracted folder.
+2. On [GitHub](https://github.com/purysho/Everything-Skill), choose **Code → Download ZIP**. Unzip it and open a terminal in the extracted folder.
 3. Run these commands.
 
 ```sh
-npm ci
+npm ci --ignore-scripts
 npm run build
 npm run skill -- init
 npm run skill -- search "retrieval catalogue"
 ```
 
-The starter index contains four pinned repository records. Two are searchable as **Conditional** because they have metadata and licence evidence. An `mcp` search counts the two link-only records with unresolved licences. The output includes provenance and verification dates. Treat the recommendations as leads for further review.
+The default search is offline. Each card includes an evidence link, licence, review date and suitability label. All displayed starter entries are capped at **Conditional** because their review covers metadata. Licence-unclear and blocked records are excluded from normal results. This release does not establish runtime safety for listed projects.
 
-## Commands
+## Use it with an AI host
+
+- **Codex** · Keep the full checkout as `.agents/skills/everything-skill` in a project, or copy it to `~/.agents/skills/everything-skill` for your account. Build and initialise it from that directory. In Codex, invoke `$everything-skill` or ask for a licence-aware resource shortlist.
+- **Claude Code** · Use `.claude/skills/everything-skill` in a project or `~/.claude/skills/everything-skill` for your account. Build and initialise from the skill directory, then use `/everything-skill` with your question.
+- **ChatGPT** · Where your account offers a Skills upload and local execution, package the full skill directory with `SKILL.md` at its root. In a workspace with shell access, follow the terminal setup above. For a chat without shell access, attach the [JSON](exports/catalogue.json) or [Markdown](exports/CATALOGUE.md) catalogue as a static reference.
+
+Keep `SKILL.md`, the npm project, and the bundled catalogue together. Directory paths are relative to the checkout where you run the commands.
+
+## Search, discover and review
 
 | To | Run |
 | --- | --- |
-| See all options | `npm run skill -- --help` |
-| Initialise empty stores | `npm run skill -- init --empty --data-dir "my-local-index"` |
-| Filter results | `npm run skill -- search "retrieval" --kind repository --category software` |
-| Read machine-friendly results | `npm run skill -- search "retrieval" --json` |
-| Export the eligible catalogue | `npm run skill -- export --json` or `npm run skill -- export` for Markdown |
-| Back up private data to a new file | `npm run skill -- backup "/path/to/new-backup.sqlite"` |
-| Restore into an existing empty folder | `npm run skill -- restore "/path/to/backup.sqlite" --data-dir "/path/to/empty-folder"` |
-| Run checks | `npm run lint` and `npm test` |
+| Search the local catalogue | `npm run skill -- search "fhir" --limit 5` |
+| Get JSON or choose a retrieval mode | `npm run skill -- search "retrieval" --mode routed --json` |
+| Explicitly send a public query to a provider | `npm run skill -- discover "fhir parser rust" --provider github` |
+| Find MCP leads or encyclopaedic web references | Use `--provider mcp` or `--provider web` with `discover`. The web provider is MediaWiki. |
+| Save metadata and stage relevant documentation | `npm run skill -- remember "https://github.com/expressjs/express" --terms "installation features"` |
+| Read private discoveries | `npm run skill -- private-list` |
+| Recheck a shortlist and append private reports | `npm run skill -- search "retrieval" --verify` |
+| Inspect one public source | `npm run skill -- scan "https://github.com/expressjs/express"`, then `npm run skill -- reports` |
+| Suggest a source locally | `npm run skill -- suggest "https://github.com/owner/repo"`, then `npm run skill -- suggestions` |
+| Add a scoped deny rule | `npm run skill -- preference "https://github.com/owner/repo" --decision deny --scope project --context example`. Use `--project example` on search. |
+| Generate a private synthetic MCP preview | `npm run skill -- generate-adapter openapi`. Other templates are `url-to-markdown`, `browser-workflow` and `recorded-session`. |
 
-Use paths appropriate to your OS. Search and export read only `public.sqlite`. Both indexes live in `~/.everything-skill` by default. Keep the directory and private backups on a user-owned local filesystem supporting hard links. Restore preserves existing files and requires a destination without `private.sqlite`. Initialise the destination afterwards to create a separate public store if desired. An existing public store keeps its original seed selection on repeat initialisation.
+Scoped allow rules need `--acknowledge`. They can reverse a broader deny, while hard security blocks and licence restrictions still apply. Suggestions enter a private queue. Public inclusion requires a reviewed change to the source catalogue by a maintainer.
 
-## Scope
+## Update, back up and roll back
 
-The CLI works offline after dependencies are installed. Search uses FTS5 and metadata filters. It reports excluded matches without projecting their titles, links or payloads. The preview does metadata review. Security scanning, live discovery, hybrid ranking, demo deployment, and user-selected public index updates are later phases.
+Your data defaults to `~/.everything-skill`. Set `--data-dir` to use another user-owned local directory with hard-link support. Public snapshots and the private database are stored separately.
 
-[Host instructions](SKILL.md) · [Security](SECURITY.md) · [Build plan](BUILD_PLAN.md) · [Work log](WORK_LOG.md)
+| To | Run |
+| --- | --- |
+| See the selected catalogue | `npm run skill -- catalogue-status` |
+| Choose the immutable snapshot bundled with this checkout | `npm run skill -- update` |
+| Switch back to your previous selection | `npm run skill -- rollback` |
+| Save a private backup to a new path | `npm run skill -- backup "/path/to/new-backup.sqlite"` |
+| Restore private data into an existing empty folder | `npm run skill -- restore "/path/to/backup.sqlite" --data-dir "/path/to/empty-folder"` |
+| Export the eligible catalogue | `npm run skill -- export` or `npm run skill -- export --json` |
 
-## Licence
+An update or rollback verifies the target, backs up private data and then switches the public selection. Keep your backups private. If a process stops mid-update, check that no update is running before removing a leftover `.catalogue-lock` folder and retrying.
+
+## Demo and model options
+
+The [static demo](demo/README.md) filters the public snapshot in your browser. Its weekly workflow checks evidence and flags changes for maintainer review.
+
+The default retrieval uses local lexical and hashed-vector search. For optional local reranking, install the reviewed Transformers.js dependency separately. Provision the [upstream cross-encoder](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) at a trusted pinned revision under `<models>/cross-encoder/ms-marco-MiniLM-L-6-v2`, including the tokenizer, config and `onnx/model.onnx`. Then run `npm run skill -- search "your query" --local-models "<models>"`. The CLI disables remote model fetching for this command.
+
+[Security](SECURITY.md) · [Build plan](BUILD_PLAN.md) · [Work log](WORK_LOG.md)
 
 Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE). Commercial use requires a separate licence. Keep the [required notice](NOTICE) with distributions.

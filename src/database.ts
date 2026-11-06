@@ -174,7 +174,7 @@ export function checkIntegrity(db: DatabaseSync) {
   }
 }
 
-async function stageFile(path: string, create: (tempPath: string) => void | Promise<void>) {
+export async function stageFile(path: string, create: (tempPath: string) => void | Promise<void>) {
   const tempDir = mkdtempSync(join(dirname(path), '.everything-stage-'));
   try {
     const temporary = join(tempDir, 'index.sqlite');

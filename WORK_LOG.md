@@ -122,3 +122,15 @@ Implemented URL-to-Markdown, OpenAPI, browser workflow and recorded-session synt
 ### Phase 7 plan
 
 Ship an immutable checksum-verified SQLite snapshot and matching JSON/Markdown exports. Explicit selection backs up private data and records prior catalogue selection. Add a static Pages-compatible demo and a weekly evidence and safety review workflow. The demo uses pinned links and stays offline after the static files are loaded.
+
+### Phase 7 · Release selection and demo
+
+Built the immutable 2026-11-06.1 SQLite snapshot and checked its reproducibility. Added equivalent JSON and Markdown exports, explicit selection and rollback, and private snapshots before a selection change. A tampered active snapshot failed validation and rolled back to the old public file without modifying private bytes. Nineteen tests passed. A browser DOM smoke test checked five entries, query filtering, pinned links and hostile-looking input. The GitHub Pages-compatible demo is in `demo/`; hosting is a separate repository setting.
+
+The weekly audit is configured to check identity, revision, archive, licence and bounded safety signals. The first local live attempt flagged a newer link-only registry revision and two unavailable sources. Reduced redundant requests by passing existing pinned evidence into the scanner. The workflow leaves changed resources for maintainer review rather than replacing them without approval. Code Review Brains timed out on both Phase 7 calls. The local review covered snapshot immutability, failed update recovery and DOM projection.
+
+The published Phase 6 checkpoint passed Linux and Windows and caught a macOS synthetic-runner failure. The next commit resolves the adapter's real path before granting Node file permission. The hosted matrix will confirm the correction. The optional Apache-2.0 upstream ONNX cross-encoder ran locally with Transformers.js 4.3.2. No weights or optional dependency were committed.
+
+### Phase 8 plan
+
+Check the clean package contents, canonical Node runtime and cross-platform workflow. Probe the same compiled CLI under Bun and Deno, limit alternatives to verified read-only commands, and give a clear Node fallback for missing SQLite or unsafe operations. Run the final review against outstanding acceptance criteria.

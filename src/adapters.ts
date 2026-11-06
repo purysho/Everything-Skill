@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, realpathSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { object } from './http.js';
 
@@ -106,7 +106,8 @@ function contractTest(file: string, kind: AdapterKind) {
   ];
   const input = requests.map((request) => JSON.stringify({ jsonrpc: '2.0', ...request })).join('\n') + '\n';
   const systemRoot = process.env.SystemRoot;
-  const processResult = spawnSync(process.execPath, ['--permission', `--allow-fs-read=${file}`, file], {
+  const resolved = realpathSync(file);
+  const processResult = spawnSync(process.execPath, ['--permission', `--allow-fs-read=${resolved}`, resolved], {
     encoding: 'utf8', input, timeout: 5000, maxBuffer: 100_000, windowsHide: true,
     env: systemRoot ? { SystemRoot: systemRoot } : {},
   });

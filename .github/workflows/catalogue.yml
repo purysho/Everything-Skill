@@ -1,0 +1,24 @@
+name: Weekly catalogue evidence
+on:
+  schedule:
+    - cron: '23 4 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: node dist/src/seed-audit.js --scan > catalogue-audit.json
+      - if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: catalogue-audit
+          path: catalogue-audit.json

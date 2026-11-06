@@ -1,0 +1,72 @@
+{
+  "version": "2026-11-06.1",
+  "sha256": "0df52d34b40f747bdbfe33066b65b71ee18b2f61695d2a7d96802379b4ea2f2c",
+  "results": [
+    {
+      "sourceId": "github:1136590548",
+      "kind": "repository",
+      "category": "software",
+      "title": "ECC",
+      "url": "https://github.com/affaan-m/ecc",
+      "summary": "A collection of coding-agent configurations, skills and workflow tools.",
+      "version": "b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://github.com/affaan-m/ECC/tree/b38be6a7f6350964d59328b52f0624e1d1d552d1",
+      "licence": "MIT",
+      "licenceUrl": "https://github.com/affaan-m/ECC/blob/b38be6a7f6350964d59328b52f0624e1d1d552d1/LICENSE"
+    },
+    {
+      "sourceId": "github:785751279",
+      "kind": "repository",
+      "category": "software",
+      "title": "Awesome-RAG",
+      "url": "https://github.com/danielskry/awesome-rag",
+      "summary": "A catalogue for exploring retrieval-augmented generation research and implementations.",
+      "version": "f0bfc846820b7b130d08520c3c30f474cf9bc4a7",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://github.com/Danielskry/Awesome-RAG/tree/f0bfc846820b7b130d08520c3c30f474cf9bc4a7",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://github.com/Danielskry/Awesome-RAG/blob/f0bfc846820b7b130d08520c3c30f474cf9bc4a7/LICENSE"
+    },
+    {
+      "sourceId": "github:52342167",
+      "kind": "repository",
+      "category": "healthcare",
+      "title": "Awesome Healthcare",
+      "url": "https://github.com/kakoni/awesome-healthcare",
+      "summary": "A directory of healthcare software and libraries including interoperability and clinical systems.",
+      "version": "b596c3f3adadbb4442226a51a3044aaa1d61b693",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://github.com/kakoni/awesome-healthcare/tree/b596c3f3adadbb4442226a51a3044aaa1d61b693",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://github.com/kakoni/awesome-healthcare/blob/b596c3f3adadbb4442226a51a3044aaa1d61b693/LICENSE"
+    },
+    {
+      "sourceId": "github:1254642429",
+      "kind": "repository",
+      "category": "mcp",
+      "title": "Awesome MCP Servers by mcpHQ",
+      "url": "https://github.com/mcphq/awesome-mcp-servers",
+      "summary": "A curated directory for researching MCP servers by capability and topic.",
+      "version": "17726b458de3694b438910efce555e4fed755968",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://github.com/mcpHQ/awesome-mcp-servers/tree/17726b458de3694b438910efce555e4fed755968",
+      "licence": "MIT",
+      "licenceUrl": "https://github.com/mcpHQ/awesome-mcp-servers/blob/17726b458de3694b438910efce555e4fed755968/LICENSE"
+    },
+    {
+      "sourceId": "github:21737465",
+      "kind": "repository",
+      "category": "software",
+      "title": "Awesome",
+      "url": "https://github.com/sindresorhus/awesome",
+      "summary": "A directory of community-maintained resource lists across technical and general topics.",
+      "version": "bc98e517ddca672f55f9857d714fc3ea3c3540b2",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://github.com/sindresorhus/awesome/tree/bc98e517ddca672f55f9857d714fc3ea3c3540b2",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://github.com/sindresorhus/awesome/blob/bc98e517ddca672f55f9857d714fc3ea3c3540b2/license"
+    }
+  ],
+  "excluded": 2
+}

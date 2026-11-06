@@ -11,10 +11,15 @@ import { collectDiscovery, discover, listDiscoveries, providers, saveDiscovery, 
 
 import { assessResource, blocked, cachedEligible, listSuggestions, preferenceFor, readReports, recordAssessment, scopes, setPreference, suggest, verifyCandidate, type Scope } from './governance.js';
 
+import { selectCatalogue, selectedPublicPath, selection } from './releases.js';
+
 const help = `Everything Skill · Phase 1
 npm run skill -- init [--empty]
 npm run skill -- search "your terms" [--kind repository] [--category software] [--limit 5] [--mode routed] [--json]
 npm run skill -- export [--json]
+npm run skill -- catalogue-status
+npm run skill -- update [version]
+npm run skill -- rollback [version]
 npm run skill -- backup <new-file>
 npm run skill -- restore <backup-file>
 npm run skill -- discover "<public query>" [--provider github|mcp|web]
@@ -82,7 +87,7 @@ async function main() {
   }
   const accepted = {
     init: ['empty'], search: ['kind', 'category', 'limit', 'json', 'mode', 'thresholds', 'local-models', 'verify', 'topic', 'project', 'session'], export: ['json'],
-    backup: [], restore: [], discover: ['provider'], remember: ['terms'], 'private-list': [], 'generate-adapter': [], scan: [], reports: [], suggest: [], suggestions: [],
+    'catalogue-status': [], update: [], rollback: [], backup: [], restore: [], discover: ['provider'], remember: ['terms'], 'private-list': [], 'generate-adapter': [], scan: [], reports: [], suggest: [], suggestions: [],
     preference: ['decision', 'scope', 'context', 'acknowledge'],
   };
   if (!Object.hasOwn(accepted, command)) throw new Error('Unknown command. Run with --help.');
@@ -91,11 +96,11 @@ async function main() {
     if (key !== 'data-dir' && !allowed.includes(key)) throw new Error(`--${key} is invalid for ${command}.`);
   }
   const expected = ['search', 'backup', 'restore', 'discover', 'remember', 'scan', 'suggest', 'preference', 'generate-adapter'].includes(command) ? 1 : 0;
-  if (args.length !== expected || args.some((arg) => !arg.trim())) {
+  const optionalVersion = command === 'update' || command === 'rollback';
+  if ((optionalVersion ? args.length > 1 : args.length !== expected) || args.some((arg) => !arg.trim())) {
     throw new Error('Invalid arguments. Run with --help and quote search queries.');
   }
   const directory = resolve(values['data-dir'] ?? join(homedir(), '.everything-skill'));
-  const publicPath = join(directory, 'public.sqlite');
   const privatePath = join(directory, 'private.sqlite');
   if (command === 'init') {
     await initialize(directory, (db) => seedCatalog(db, values.empty ? [] : starterResources));
@@ -167,7 +172,12 @@ async function main() {
     return;
   }
 
-  const db = openIndex(publicPath, 'public');
+  if (command === 'catalogue-status') { showJson(selection(directory)); return; }
+  if (command === 'update' || command === 'rollback') {
+    showJson(await selectCatalogue(directory, command, args[0]));
+    return;
+  }
+  const db = openIndex(selectedPublicPath(directory), 'public');
   try {
     if (command === 'search') {
       const { kind, category, limit } = values;

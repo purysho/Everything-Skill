@@ -11,3 +11,5 @@ secrets/
 *.sqlite-shm
 *.sqlite-wal
 .everything-skill/
+!database/releases/*/index.sqlite
+database/releases/*/.build-*/

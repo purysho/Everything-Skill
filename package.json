@@ -13,7 +13,8 @@
     "test": "npm run build && node --test dist/tests/*.test.js",
     "skill": "node dist/src/cli.js",
     "audit-seeds": "node dist/src/seed-audit.js",
-    "benchmark": "node dist/src/benchmark.js"
+    "benchmark": "node dist/src/benchmark.js",
+    "build-catalogue": "node dist/src/build-catalogue.js"
   },
   "devDependencies": {
     "@types/node": "^24.10.0",
