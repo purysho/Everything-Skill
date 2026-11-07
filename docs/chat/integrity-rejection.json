@@ -1,0 +1,134 @@
+{
+  "started": "2026-11-07T11:31:14.350Z",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "cpuCount": 9,
+  "hostMemoryBytes": 10451427328,
+  "transport": "locally served pinned bytes; public CORS not tested",
+  "launch": "single-process constrained-runner mode",
+  "workerSha256": "c9b908565e826a8c1eced894ce788d30638c9332a6ea840177955b099314b7aa",
+  "fixturesSha256": "3c204709a4e8f4af45adf5b6afd738f5e152bc6405bb2c405beae328e5fd873e",
+  "events": [
+    {
+      "id": 1,
+      "type": "error",
+      "message": "Failed to fetch",
+      "at": 101.20000000018626
+    }
+  ],
+  "errors": [],
+  "transfers": [
+    {
+      "path": "/gate.html",
+      "bytesServed": 212
+    },
+    {
+      "path": "/worker.js",
+      "bytesServed": 555062
+    },
+    {
+      "path": "/model/config.json",
+      "bytesServed": 0
+    },
+    {
+      "path": "/model/tokenizer.json",
+      "bytesServed": 7798784
+    },
+    {
+      "path": "/model/tokenizer_config.json",
+      "bytesServed": 5404
+    }
+  ],
+  "cases": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:40693/gate.html",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36",
+        "sec-ch-ua": "\"HeadlessChrome\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      }
+    },
+    {
+      "url": "http://127.0.0.1:40693/worker.js",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "referer": "http://127.0.0.1:40693/gate.html"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:40693",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/tokenizer.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:40693",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/tokenizer_config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:40693",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:40693/model/config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:40693/model/tokenizer.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:40693/model/tokenizer_config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    }
+  ],
+  "browser": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36",
+    "deviceMemory": 8,
+    "hardwareConcurrency": 9
+  },
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: [{\"id\":1,\"type\":\"error\",\"message\":\"Failed to fetch\",\"at\":101.20000000018626}]",
+  "review": "Expected negative test: native browser SRI rejected deliberately corrupted config before model admission."
+}

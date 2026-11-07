@@ -1,0 +1,254 @@
+{
+  "started": "2026-11-07T11:28:39.031Z",
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "cpuCount": 9,
+  "hostMemoryBytes": 10451427328,
+  "transport": "locally served pinned bytes; public CORS not tested",
+  "launch": "single-process constrained-runner mode",
+  "workerSha256": "c9b908565e826a8c1eced894ce788d30638c9332a6ea840177955b099314b7aa",
+  "fixturesSha256": "3c204709a4e8f4af45adf5b6afd738f5e152bc6405bb2c405beae328e5fd873e",
+  "events": [
+    {
+      "id": 1,
+      "type": "ready",
+      "elapsedMs": 10972.399999999441,
+      "at": 11049.300000000745
+    }
+  ],
+  "errors": [],
+  "transfers": [
+    {
+      "path": "/gate.html",
+      "bytesServed": 212
+    },
+    {
+      "path": "/worker.js",
+      "bytesServed": 555062
+    },
+    {
+      "path": "/model/config.json",
+      "bytesServed": 1359
+    },
+    {
+      "path": "/model/tokenizer.json",
+      "bytesServed": 11422654
+    },
+    {
+      "path": "/model/tokenizer_config.json",
+      "bytesServed": 5404
+    },
+    {
+      "path": "/model/onnx/model_q4.onnx",
+      "bytesServed": 996522744
+    },
+    {
+      "path": "/model/generation_config.json",
+      "bytesServed": 214
+    },
+    {
+      "path": "/runtime/ort-wasm-simd-threaded.jsep.mjs",
+      "bytesServed": 46851
+    },
+    {
+      "path": "/runtime/ort-wasm-simd-threaded.jsep.wasm",
+      "bytesServed": 28352885
+    },
+    {
+      "path": "/model/chat_template.jinja",
+      "bytesServed": 3645
+    }
+  ],
+  "cases": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:45307/gate.html",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "upgrade-insecure-requests": "1",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36",
+        "sec-ch-ua": "\"HeadlessChrome\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Linux\""
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/worker.js",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "referer": "http://127.0.0.1:45307/gate.html"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:45307",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/tokenizer.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:45307",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/tokenizer_config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:45307",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/model/config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/model/tokenizer.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/model/tokenizer_config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/onnx/model_q4.onnx",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:45307",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/generation_config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:45307",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/model/onnx/model_q4.onnx",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/model/generation_config.json",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/runtime/ort-wasm-simd-threaded.jsep.mjs",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:45307",
+        "referer": "http://127.0.0.1:45307/worker.js",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/runtime/ort-wasm-simd-threaded.jsep.wasm",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "referer": "http://127.0.0.1:45307/worker.js",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "https://huggingface.co/onnx-community/Qwen3-0.6B-Instruct-ONNX/resolve/54250909aca286a05b9d013c8af7a21859ee6ead/chat_template.jinja",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "http://127.0.0.1:45307",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:45307/model/chat_template.jinja",
+      "method": "GET",
+      "body": null,
+      "headers": {
+        "accept": "*/*",
+        "origin": "null",
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36"
+      }
+    }
+  ],
+  "browser": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36",
+    "deviceMemory": 8,
+    "hardwareConcurrency": 9
+  },
+  "fixtures": [],
+  "sentinelExercised": true,
+  "overBudget": {
+    "id": 100001,
+    "type": "error",
+    "message": "The conversation exceeds the input token budget.",
+    "at": 11140
+  },
+  "cancellation": {
+    "elapsedMs": 500.40000000037253,
+    "lateEvents": 0
+  },
+  "storage": {
+    "local": 0,
+    "session": 0,
+    "caches": [],
+    "databases": []
+  },
+  "sentinelNetworkCheck": "exercised",
+  "serverBytesServed": 1036911030,
+  "status": "inference completed; quality and physical-device admission require review",
+  "review": "Load, budget, cancellation and no-generation-network probes passed. No completed answer was evaluated in this run."
+}

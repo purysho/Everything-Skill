@@ -17,13 +17,13 @@ The real model loaded and generated three public-fixture answers in Chromium 141
 
 Locally served pinned model bytes loaded in 11.74 seconds. First visible text arrived in 15.96–17.80 seconds. Completed 15–34-token answers took 44.15–84.64 seconds. One separate process observation was around 3.1 GB RSS. This is not a measured portable memory peak or a cold public-download timing.
 
-Two English pilot responses omitted required source markers. The Chinese answer included a whitespace-padded marker. The three answers stayed within the reviewed metadata scope. The model was not admitted. The revised explicit citation prompt is being evaluated against the same twenty frozen task questions across five fields. This remains development evaluation, not an independent held-out quality benchmark.
+Two English pilot responses omitted required source markers. The Chinese answer included a whitespace-padded marker. The three answers stayed within the reviewed metadata scope. The model was not admitted. The revised explicit citation prompt completed the twenty frozen task questions across five fields. Manual review passed 11 and failed nine. Failures include unsupported citations with no source, vague limitation responses and misreading dataset units/publication languages. See evaluation-v1.json. This prompt-tuned development evaluation is not an independent held-out benchmark.
 
 The pilot found no browser storage entries after those three tasks. The private-sentinel question was not run. The initial trace also omitted same-origin request bodies. This observation cannot establish the full privacy acceptance criterion.
 
 ## Review corrections
 
-The fresh source reviewer found three material verification defects. The runtime's metadata Range probes had been converted into full weight fetches, downloading weights twice. The new manifest-backed metadata response avoids that transfer and keeps actual payload SRI enabled. The five-minute load wait used the wrong Playwright argument position; its options are now in the third argument. Request tracing now includes same-origin bodies, with a real-browser regression that detects a synthetic sentinel POST. The next inference run must measure the corrected transport rather than reuse the old load figure.
+The fresh source reviewer found three material verification defects. The runtime's metadata Range probes had been converted into full weight fetches, downloading weights twice. The new manifest-backed metadata response avoids that transfer and keeps actual payload SRI enabled. The five-minute load wait used the wrong Playwright argument position; its options are now in the third argument. Request tracing now includes same-origin bodies, with a real-browser regression that detects a synthetic sentinel POST. A separate corrected-loader run served 1,036,911,030 bytes with one weight transfer and loaded in 10.97 seconds. It rejected an over-budget Chinese question, terminated an active generation with no late events, and left browser storage empty. The sentinel cancellation probe emitted no network traffic. A deliberately corrupted config was rejected by native browser SRI. Exact reports are transport-fixed.json and integrity-rejection.json. These worker probes do not certify the not-yet-built application.
 
 The initial quality report and exact pilot input messages are retained in pilot-v1.json, with its known measurement defects. Subsequent reports record the built worker hash and exact input fixture hash/content. Model loading also explicitly pins registry preflights to the approved revision and loads the separately stored chat template.
 
@@ -48,8 +48,8 @@ No model files, browser executables or generated runtime bundles are checked int
 
 ## Outstanding admission checks
 
-- Complete and review all twenty answers, including citations, permission denial and the sentinel task. Record failures honestly.
-- Corrected-transfer inference smoke check, full-body/hash rejection, cancellation and sampled memory measurements.
+- Replace the failed default candidate; the next bounded comparison is the rights-declared Qwen3.5-0.8B ONNX text-only profile. Do not admit on documentation alone.
+- Sampled memory measurements and a complete answer smoke check on the corrected transport/model combination.
 - Public HTTPS/CORS download and CSP test with the actual pinned assets, without the local redirect.
 - Genuine GPU/device measurements, mobile and low-memory behavior. A missing adapter is not a GPU test.
 - Full context-budget and follow-up behavior through the shared conversation core.

@@ -38,10 +38,10 @@
 
 **Interfaces:** `ModelProfile` defines exact model ID, revision, dtype/backend, assets with SHA-256/size, licence evidence and admission status. `assertProfile(profile)` rejects unknown rights, unpinned files and downloads exceeding 1 GiB. Worker requests use `{id, type: 'load'|'generate', ...}` and events use `{id, type: 'progress'|'ready'|'token'|'done'|'error', ...}`. Cancellation terminates the dedicated worker. Later stages consume the admitted profile and protocol only.
 
-- [ ] Write tests showing an unclear licence, mutable revision and oversized asset cannot be loaded. Run them and observe the rejection gap.
-- [ ] Implement the minimal profile validator, pin exact runtime/model assets and preserve actual upstream licence notices.
+- [x] Write tests showing an unclear licence, mutable revision and oversized asset cannot be loaded. Run them and observe the rejection gap.
+- [x] Implement the minimal profile validator, pin exact runtime/model assets and preserve actual upstream licence notices.
 - [ ] Build a standalone worker harness. Load the real model in Chromium with CPU/WASM and a genuine GPU if available. Count actual tokenizer input, stream plain text and record cancellation.
-- [ ] Freeze 20 evidence tasks covering five fields, English/Chinese, follow-ups, insufficient evidence, direct/adjacent evidence, injection and citation mismatch. Record observed answers and individual outcomes rather than infer quality from a successful load.
+- [x] Freeze 20 evidence tasks covering five fields, English/Chinese, follow-ups, insufficient evidence, direct/adjacent evidence, injection and citation mismatch. Record observed answers and individual outcomes rather than infer quality from a successful load.
 - [ ] Record download bytes, hashes, peak available memory metrics, load latency, first token and output throughput. Distinguish a headless/software GPU from physical hardware. Trace requests/storage with a sentinel chat value.
 - [ ] Run `npm run lint` and `npm test`. Request Code Review Brains. Commit the measured gate and work log. If a required reference device or model is unavailable, record the blocked acceptance criterion and do not advertise the model as supported or change the public demo to unverified AI.
 
@@ -51,10 +51,10 @@
 
 **Interfaces:** `searchChat(catalogue, query, preferences): EvidenceCard[]`; `prepareChat(messages, evidence, countTokens): ChatMessage[]`; `validateCitations(text, evidence): {valid: boolean, cited: string[]}`. Evidence IDs are fixed short identifiers mapped to reviewed cards. Preferences use multilingual, query-first or query-only modes with an explicit query language.
 
-- [ ] Write and run failing behavioral tests for ineligible source exclusion, direct-match ordering, language modes, follow-up subject retention and citation mismatch.
-- [ ] Implement browser-safe shared retrieval and prompt construction. Use recent user turns for the subject; do not elevate generated history into trusted evidence.
-- [ ] Write and run failing tests for source instruction injection, long Chinese input and oversized current messages. Implement tokenizer-counted trimming, explicit refusal when the current turn cannot fit, 100-message/2 MiB session limits and metadata-only evidence instructions.
-- [ ] Run focused tests and the existing suite, request Code Review Brains, update the log and commit.
+- [x] Write and run failing behavioral tests for ineligible source exclusion, direct-match ordering, language modes, follow-up subject retention and citation mismatch.
+- [x] Implement browser-safe shared retrieval and prompt construction. Use recent user turns for the subject; do not elevate generated history into trusted evidence.
+- [x] Write and run failing tests for source instruction injection, long Chinese input and oversized current messages. Implement tokenizer-counted trimming, explicit refusal when the current turn cannot fit, 100-message/2 MiB session limits and metadata-only evidence instructions.
+- [x] Run focused tests and the existing suite, request Code Review Brains, update the log and commit.
 
 ### Task 3: Conversational public demo
 
@@ -80,3 +80,7 @@
 ## Execution and review
 
 The maintainer approved the design and implementation. Proceed inline on the clean feature branch, using tests before behavior changes and no extra routine permission checkpoint. The first stage is a feasibility gate; later stages cannot claim completion if it fails. The desktop plan is intentionally separate because packaging/storage are independent of proving browser inference. Catalogue expansion toward thousands of eligible sources remains outstanding.
+
+## Checkpoint status
+
+The first real candidate completed twenty development tasks and failed admission (11 passed, nine failed). CPU transport/limit/cancellation/SRI checks passed separately; GPU and public CORS remain unverified. The shared core passed 48 tests after source-review fixes. Task 1 is not admitted/completed overall, and Task 3/public chat has not started. A second licensed small candidate is being measured before changing the demo.

@@ -19,6 +19,7 @@ const server = createServer((request, response) => {
   const path = resolve(base, '.' + url.pathname.replace(/^\/model\//, '/'));
   if (!path.startsWith(base + sep) || !existsSync(path) || !statSync(path).isFile()) { response.writeHead(404).end(); return; }
   const type = path.endsWith('.js') || path.endsWith('.mjs') ? 'text/javascript' : path.endsWith('.wasm') ? 'application/wasm' : path.endsWith('.html') ? 'text/html' : 'application/json';
+  if (process.env.EVERYTHING_GATE_CORRUPT_CONFIG === '1' && url.pathname === '/model/config.json') { response.writeHead(200, { 'Access-Control-Allow-Origin': '*' }).end('{\"corrupted\":true}'); return; }
   response.writeHead(200, { 'Content-Type': type, 'Content-Length': statSync(path).size, 'Cache-Control': 'no-store', 'Access-Control-Allow-Origin': '*',
     'Content-Security-Policy': "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' https://huggingface.co https://*.hf.co; object-src 'none'; base-uri 'none'" });
   const stream = createReadStream(path);
@@ -30,7 +31,9 @@ await new Promise((accept) => server.listen(0, '127.0.0.1', accept));
 const origin = `http://127.0.0.1:${server.address().port}`;
 const outputDirectory = resolve(import.meta.dirname, '../gate-results');
 mkdirSync(outputDirectory, { recursive: true });
-const checkpoint = () => writeFileSync(resolve(outputDirectory, 'latest.json'), JSON.stringify(report, null, 2));
+const reportName = process.env.EVERYTHING_GATE_REPORT ?? 'latest.json';
+assert.match(reportName, /^[a-zA-Z0-9_-]+\.json$/);
+const checkpoint = () => writeFileSync(resolve(outputDirectory, reportName), JSON.stringify(report, null, 2));
 const report = { started: new Date().toISOString(), cpu: cpus()[0]?.model, cpuCount: cpus().length,
   hostMemoryBytes: totalmem(), transport: weights ? 'locally served pinned bytes; public CORS not tested' : 'public model host',
   launch: process.env.EVERYTHING_GATE_SINGLE_PROCESS === '1' ? 'single-process constrained-runner mode' : 'default headless',
@@ -83,6 +86,24 @@ try {
     console.log(c.id, JSON.stringify(done?.text ?? events));
     assert.ok(done, 'Real generation failed for ' + c.id);
   }
+  if (process.env.EVERYTHING_GATE_CANCEL_PROBE === '1') {
+    await page.evaluate(() => window.worker.postMessage({ id: 100001, type: 'generate', messages: [{ role: 'user', content: '研究'.repeat(4000) }] }));
+    await page.waitForFunction(() => window.events.some((e) => e.id === 100001 && e.type === 'error'));
+    report.overBudget = await page.evaluate(() => window.events.find((e) => e.id === 100001));
+    assert.match(report.overBudget.message, /token budget/);
+    report.cancellation = await page.evaluate(async () => {
+      window.worker.postMessage({ id: 100002, type: 'generate', messages: [{ role: 'user', content: 'Remember PRIVATE_CHAT_SENTINEL_7431 temporarily.' }] });
+      await new Promise((accept) => setTimeout(accept, 100));
+      const start = performance.now();
+      window.worker.terminate();
+      const eventCount = window.events.length;
+      await new Promise((accept) => setTimeout(accept, 500));
+      return { elapsedMs: performance.now() - start, lateEvents: window.events.length - eventCount };
+    });
+    report.sentinelExercised = true;
+    assert.equal(report.cancellation.lateEvents, 0);
+    assert.ok(report.cancellation.elapsedMs < 5000);
+  }
   report.storage = await page.evaluate(async () => ({ local: localStorage.length, session: sessionStorage.length, caches: await caches.keys(), databases: typeof indexedDB.databases === 'function' ? await indexedDB.databases() : 'unavailable' }));
   assert.equal(report.storage.local, 0);
   assert.equal(report.storage.session, 0);
@@ -101,5 +122,5 @@ finally {
   await browser?.close();
   await new Promise((accept) => server.close(accept));
   checkpoint();
-  console.log(report.status, report.failure ?? '', '\nReport:', resolve(outputDirectory, 'latest.json'));
+  console.log(report.status, report.failure ?? '', '\nReport:', resolve(outputDirectory, reportName));
 }
