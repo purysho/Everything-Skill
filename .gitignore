@@ -13,3 +13,6 @@ secrets/
 .everything-skill/
 !database/releases/*/index.sqlite
 database/releases/*/.build-*/
+web/dist/
+web/gate-results/
+.superpowers/
