@@ -4,11 +4,19 @@
   "private": true,
   "type": "module",
   "license": "PolyForm-Noncommercial-1.0.0",
-  "engines": { "node": "^24.14.0" },
+  "engines": {
+    "node": "^24.14.0"
+  },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "gate": "node scripts/feasibility.mjs"
+    "gate": "node scripts/feasibility.mjs",
+    "test": "node --test tests/*.test.mjs"
   },
-  "dependencies": { "@huggingface/transformers": "4.3.2" },
-  "devDependencies": { "esbuild": "0.25.12", "playwright": "1.56.1" }
+  "dependencies": {
+    "@huggingface/transformers": "4.3.2"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "playwright": "1.56.1"
+  }
 }

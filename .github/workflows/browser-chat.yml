@@ -1,0 +1,44 @@
+name: Browser chat foundation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'web/**'
+      - 'src/chat*.ts'
+      - 'src/retrieval.ts'
+      - 'src/surface.ts'
+      - 'tests/chat*.ts'
+      - '.github/workflows/browser-chat.yml'
+  pull_request:
+    paths:
+      - 'web/**'
+      - 'src/chat*.ts'
+      - 'src/retrieval.ts'
+      - 'src/surface.ts'
+      - 'tests/chat*.ts'
+      - '.github/workflows/browser-chat.yml'
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm run lint
+      - run: npm test
+      - run: npm --prefix web ci --ignore-scripts
+      - run: npm --prefix web run build
+      - run: node web/node_modules/playwright/cli.js install --with-deps chromium-headless-shell
+      - name: Browser privacy regression and public model config transport
+        run: npm --prefix web test
+        env:
+          EVERYTHING_GATE_NETWORK: '1'

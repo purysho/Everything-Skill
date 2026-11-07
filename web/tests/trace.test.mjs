@@ -11,8 +11,9 @@ test('privacy trace detects a same-origin POST body containing the chat sentinel
     response.end('<!doctype html><title>Trace regression</title>');
   });
   await new Promise((accept) => server.listen(0, '127.0.0.1', accept));
-  const browser = await chromium.launch({ args: process.env.EVERYTHING_GATE_SINGLE_PROCESS === '1' ? ['--single-process', '--no-zygote'] : [] });
+  let browser;
   try {
+    browser = await chromium.launch({ args: process.env.EVERYTHING_GATE_SINGLE_PROCESS === '1' ? ['--single-process', '--no-zygote'] : [] });
     const context = await browser.newContext();
     const records = traceRequests(context);
     const page = await context.newPage();
@@ -20,5 +21,5 @@ test('privacy trace detects a same-origin POST body containing the chat sentinel
     await page.evaluate(() => fetch('/private-test', { method: 'POST', body: 'PRIVATE_CHAT_SENTINEL_7431' }));
     assert.throws(() => assertPrivateTraffic(records, 'PRIVATE_CHAT_SENTINEL_7431'), /private/i);
     assert.ok(records.some((r) => r.method === 'POST' && r.body === 'PRIVATE_CHAT_SENTINEL_7431'));
-  } finally { await browser.close(); await new Promise((accept) => server.close(accept)); }
+  } finally { await browser?.close(); server.closeAllConnections(); await new Promise((accept) => server.close(accept)); }
 });

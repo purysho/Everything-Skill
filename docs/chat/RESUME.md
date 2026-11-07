@@ -35,3 +35,8 @@ This runner's public-browser fetch failed with ERR_CERT_AUTHORITY_INVALID. Local
 The approved two-small-candidate comparison failed. Preserve browsing and the reusable core. Next evaluate a better model/runtime profile, likely a separately opted-in larger download with genuine GPU measurements, rather than promote a failed small model. Larger downloads already require their own explicit visitor choice under the approved design. Record rights, bytes, quality and tested-device evidence before admission. No hosted inference fallback is authorised.
 
 After model admission, implement and test the real conversational browser UI, refresh/new-tab memory isolation and external-search permission controls. Then plan/implement the separate desktop persistence/package slice. Follow docs/chat/IMPLEMENTATION_PLAN.md, keep WORK_LOG.md current and run Code Review Brains at stage boundaries. Never describe the chatbot or the whole project as complete based on these internal checkpoints.
+
+
+## Recovery update
+
+The workspace was restored and pending source/report files recovered. See WORK_LOG.md's frozen-workspace recovery entry. Important correction: the Qwen3.5 timeout was economics-limits; no-evidence did not run. The exact raw report's fixture ordering establishes this. Selection validation and timeout reporting have regression coverage now. Continue from the latest remote commit and inspect git status before reapplying any old pending file list. The public browser workflow still needs its hosted outcome recorded before the transport check can be called verified.

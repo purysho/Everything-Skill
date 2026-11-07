@@ -57,3 +57,12 @@ No model files, browser executables or generated runtime bundles are checked int
 - Real multi-tab/refresh/session privacy and external-research permission tests in the actual chat application.
 
 The next smallest independent software step is the shared bounded retrieval/conversation core. Browser release and desktop packaging remain gated on the model and application acceptance checks.
+
+
+## Recovered second-model verdict
+
+The interrupted workspace was restored, including the exact Qwen3.5 pilot. Its fixed q4 text-only assets total 666,378,110 bytes. Loading took 5.52 seconds. The completed 55-token Chinese response took 222.36 seconds, first text at 30.08 seconds, and misinterpreted the dataset's units/publication languages. The next task timed out at 240 seconds. This candidate is not admitted.
+
+Correction to the interruption note: the raw selected fixture order was languages-chinese, economics-limits, no-evidence. Therefore economics-limits timed out; no-evidence did not run. Earlier notes incorrectly assumed command-line ID order. The new selector preserves requested order, rejects unknown/duplicate IDs and invalid limits before loading weights, and records active task identity before dispatch. The complete recovered report is qwen35-pilot.json.
+
+The new Browser chat foundation workflow checks the real admission fetch against the pinned public config through browser CORS/SRI, plus a same-origin privacy regression. It downloads no model weights and does not deploy or admit a model. Hosted results remain to verify. Both bounded small candidates failed; the next model/device experiment requires a revised profile and genuine GPU evidence. The public browse demo remains unchanged.

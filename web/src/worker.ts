@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 import { env, AutoTokenizer, AutoModelForCausalLM, TextStreamer, TextGenerationPipeline } from '@huggingface/transformers';
 import { assertProfile, createModelFetch } from '../../src/chat-model.js';
-import { candidate } from './model.js';
+import { candidates } from './model.js';
 
 type Message = { role: 'system' | 'user' | 'assistant'; content: string };
 let generator: TextGenerationPipeline | undefined;
@@ -17,7 +17,8 @@ self.onmessage = async (event: MessageEvent<unknown>) => {
   const start = performance.now();
   try {
     if (request.type === 'load') {
-      if (request.profile !== candidate.id || generator) throw new Error('Invalid model load request.');
+      const candidate = candidates.find((profile) => profile.id === request.profile);
+      if (!candidate || generator) throw new Error('Invalid model load request.');
       assertProfile(candidate);
       env.allowLocalModels = false;
       // Pin registry preflights too: this runtime's registry helpers otherwise use main.
@@ -38,6 +39,7 @@ self.onmessage = async (event: MessageEvent<unknown>) => {
       // The 4.3.2 pipeline factory preflights main despite revision. Explicit loaders keep every request pinned.
       const options = {
         revision: candidate.revision, dtype: candidate.dtype, device: candidate.device,
+        use_external_data_format: candidate.assets.some((asset) => asset.path.endsWith('.onnx_data')),
         progress_callback: (progress: unknown) => send(id, 'progress', { progress }),
         session_options: { logSeverityLevel: 3 as const },
       };
@@ -48,7 +50,7 @@ self.onmessage = async (event: MessageEvent<unknown>) => {
       // This pinned model stores its template separately; the runtime does not load it automatically.
       tokenizer.chat_template = await (await env.fetch(prefix + 'chat_template.jinja')).text();
       generator = new TextGenerationPipeline({ task: 'text-generation', tokenizer, model });
-      send(id, 'ready', { elapsedMs: performance.now() - start });
+      send(id, 'ready', { profile: candidate.id, elapsedMs: performance.now() - start });
     } else if (request.type === 'generate') {
       if (!generator) throw new Error('Load the model first.');
       const messages = request.messages;

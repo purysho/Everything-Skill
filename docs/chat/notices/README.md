@@ -21,3 +21,5 @@ Sources:
 - https://huggingface.co/minpeter/Qwen3-0.6B-Instruct/blob/22392feff2cdfab4188bc8293c461fd9144cc558/README.md
 - https://huggingface.co/minpeter/Qwen3-0.6B-Instruct/blob/22392feff2cdfab4188bc8293c461fd9144cc558/LICENSE
 - https://github.com/microsoft/onnxruntime/blob/8d85527a0/LICENSE
+
+Second candidate: onnx-community/Qwen3.5-0.8B-ONNX-OPT at 9a4c21d8f724176b0a7edaaed36303044451886e declares Apache 2.0 and names Qwen/Qwen3.5-0.8B as its base. Qwen3.5-LICENSE.txt is copied from original revision 2fc06364715b967f1860aea9cf38778875588b17. This candidate failed the pilot and is not a supported default.
