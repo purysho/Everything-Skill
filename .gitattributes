@@ -1,0 +1,3 @@
+database/catalogue/*.json text eol=lf
+database/releases/**/*.json text eol=lf
+*.sqlite binary

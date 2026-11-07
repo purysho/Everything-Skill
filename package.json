@@ -29,6 +29,7 @@
     "dist/src",
     "dist/database/seeds",
     "database/releases",
+    "database/catalogue",
     "exports/catalogue.json",
     "exports/CATALOGUE.md",
     "demo",

@@ -1,8 +1,8 @@
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { parseArgs } from 'node:util';
-import { starterResources } from '../database/seeds/starter.js';
-import { exportCatalog, kinds, search, seedCatalog } from './catalog.js';
+import { catalogueResources, heldIntakeCount } from '../database/seeds/catalogue.js';
+import { exportCatalog, kinds, markdownText, search, seedCatalog } from './catalog.js';
 import { copyPrivateIndex, initialize, openIndex } from './database.js';
 import { retrievalModes, type RetrievalMode } from './retrieval.js';
 import { adapterKinds, generateAdapter, type AdapterKind } from './adapters.js';
@@ -35,11 +35,6 @@ npm run skill -- preference <resource-url> --decision allow|deny --scope global|
 All commands accept --data-dir <directory>. Default: ~/.everything-skill.
 Restore requires an absent private.sqlite. Use a new directory to inspect a backup.
 Search and export read the local public index only.`;
-
-function markdownText(value: string) {
-  return value.replace(/[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g, ' ')
-    .replace(/[\\`*_{}\[\]<>()#+.!|]/g, '\\$&');
-}
 
 function showJson(data: unknown) {
   console.log(JSON.stringify(data, null, 2));
@@ -108,7 +103,7 @@ async function main() {
   const directory = resolve(values['data-dir'] ?? join(homedir(), '.everything-skill'));
   const privatePath = join(directory, 'private.sqlite');
   if (command === 'init') {
-    await initialize(directory, (db) => seedCatalog(db, values.empty ? [] : starterResources));
+    await initialize(directory, (db) => seedCatalog(db, values.empty ? [] : catalogueResources));
     console.log('Local indexes ready.');
     return;
   }
@@ -229,7 +224,7 @@ async function main() {
         } finally { privateDb?.close(); }
       })();
       if (localModels) output.results = (await rerankLocal(args[0]!, output.results, localModels)).slice(0, resultLimit);
-      if (values.json) showJson(privateExclusions ? { ...output, privateExclusions } : output);
+      if (values.json) showJson({ ...output, bundledCatalogueHeld: heldIntakeCount, ...(privateExclusions ? { privateExclusions } : {}) });
       else {
         console.log('| Resource | Score | Label | Evidence and summary |');
         console.log('| --- | ---: | --- | --- |');
@@ -239,6 +234,7 @@ async function main() {
         if (output.results.length) console.log('\nConditional entries have metadata review only.');
         else console.log('\nNo eligible matches in the local index.');
         console.log('Excluded matches:', JSON.stringify(output.excluded));
+        console.log(`The bundled catalogue holds ${heldIntakeCount} intake records outside active results.`);
         if (privateExclusions) console.log(`Private policy or online verification excluded ${privateExclusions} additional matches.`);
       }
     } else {

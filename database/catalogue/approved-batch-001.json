@@ -1,0 +1,1263 @@
+{
+  "id": "approval-001",
+  "status": "pending-maintainer-approval",
+  "baseVersion": "2026-11-06.2",
+  "version": "2026-11-06.3",
+  "scope": "Metadata and source links only",
+  "checkedOn": "2026-11-06",
+  "intakeHash": "6aedab82896f4afc398970609d5c510975cce15f5b5ad56320096e8081ed8108",
+  "intakeScreened": 1398,
+  "excluded": 1369,
+  "fields": [
+    "agriculture and food",
+    "arts and design",
+    "computing and information",
+    "earth and environment",
+    "economics and business",
+    "education and psychology",
+    "engineering and technology",
+    "humanities",
+    "languages and linguistics",
+    "law and public policy",
+    "life sciences",
+    "mathematics and statistics",
+    "medicine and health",
+    "physical sciences",
+    "social sciences"
+  ],
+  "counts": {
+    "awaits-individual-review": 1174,
+    "held-after-individual-review": 25,
+    "staged": 29,
+    "licence-unconfirmed": 166,
+    "access-unconfirmed": 2,
+    "licence-restricted": 2
+  },
+  "evidence": [
+    {
+      "sourceId": "bea:gdp:2025q4:second-estimate",
+      "field": "Economics and business",
+      "sourceRole": "primary official statistical release",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "U.S. Bureau of Economic Analysis"
+      ],
+      "sourceRecord": "https://www.bea.gov/index.php/news/2026/gdp-second-estimate-4th-quarter-and-year-2025",
+      "verificationEndpoint": "https://www.bea.gov/index.php/news/2026/gdp-second-estimate-4th-quarter-and-year-2025",
+      "version": "2026-03-13",
+      "licence": "Public domain (BEA)",
+      "rightsScope": "BEA’s public-domain policy applies to its published release. Third-party inputs are outside this review.",
+      "formats": [
+        "release tables"
+      ],
+      "access": "open",
+      "addedOutsideIntake": "Supplements economics coverage after the intake replication deposit was held for third-party rights."
+    },
+    {
+      "sourceId": "doi:10.1186/s13104-024-06904-7",
+      "field": "Medicine and health",
+      "sourceRole": "primary trial report, adjacent evidence",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Hillebrand and colleagues"
+      ],
+      "sourceRecord": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11391792/",
+      "verificationEndpoint": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11391792/",
+      "version": "PMC11391792 corrected publication 2025",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Explicit article licence. Third-party material and supplementary files are outside this review.",
+      "formats": [
+        "article"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.10033256",
+      "field": "Physical sciences",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Holz, Hendrik",
+        "Merle, Benoit"
+      ],
+      "sourceRecord": "https://zenodo.org/records/10033257",
+      "verificationEndpoint": "https://zenodo.org/api/records/10033257",
+      "metadataSha256": "2d3834a855b0c5bd564f83a5b823ffc418b344bc8d9f07cdacbb8cd23ef78049",
+      "version": "10.5281/zenodo.10033257",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.10466123",
+      "field": "Earth and environment",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Risien, Craig",
+        "Hough, Kathryn",
+        "Waddell, Jeannette",
+        "Fewings, Melanie",
+        "Cervantes, Brandy"
+      ],
+      "sourceRecord": "https://zenodo.org/records/10466124",
+      "verificationEndpoint": "https://zenodo.org/api/records/10466124",
+      "metadataSha256": "a53a9dde1a407065d510a1acaff7dd7bf4ce758c407efe4cdc74eb8b49ecb1e2",
+      "version": "10.5281/zenodo.10466124",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.11238",
+      "field": "Mathematics and statistics",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Hoppe, Travis",
+        "Petrone, Anna"
+      ],
+      "sourceRecord": "https://zenodo.org/records/11238",
+      "verificationEndpoint": "https://zenodo.org/api/records/11238",
+      "metadataSha256": "0d26b02bf2d90bd0db481c4dd9d59204e74404af25c9be2c7dc0c994043349b0",
+      "version": "10.5281/zenodo.11238",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".bz2"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.1136201",
+      "field": "Education and psychology",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "van Assen, Jan Jaap R.",
+        "Barla, Pascal",
+        "Fleming, Roland W."
+      ],
+      "sourceRecord": "https://zenodo.org/records/1136202",
+      "verificationEndpoint": "https://zenodo.org/api/records/1136202",
+      "metadataSha256": "c227ba84ed74e8ff331d8af029235982c7cb8fb35276c10c3199e7abc8431695",
+      "version": "10.5281/zenodo.1136202",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Published record and original experimental stimuli. Participant data and code were not reviewed.",
+      "formats": [
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.12521792",
+      "field": "Earth and environment",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Atifi, Achraf"
+      ],
+      "sourceRecord": "https://zenodo.org/records/12521793",
+      "verificationEndpoint": "https://zenodo.org/api/records/12521793",
+      "metadataSha256": "835b4be583e1f6401453617d4bf0213c47dbc2bbca94ea142627048d7d6488a8",
+      "version": "10.5281/zenodo.12521793",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".csv"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.13373058",
+      "field": "Social sciences",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Bunt, Hannah",
+        "BAUER, Martin W",
+        "Behm-Bahtat, Anne-Sophie",
+        "Falade, Bankole"
+      ],
+      "sourceRecord": "https://zenodo.org/records/13373059",
+      "verificationEndpoint": "https://zenodo.org/api/records/13373059",
+      "metadataSha256": "fff7a0944be0f90b54aa26fe0468ea07a726bd83c521b964e1bdf665c5bd485c",
+      "version": "10.5281/zenodo.13373059",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".pdf",
+        ".xlsx"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.13903032",
+      "field": "Life sciences",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Jaspers, Cornelia"
+      ],
+      "sourceRecord": "https://zenodo.org/records/13903034",
+      "verificationEndpoint": "https://zenodo.org/api/records/13903034",
+      "metadataSha256": "4513d7bd78ba56c2f5997d0db1357dd1ae47a3a46893644930f5c1a043872100",
+      "version": "10.5281/zenodo.13903034",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".txt",
+        ".xlsx"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.13921129",
+      "field": "Life sciences",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Freitas de Carvalho, Pedro"
+      ],
+      "sourceRecord": "https://zenodo.org/records/13921130",
+      "verificationEndpoint": "https://zenodo.org/api/records/13921130",
+      "metadataSha256": "7f40a6a4c153ee383c1484d2a3ceef946624c5ac4ff7867e4bcbe68f852a312a",
+      "version": "10.5281/zenodo.13921130",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".jpg",
+        ".xlsx"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14622570",
+      "field": "Engineering and technology",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "de Lange, Dirk",
+        "van Eekelen, Suzanne J.M.",
+        "Castelein, Koen",
+        "Zwaan, Rob"
+      ],
+      "sourceRecord": "https://zenodo.org/records/14622571",
+      "verificationEndpoint": "https://zenodo.org/api/records/14622571",
+      "metadataSha256": "16c11dbbf1426236a2daf89144bb986c8a9248c6b1890e70f8224547c8a4d339",
+      "version": "10.5281/zenodo.14622571",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".asc"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14643730",
+      "field": "Earth and environment",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Akvaplan-niva"
+      ],
+      "sourceRecord": "https://zenodo.org/records/14643731",
+      "verificationEndpoint": "https://zenodo.org/api/records/14643731",
+      "metadataSha256": "59d0aeffecabce456ad61c600c6de325981508649d772634d80dcaf5ea3d591d",
+      "version": "10.5281/zenodo.14643731",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14870021",
+      "field": "Engineering and technology",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Clerc, Alex",
+        "Lingkan, Elizabeth"
+      ],
+      "sourceRecord": "https://zenodo.org/records/22662930",
+      "verificationEndpoint": "https://zenodo.org/api/records/22662930",
+      "metadataSha256": "f4296efc0e2984234aaed1a5468076c43abea291f636ce7d9693adf5dbeed420",
+      "version": "10.5281/zenodo.22662930",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".csv",
+        ".jpg",
+        ".md",
+        ".pdf",
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14967375",
+      "field": "Life sciences",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Centre for Biodiversity Genomics"
+      ],
+      "sourceRecord": "https://zenodo.org/records/15345117",
+      "verificationEndpoint": "https://zenodo.org/api/records/15345117",
+      "metadataSha256": "97a123ddd525c9b169ff848ef48d9944aa4c7707bbcbb2f3bd11bced2c8cc7cd",
+      "version": "10.5281/zenodo.15345117",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".txt"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15234664",
+      "field": "Medicine and health",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "National Institute for Public Health and the Environment"
+      ],
+      "sourceRecord": "https://zenodo.org/records/15234665",
+      "verificationEndpoint": "https://zenodo.org/api/records/15234665",
+      "metadataSha256": "29b3a662d9037efc624fa89eb17e4d9dcf87ca62ddb6ffde9a3ac073379f4d71",
+      "version": "10.5281/zenodo.15234665",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".csv",
+        ".json"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15658827",
+      "field": "Physical sciences",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Andersen, Dustin",
+        "Holeňák, Radek",
+        "Tabean, Saba",
+        "Ntemou, Eleni",
+        "Wirtz, Tom",
+        "Hobler, Gerhard",
+        "Primetzhofer, Daniel",
+        "Eswara, Santhana"
+      ],
+      "sourceRecord": "https://zenodo.org/records/15658828",
+      "verificationEndpoint": "https://zenodo.org/api/records/15658828",
+      "metadataSha256": "cd9a9c9bf8d9a41afd88b8f81c2f9b1a04dcf0d90379de5dce9bc644b6919816",
+      "version": "10.5281/zenodo.15658828",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15688743",
+      "field": "Mathematics and statistics",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Yu, Shaobo"
+      ],
+      "sourceRecord": "https://zenodo.org/records/16784670",
+      "verificationEndpoint": "https://zenodo.org/api/records/16784670",
+      "metadataSha256": "0726c9a7ce56b870997b8cbcf46662c767e9b9b2fbbd28608bec62561306db96",
+      "version": "10.5281/zenodo.16784670",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15696762",
+      "field": "Law and public policy",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Antonini, Giovanni",
+        "Coppeta, Gaetano Francesco",
+        "Agasisti, Tommaso"
+      ],
+      "sourceRecord": "https://zenodo.org/records/15696763",
+      "verificationEndpoint": "https://zenodo.org/api/records/15696763",
+      "metadataSha256": "becaa49aac51fb94377115b9ce5f8b1bae292d63f2fb7a50409ee506ba08a7e0",
+      "version": "10.5281/zenodo.15696763",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".docx",
+        ".xlsx"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15723050",
+      "field": "Languages and linguistics",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Antal, Daniel",
+        "Anna Márta, Mester",
+        "Pigozne, Ieva",
+        "Nagy, Mihaly"
+      ],
+      "sourceRecord": "https://zenodo.org/records/17545241",
+      "verificationEndpoint": "https://zenodo.org/api/records/17545241",
+      "metadataSha256": "1f317ff7b9dc7bb5d3d32b78086e5dafb6a406736e09071cea12c09aee1cbe9f",
+      "version": "10.5281/zenodo.17545241",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".json",
+        ".nt",
+        ".ttl",
+        ".xml"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.17052307",
+      "field": "Languages and linguistics",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Rangelov, Tihomir",
+        "Ridge, Eleanor"
+      ],
+      "sourceRecord": "https://zenodo.org/records/17628402",
+      "verificationEndpoint": "https://zenodo.org/api/records/17628402",
+      "metadataSha256": "a16bde832f639df924f52c0fb0cc0e6723fcc76d63c46e595c421a8eeaae9eab",
+      "version": "10.5281/zenodo.17628402",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".tsv",
+        ".xlsx"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.18432883",
+      "field": "Humanities",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Laroche, Johannes",
+        "Vogeler, Georg",
+        "Tscherne, Niklas"
+      ],
+      "sourceRecord": "https://zenodo.org/records/18432884",
+      "verificationEndpoint": "https://zenodo.org/api/records/18432884",
+      "metadataSha256": "c6cc3591fa9048cf98660ef15bbecde98e76d73f6f0cf09f02e0e82270c9ec91",
+      "version": "10.5281/zenodo.18432884",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".csv",
+        ".md",
+        ".xml"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.22074578",
+      "field": "Computing and information",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Klein, Arno"
+      ],
+      "sourceRecord": "https://zenodo.org/records/22074579",
+      "verificationEndpoint": "https://zenodo.org/api/records/22074579",
+      "metadataSha256": "881648758ed01fba5739fc2b61b18f1b5b6616708d5704b97879aff30b8bcbce",
+      "version": "10.5281/zenodo.22074579",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Published record and creator’s layout data. User-study files and software were not reviewed.",
+      "formats": [
+        ".docx",
+        ".pptx",
+        ".xlsx",
+        ".zip"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.22813987",
+      "field": "Humanities",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "fra",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "CHADELLE, Jean-Pierre"
+      ],
+      "sourceRecord": "https://zenodo.org/records/22813988",
+      "verificationEndpoint": "https://zenodo.org/api/records/22813988",
+      "metadataSha256": "80513f5626da47ce772e9bd54d19edbc5f08fe22a4a873b8d63aad602b2f6e96",
+      "version": "10.5281/zenodo.22813988",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".csv"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.2586634",
+      "field": "Humanities",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Department of Archaeology & Museums"
+      ],
+      "sourceRecord": "https://zenodo.org/records/2586635",
+      "verificationEndpoint": "https://zenodo.org/api/records/2586635",
+      "metadataSha256": "02d26c41876ac59b9282567f7fbf3daf4ea4a36de1d8c685a59e4bf8757aaf70",
+      "version": "10.5281/zenodo.2586635",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".tif"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.4047961",
+      "field": "Agriculture and food",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Gregory N Smith",
+        "Erik Brok",
+        "Morten Vormsborg Christiansen",
+        "Lilia Ahrné"
+      ],
+      "sourceRecord": "https://zenodo.org/records/4047962",
+      "verificationEndpoint": "https://zenodo.org/api/records/4047962",
+      "metadataSha256": "058a3a864cfd74b2d8c7702ceaa74c0a6d5142e575cd61ef20566920144985ae",
+      "version": "10.5281/zenodo.4047962",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".dat"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.4309072",
+      "field": "Agriculture and food",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Laura Stefan"
+      ],
+      "sourceRecord": "https://zenodo.org/records/4309073",
+      "verificationEndpoint": "https://zenodo.org/api/records/4309073",
+      "metadataSha256": "497fc8a8a2f63d0629679d3a6c25974ec4f7506f2c457fe64efed8321456cf6c",
+      "version": "10.5281/zenodo.4309073",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".csv"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.4618013",
+      "field": "Social sciences",
+      "sourceRole": "primary source or originating research artifact",
+      "language": "eng",
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "Osipenko, Leeza"
+      ],
+      "sourceRecord": "https://zenodo.org/records/5236080",
+      "verificationEndpoint": "https://zenodo.org/api/records/5236080",
+      "metadataSha256": "2f97274126f9d38d42f3a4ebc4bbb2587a4c523e25a624df9de47ed361fe9e1f",
+      "version": "10.5281/zenodo.5236080",
+      "licence": "CC-BY-4.0",
+      "rightsScope": "Depositor’s CC BY 4.0 declaration on this exact version. Catalogue contains bibliographic metadata and an original description only.",
+      "formats": [
+        ".xlsx"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "met:312556",
+      "field": "Arts and design",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "The Metropolitan Museum of Art",
+        "The Michael C. Rockefeller Memorial Collection, Bequest of Nelson A. Rockefeller, 1979"
+      ],
+      "sourceRecord": "https://www.metmuseum.org/art/collection/search/312556",
+      "verificationEndpoint": "https://collectionapi.metmuseum.org/public/collection/v1/objects/312556",
+      "metadataSha256": "cb7a564f007133255ef4c6cd581aa4ee85c2124419dd9bb58a1769c85baacbb0",
+      "version": "2021-06-12T04:40:16.533Z",
+      "licence": "CC0-1.0",
+      "rightsScope": "Public-domain object with a documented Open Access image and CC0 collection metadata. No image copied.",
+      "formats": [
+        "museum object record"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "met:312814",
+      "field": "Arts and design",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "The Metropolitan Museum of Art",
+        "The Michael C. Rockefeller Memorial Collection, Bequest of Nelson A. Rockefeller, 1979"
+      ],
+      "sourceRecord": "https://www.metmuseum.org/art/collection/search/312814",
+      "verificationEndpoint": "https://collectionapi.metmuseum.org/public/collection/v1/objects/312814",
+      "metadataSha256": "8cc525ba353007ba08f97a7534b8e4d591765993ae5d7701d99c62b9b43a29cc",
+      "version": "2025-01-30T04:54:21.21Z",
+      "licence": "CC0-1.0",
+      "rightsScope": "Public-domain object with a documented Open Access image and CC0 collection metadata. No image copied.",
+      "formats": [
+        "museum object record"
+      ],
+      "access": "open"
+    },
+    {
+      "sourceId": "met:314173",
+      "field": "Arts and design",
+      "sourceRole": "primary source or originating research artifact",
+      "language": null,
+      "checkedOn": "2026-11-06",
+      "origin": [
+        "The Metropolitan Museum of Art",
+        "Gift of Margaret B. Zorach, 1980"
+      ],
+      "sourceRecord": "https://www.metmuseum.org/art/collection/search/314173",
+      "verificationEndpoint": "https://collectionapi.metmuseum.org/public/collection/v1/objects/314173",
+      "metadataSha256": "d38151bfe6cfb498454ffbfb0c5e8424af35de82bc007002a82145280c03e18d",
+      "version": "2025-01-30T04:54:21.21Z",
+      "licence": "CC0-1.0",
+      "rightsScope": "Public-domain object with a documented Open Access image and CC0 collection metadata. No image copied.",
+      "formats": [
+        "museum object record"
+      ],
+      "access": "open"
+    }
+  ],
+  "resources": [
+    {
+      "sourceId": "doi:10.5281/zenodo.4047961",
+      "url": "https://zenodo.org/records/4047962",
+      "kind": "dataset",
+      "category": "agriculture and food",
+      "title": "Supporting Data for \"Casein micelles in milk as sticky spheres\" (Soft Matter, doi:10.1039/D0SM01327G)",
+      "summary": "Processed small-angle X-ray scattering measurements from a study of casein micelles in milk.",
+      "tags": "casein dairy milk scattering food physics",
+      "version": "10.5281/zenodo.4047962",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/4047962",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.4309072",
+      "url": "https://zenodo.org/records/4309073",
+      "kind": "dataset",
+      "category": "agriculture and food",
+      "title": "Weed dataset - Crop diversity Experiment - Crop-weed relationships are context-dependent and cannot fully explain the positive effects of intercropping on yield",
+      "summary": "Field-plot measurements of weed biomass and crop yield by species from a crop diversity experiment.",
+      "tags": "crop diversity field plots weeds biomass yield intercropping",
+      "version": "10.5281/zenodo.4309073",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/4309073",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "met:312556",
+      "url": "https://www.metmuseum.org/art/collection/search/312556",
+      "kind": "other",
+      "category": "arts and design",
+      "title": "Ceramic Vessel in the Form of a Seated Man",
+      "summary": "A Rio Napo ceramic vessel depicting a seated figure, dated by The Met to the sixth through thirteenth centuries.",
+      "tags": "Rio Napo ceramics archaeology vessel seated figure",
+      "version": "2021-06-12T04:40:16.533Z",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://www.metmuseum.org/art/collection/search/312556",
+      "licence": {
+        "state": "verified",
+        "id": "CC0-1.0",
+        "url": "https://www.metmuseum.org/hubs/open-access"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "met:312814",
+      "url": "https://www.metmuseum.org/art/collection/search/312814",
+      "kind": "other",
+      "category": "arts and design",
+      "title": "Ceramic Painted Vessel",
+      "summary": "A painted Casas Grandes ceramic vessel in The Met collection, dated to the sixth century.",
+      "tags": "Casas Grandes painted ceramics vessel",
+      "version": "2025-01-30T04:54:21.21Z",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://www.metmuseum.org/art/collection/search/312814",
+      "licence": {
+        "state": "verified",
+        "id": "CC0-1.0",
+        "url": "https://www.metmuseum.org/hubs/open-access"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "met:314173",
+      "url": "https://www.metmuseum.org/art/collection/search/314173",
+      "kind": "other",
+      "category": "arts and design",
+      "title": "Ceramic Monkey Vessel",
+      "summary": "A Manteño ceramic vessel shaped as a monkey, dated by The Met to the sixth through eleventh centuries.",
+      "tags": "Manteño Ecuador monkey ceramics vessel",
+      "version": "2025-01-30T04:54:21.21Z",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://www.metmuseum.org/art/collection/search/314173",
+      "licence": {
+        "state": "verified",
+        "id": "CC0-1.0",
+        "url": "https://www.metmuseum.org/hubs/open-access"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.22074578",
+      "url": "https://zenodo.org/records/22074579",
+      "kind": "dataset",
+      "category": "computing and information",
+      "title": "Engram: optimizing keyboard layouts for comfort",
+      "summary": "The creator’s reference dataset for Engram keyboard layouts and their ergonomic scoring, with layouts for multiple languages.",
+      "tags": "keyboard layout ergonomics human computer interaction typing eng ram",
+      "version": "10.5281/zenodo.22074579",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/22074579",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.10466123",
+      "url": "https://zenodo.org/records/10466124",
+      "kind": "dataset",
+      "category": "earth and environment",
+      "title": "Conductivity–Temperature–Depth (CTD) and dissolved oxygen profile data from shipboard surveys collected within Olympic Coast National Marine Sanctuary, 2005-2023",
+      "summary": "Shipboard conductivity, temperature, depth and dissolved oxygen measurements from Washington’s Olympic Coast National Marine Sanctuary.",
+      "tags": "oceanography oxygen conductivity CTD profiles Olympic Coast Washington",
+      "version": "10.5281/zenodo.10466124",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/10466124",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.12521792",
+      "url": "https://zenodo.org/records/12521793",
+      "kind": "dataset",
+      "category": "earth and environment",
+      "title": "Wind and Wave Measurements in the Oslo Fjord",
+      "summary": "Wind and wave observations recorded during a 26-hour instrument deployment in the Oslo Fjord.",
+      "tags": "oceanography Oslo Fjord wind waves observations",
+      "version": "10.5281/zenodo.12521793",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/12521793",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14643730",
+      "url": "https://zenodo.org/records/14643731",
+      "kind": "dataset",
+      "category": "earth and environment",
+      "title": "Hydrophone recordings and oceanography from PolarFront Seaglider SG153 deployed 2022-05-19",
+      "summary": "Hydrophone and oceanographic data from the PolarFront Seaglider SG153 campaign in 2022.",
+      "tags": "polar oceanography hydrophone acoustic Seaglider",
+      "version": "10.5281/zenodo.14643731",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/14643731",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "bea:gdp:2025q4:second-estimate",
+      "url": "https://www.bea.gov/index.php/news/2026/gdp-second-estimate-4th-quarter-and-year-2025",
+      "kind": "dataset",
+      "category": "economics and business",
+      "title": "U.S. Gross Domestic Product, Fourth Quarter and Year 2025, Second Estimate",
+      "summary": "The U.S. Bureau of Economic Analysis release of national accounts estimates for fourth-quarter and full-year 2025, published March 13, 2026. This is a dated vintage.",
+      "tags": "economics GDP gross domestic product national accounts BEA United States data macroeconomic growth",
+      "version": "2026-03-13",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://www.bea.gov/index.php/news/2026/gdp-second-estimate-4th-quarter-and-year-2025",
+      "licence": {
+        "state": "verified",
+        "id": "Public domain (BEA)",
+        "url": "https://www.bea.gov/help/faq/147"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.1136201",
+      "url": "https://zenodo.org/records/1136202",
+      "kind": "dataset",
+      "category": "education and psychology",
+      "title": "Visual features in the perception of liquids",
+      "summary": "The experimental deposit accompanying a visual perception study, including a separate archive of rendered liquid stimuli.",
+      "tags": "psychology vision liquid perception stimuli",
+      "version": "10.5281/zenodo.1136202",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/1136202",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14622570",
+      "url": "https://zenodo.org/records/14622571",
+      "kind": "dataset",
+      "category": "engineering and technology",
+      "title": "GEOLAB - Centrifuge Tests on Horizontally Loaded Piles in Dry Sand - Deltares' contribution to the Benchmark Project",
+      "summary": "Deltares centrifuge measurements on horizontally loaded piles in dry sand, including load, displacement and strain.",
+      "tags": "geotechnical engineering centrifuge piles dry sand GEOLAB",
+      "version": "10.5281/zenodo.14622571",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/14622571",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14870021",
+      "url": "https://zenodo.org/records/22662930",
+      "kind": "dataset",
+      "category": "engineering and technology",
+      "title": "Hill of Towie wind farm open dataset",
+      "summary": "Operational measurements from the Hill of Towie wind farm in Scotland, including turbine, downtime and meteorological data.",
+      "tags": "wind energy Scotland turbine SCADA lidar engineering",
+      "version": "10.5281/zenodo.22662930",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/22662930",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.18432883",
+      "url": "https://zenodo.org/records/18432884",
+      "kind": "dataset",
+      "category": "humanities",
+      "title": "BeCoRe Prosopographical Dataset Austrian Monasteries (Göttweig - Lambach - Lilienfeld)",
+      "summary": "Research tables of charter issuers and sealers for three Austrian monasteries, derived from archival charters.",
+      "tags": "medieval history charter prosopography Austria monasteries",
+      "version": "10.5281/zenodo.18432884",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/18432884",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.22813987",
+      "url": "https://zenodo.org/records/22813988",
+      "kind": "dataset",
+      "category": "humanities",
+      "title": "Archaeological data from the Champ Parel 3 (France) Upper Palaeolithic occupation (lithic material description and refits)",
+      "summary": "Two excavation tables of stone artefacts and refits from Champ Parel 3, an Upper Palaeolithic site in France.",
+      "tags": "archaeology lithics palaeolithic France refits",
+      "version": "10.5281/zenodo.22813988",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/22813988",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.2586634",
+      "url": "https://zenodo.org/records/2586635",
+      "kind": "dataset",
+      "category": "humanities",
+      "title": "Malwa site survey : Sehore सीहोर District, Budni Tahsīl, photographic documentation (part 1)",
+      "summary": "Photographic documentation from the Madhya Pradesh archaeology department’s Malwa survey in Sehore District.",
+      "tags": "archaeological survey photographs Malwa Sehore India Madhya Pradesh",
+      "version": "10.5281/zenodo.2586635",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/2586635",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15723050",
+      "url": "https://zenodo.org/records/17545241",
+      "kind": "dataset",
+      "category": "languages and linguistics",
+      "title": "Dataset of the Multilingual Gazetteer of the Settlements on the Livonian Coast of Northern Kurzeme",
+      "summary": "A multilingual gazetteer aligning historical place names along the Livonian coast of Latvia.",
+      "tags": "Livonian Latvian place names multilingual gazetteer RDF",
+      "version": "10.5281/zenodo.17545241",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/17545241",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.17052307",
+      "url": "https://zenodo.org/records/17628402",
+      "kind": "dataset",
+      "category": "languages and linguistics",
+      "title": "A database of Vanuatu language names",
+      "summary": "A versioned table of language names and naming variants for Vanuatu.",
+      "tags": "Vanuatu Austronesian language documentation names TSV",
+      "version": "10.5281/zenodo.17628402",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/17628402",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15696762",
+      "url": "https://zenodo.org/records/15696763",
+      "kind": "dataset",
+      "category": "law and public policy",
+      "title": "EFFEct Horizon Project: EU-27 Education Systems (EU27-ES) database",
+      "summary": "A harmonised collection of education-system indicators across EU member states for comparative policy research.",
+      "tags": "education policy EU comparative indicators public policy aggregate",
+      "version": "10.5281/zenodo.15696763",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/15696763",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.13903032",
+      "url": "https://zenodo.org/records/13903034",
+      "kind": "dataset",
+      "category": "life sciences",
+      "title": "Jensen et al. 2024 - Biodiversity and distribution of gelatinous macrozooplankton in the North Sea and adjacent waters dataset from winter 2022 - raw dataset",
+      "summary": "North Sea and adjacent-water survey data describing the abundance and distribution of jellyfish and comb jellies.",
+      "tags": "gelatinous zooplankton North Sea biodiversity field survey",
+      "version": "10.5281/zenodo.13903034",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/13903034",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.13921129",
+      "url": "https://zenodo.org/records/13921130",
+      "kind": "dataset",
+      "category": "life sciences",
+      "title": "Pelagic Tunicates of the Santos Basin",
+      "summary": "Trawl survey records for pelagic tunicates in the Santos Basin off Brazil.",
+      "tags": "pelagic tunicates Santos Basin Brazil marine biodiversity",
+      "version": "10.5281/zenodo.13921130",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/13921130",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.14967375",
+      "url": "https://zenodo.org/records/15345117",
+      "kind": "dataset",
+      "category": "life sciences",
+      "title": "Metabarcoding arthropods in agroecosystems in Southern Ontario, Canada",
+      "summary": "Arthropod occurrence and metabarcoding data from agroecosystems in southern Ontario.",
+      "tags": "arthropods metabarcoding genomics Ontario biodiversity",
+      "version": "10.5281/zenodo.15345117",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/15345117",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.11238",
+      "url": "https://zenodo.org/records/11238",
+      "kind": "dataset",
+      "category": "mathematics and statistics",
+      "title": "Simple connected graph invariants up to order ten",
+      "summary": "A computed catalogue of invariants for simple connected graphs with up to ten vertices.",
+      "tags": "mathematics graph theory graph invariants integer sequences",
+      "version": "10.5281/zenodo.11238",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/11238",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15688743",
+      "url": "https://zenodo.org/records/16784670",
+      "kind": "dataset",
+      "category": "mathematics and statistics",
+      "title": "Data supporting \"A generalized method for refining and selecting random crystal structures using graph theory\"",
+      "summary": "Crystal-structure files used to evaluate a graph-theoretic selection and refinement method.",
+      "tags": "graph theory crystal structures computational benchmark materials",
+      "version": "10.5281/zenodo.16784670",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/16784670",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.1186/s13104-024-06904-7",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11391792/",
+      "kind": "paper",
+      "category": "medicine and health",
+      "title": "Salivary cortisol and alpha-amylase as stress markers to evaluate an individualized music intervention for people with dementia: feasibility and pilot analyses",
+      "summary": "A 64-person randomized pilot on preferred music and salivary stress markers in dementia. It reports no detected effect on those markers. The music was individualized and the study did not test classical music specifically.",
+      "tags": "dementia Alzheimer music therapy pilot randomized cortisol stress adjacent evidence",
+      "version": "PMC11391792 corrected publication 2025",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11391792/",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15234664",
+      "url": "https://zenodo.org/records/15234665",
+      "kind": "dataset",
+      "category": "medicine and health",
+      "title": "Incidentie van mazelen in de laatste 6 weken (26 februari tot en met 15 april 2025) per GGD regio",
+      "summary": "Dutch public health agency tables reporting measles incidence by regional health service from late February to mid-April 2025.",
+      "tags": "measles mazelen Netherlands Netherlands RIVM incidence public health",
+      "version": "10.5281/zenodo.15234665",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/15234665",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.10033256",
+      "url": "https://zenodo.org/records/10033257",
+      "kind": "dataset",
+      "category": "physical sciences",
+      "title": "Data publication supplementing \"Novel nanoindentation strain rate sweep method for continuously investigating the strain rate sensitivity of materials at the nanoscale\"",
+      "summary": "Nanoindentation measurements across several materials, published alongside the strain-rate method study.",
+      "tags": "materials science nanoindentation strain rate metallurgy",
+      "version": "10.5281/zenodo.10033257",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/10033257",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.15658827",
+      "url": "https://zenodo.org/records/15658828",
+      "kind": "dataset",
+      "category": "physical sciences",
+      "title": "Raw Data for Article: Ion-beam channeling in a single-surface modified Si membrane",
+      "summary": "Experimental and simulation data for ions transmitted through a thin modified silicon crystal.",
+      "tags": "physics ion beam silicon channeling scattering",
+      "version": "10.5281/zenodo.15658828",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/15658828",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.13373058",
+      "url": "https://zenodo.org/records/13373059",
+      "kind": "dataset",
+      "category": "social sciences",
+      "title": "D1.4 - Consolidated OA data set for responsible research practices and trust in science: POIESIS National and Regional Database",
+      "summary": "POIESIS project’s national and regional aggregate indicators on research practices and trust in science.",
+      "tags": "social sciences public trust science indicators research integrity",
+      "version": "10.5281/zenodo.13373059",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/13373059",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    },
+    {
+      "sourceId": "doi:10.5281/zenodo.4618013",
+      "url": "https://zenodo.org/records/5236080",
+      "kind": "dataset",
+      "category": "social sciences",
+      "title": "Ledger of data redactions in NICE Technology Appraisals",
+      "summary": "A research ledger documenting redactions in published NICE technology appraisal records.",
+      "tags": "social sciences policy transparency NICE appraisal evidence redactions",
+      "version": "10.5281/zenodo.5236080",
+      "checkedOn": "2026-11-06",
+      "evidenceUrl": "https://zenodo.org/records/5236080",
+      "licence": {
+        "state": "verified",
+        "id": "CC-BY-4.0",
+        "url": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "security": "metadata-only",
+      "availability": "active"
+    }
+  ]
+}

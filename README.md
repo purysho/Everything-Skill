@@ -1,6 +1,6 @@
 # Everything Skill
 
-Find public resources and see the evidence behind each recommendation. Start with individual sources, including a dataset file, a specification, an MCP server and runnable tools. Use live discovery separately when you need a wider search.
+Search individual studies, datasets, artworks, specifications, MCP servers and tools. The current snapshot has **625 active sources** spanning 15 broad fields, with a [recorded decision for every intake candidate](database/catalogue/REVIEW.md). Start from the local catalogue and use live discovery when you need wider coverage.
 
 ## Try it
 
@@ -15,7 +15,7 @@ npm run skill -- init
 npm run skill -- search "vector database"
 ```
 
-The default search is offline. Each card includes an evidence link, licence, review date and suitability label. All displayed starter entries are capped at **Conditional** because their review covers metadata. Licence-unclear and blocked records are excluded from normal results. This release does not establish runtime safety for listed projects.
+The default search is offline. Each card includes an evidence link, licence, review date and suitability label. All displayed entries are capped at **Conditional** because their review covers metadata. Licence-unclear and blocked records are excluded from normal results. This release does not establish runtime safety for listed projects.
 
 ## Use it with an AI host
 

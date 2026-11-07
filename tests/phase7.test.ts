@@ -3,7 +3,7 @@ import { appendFileSync, mkdtempSync, readFileSync, readdirSync, rmSync } from '
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
-import { starterResources } from '../database/seeds/starter.js';
+import { catalogueResources } from '../database/seeds/catalogue.js';
 import { exportCatalog } from '../src/catalog.js';
 import { initialize, openIndex } from '../src/database.js';
 import { releaseDirectory, releaseVersion, selectCatalogue, selectedPublicPath, selection } from '../src/releases.js';
@@ -22,7 +22,7 @@ test('versioned selection backs up private rows and can roll back a damaged publ
     assert.deepEqual(await selectCatalogue(directory, 'update'), { current: releaseVersion, previous: 'legacy' });
     const installed = selectedPublicPath(directory);
     const publicDb = openIndex(installed, 'public');
-    try { assert.equal(exportCatalog(publicDb).length, starterResources.length); }
+    try { assert.equal(exportCatalog(publicDb).length, catalogueResources.length); }
     finally { publicDb.close(); }
     assert.equal(readdirSync(join(directory, 'catalogue-backups')).length, 1);
     await selectCatalogue(directory, 'update');

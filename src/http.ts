@@ -11,13 +11,13 @@ export function object(input: unknown): Record<string, unknown> {
     ? input as Record<string, unknown> : {};
 }
 
-export async function readJson(url: URL): Promise<unknown> {
+export async function readText(url: URL): Promise<string> {
   const response = await fetch(url, {
     method: 'GET',
     redirect: 'error',
     credentials: 'omit',
     signal: AbortSignal.timeout(12000),
-    headers: { Accept: 'application/json', 'User-Agent': 'Everything-Skill' },
+    headers: { Accept: 'application/json, application/xml, text/html', 'User-Agent': 'Everything-Skill' },
   });
   if (!response.ok) {
     await response.body?.cancel();
@@ -39,5 +39,9 @@ export async function readJson(url: URL): Promise<unknown> {
   } finally {
     await reader.cancel();
   }
-  return JSON.parse(Buffer.concat(chunks, bytes).toString('utf8')) as unknown;
+  return Buffer.concat(chunks, bytes).toString('utf8');
+}
+
+export async function readJson(url: URL): Promise<unknown> {
+  return JSON.parse(await readText(url)) as unknown;
 }

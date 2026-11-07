@@ -5,6 +5,11 @@ import { dot, fuseRankings, labelFor, localEmbed, route, termsFor, type Embed, t
 export const kinds = ['repository', 'mcp', 'dataset', 'paper', 'api', 'model', 'tool', 'other'] as const;
 export type Kind = typeof kinds[number];
 
+export function markdownText(value: string) {
+  return value.replace(/[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g, ' ')
+    .replace(/[\\`*_{}\[\]<>()#+.!|]/g, '\\$&');
+}
+
 type Licence =
   | { state: 'verified'; id: string; url: string }
   | { state: 'unclear' };

@@ -1,0 +1,20 @@
+{
+  "intake": 1398,
+  "admitted": 619,
+  "counts": {
+    "admitted-metadata": 589,
+    "held": 431,
+    "approved-batch-001": 29,
+    "off-topic": 189,
+    "rights-review": 10,
+    "privacy-review": 50,
+    "unavailable": 37,
+    "licence-unclear": 63
+  },
+  "checkedOn": "2026-11-07",
+  "approval": "Maintainer approved Batch 001 and requested completion of all batches on 2026-11-07.",
+  "approvedManifestSha256": "02a646bf6661775bc52c290cddb146c581641d3bcf87e1e6a4508130d0d8c803",
+  "intakeSha256": "6aedab82896f4afc398970609d5c510975cce15f5b5ad56320096e8081ed8108",
+  "resourcesSha256": "7976c7df2c0430a494a819fdf908e6ffa0be751b6967f4c757a782a217f63764",
+  "reviewMethod": "Official metadata and source notices checked by automated admission rules, with previous individual review holds preserved. Payloads were not executed or audited."
+}

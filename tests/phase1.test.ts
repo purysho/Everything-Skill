@@ -7,6 +7,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { test, type TestContext } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import { starterResources } from '../database/seeds/starter.js';
+import { catalogueResources } from '../database/seeds/catalogue.js';
 import { exportCatalog, search, seedCatalog, type SeedResource } from '../src/catalog.js';
 import { initialize, openIndex } from '../src/database.js';
 import { canonicalGitHub, canonicalResource } from '../src/identity.js';
@@ -70,10 +71,11 @@ test('starter CLI searches, filters and exports evidence without exposing unclea
   const mcp = JSON.parse(ok(directory, 'search', 'mcp', '--json'));
   assert.equal(mcp.excluded['licence-unclear'], 0);
   assert.equal(mcp.results[0]?.title, 'Playwright MCP');
-  assert.deepEqual(JSON.parse(ok(directory, 'search', 'retrieval', '--kind', 'dataset', '--json')).results, []);
+  assert.ok(JSON.parse(ok(directory, 'search', 'retrieval', '--kind', 'dataset', '--json')).results
+    .every((row: { kind: string }) => row.kind === 'dataset'));
   assert.deepEqual(JSON.parse(ok(directory, 'search', 'retrieval', '--category', 'finance', '--json')).results, []);
   const jsonExport = JSON.parse(ok(directory, 'export', '--json'));
-  assert.equal(jsonExport.length, starterResources.length);
+  assert.equal(jsonExport.length, catalogueResources.length);
   assert.ok(jsonExport.some((item: { title: string; url: string }) =>
     item.title === 'Palmer Penguins CSV' && item.url.endsWith('/inst/extdata/penguins.csv')));
   assert.ok(jsonExport.some((item: { title: string; evidenceUrl: string }) =>
