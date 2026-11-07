@@ -24,7 +24,8 @@ function words(value) {
 }
 
 try {
-  const response = await fetch('./catalogue.json');
+  const version = document.documentElement.dataset.catalogueVersion;
+  const response = await fetch(`./catalogue.json?v=${encodeURIComponent(version)}`, { cache: 'no-store' });
   if (!response.ok) throw new Error('Catalogue unavailable.');
   const catalogue = await response.json();
   const entries = catalogue.results;

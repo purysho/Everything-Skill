@@ -1,3 +1,6 @@
 database/catalogue/*.json text eol=lf
 database/releases/**/*.json text eol=lf
 *.sqlite binary
+demo/*.js text eol=lf
+demo/*.css text eol=lf
+demo/*.html text eol=lf

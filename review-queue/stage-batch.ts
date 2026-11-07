@@ -5,6 +5,7 @@ import { basename, dirname, join, resolve, sep } from 'node:path';
 import { catalogueResources } from '../database/seeds/catalogue.js';
 import { exportCatalog, seedCatalog, type SeedResource } from '../src/catalog.js';
 import { checkIntegrity, initialize, openIndex } from '../src/database.js';
+import { versionDemoAssets } from '../src/demo.js';
 import { inspectSurface } from '../src/governance.js';
 import { releaseVersion } from '../src/releases.js';
 
@@ -64,5 +65,6 @@ try {
     .replace('Open data file', 'Open dataset')
     .replace('link-only records excluded', 'intake candidates held out'));
   writeFileSync(join(demo, 'catalogue.json'), JSON.stringify({ ...release, results: rows, excluded: batch.excluded }, null, 2) + '\n');
+  versionDemoAssets(demo, batch.version);
   console.log(`${rows.length} records staged for review as ${release.version}.`);
 } finally { rmSync(temporary, { recursive: true, force: true }); }

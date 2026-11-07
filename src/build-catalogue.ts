@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { catalogueResources, heldIntakeCount } from '../database/seeds/catalogue.js';
 import { exportCatalog, markdownText, seedCatalog } from './catalog.js';
 import { initialize, openIndex } from './database.js';
+import { versionDemoAssets } from './demo.js';
 import { buildReleaseManifest, releaseBuildDirectory, releaseDirectory } from './releases.js';
 
 mkdirSync(releaseDirectory, { recursive: true });
@@ -29,6 +30,7 @@ try {
   }
   writeFileSync(join(root, 'exports', 'catalogue.json'), json);
   writeFileSync(join(root, 'demo', 'catalogue.json'), json);
+  versionDemoAssets(join(root, 'demo'), manifest.version);
   writeFileSync(join(root, 'exports', 'CATALOGUE.md'), [
     '# Everything Skill catalogue', '', `Version ${manifest.version}`, '',
     'Each entry is Conditional. The listed licence applies to the pinned source and scope reviewed.', '',
