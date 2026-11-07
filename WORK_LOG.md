@@ -205,3 +205,9 @@ The maintainer approved Batch 001 and requested completion of all remaining batc
 Release SQLite SHA-256 d61636326cb918f247616f8566221365e7619fa515599ed9802ccab047170647.
 
 Before submission, the final review added LF checkout rules for the checksummed JSON files and binary handling for SQLite. Command-line Git could read the public repository but lacked push authentication, so the connected GitHub service is submitting the same files with per-blob Git SHA checks. This preserves the tested file tree. Hosted checks and deployment will be recorded after the submission completes.
+
+### Hosted submission verified
+
+Submitted the exact tested file tree as [394aa94](https://github.com/purysho/Everything-Skill/commit/394aa94efcb30e8b6c1242964d5ca3210faccef6). [The hosted Check run](https://github.com/purysho/Everything-Skill/actions/runs/42338126337) passed on Windows, macOS and Linux. [The Pages deployment](https://github.com/purysho/Everything-Skill/actions/runs/42338126395) succeeded. The live catalogue JSON at https://purysho.github.io/Everything-Skill/catalogue.json matched the local tested bytes and reported 625 active sources, 780 held records and snapshot 2026-11-07.1.
+
+All existing intake batches are processed. The next smallest catalogue step is to research and add original institutional datasets for economics and computing, then close the gap to the requested 1,000-plus active resources. The metadata admissions do not certify payload safety or complete the remaining multilingual preference and evidence-strength product features. Preserve the 780 holds until their specific issues are resolved. The next scheduled weekly audit remains an operational follow-up.
