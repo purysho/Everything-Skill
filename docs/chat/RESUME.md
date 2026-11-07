@@ -40,3 +40,5 @@ After model admission, implement and test the real conversational browser UI, re
 ## Recovery update
 
 The workspace was restored and pending source/report files recovered. See WORK_LOG.md's frozen-workspace recovery entry. Important correction: the Qwen3.5 timeout was economics-limits; no-evidence did not run. The exact raw report's fixture ordering establishes this. Selection validation and timeout reporting have regression coverage now. Continue from the latest remote commit and inspect git status before reapplying any old pending file list. The public browser workflow still needs its hosted outcome recorded before the transport check can be called verified.
+
+Hosted checks subsequently passed on ce222329437803cee4be0d863f959f87658ceeb4: Check 42382773663 (Windows/macOS/Linux, 48 tests) and Browser chat foundation 42382773690 (five tests, zero skips, including actual public config CORS/SRI). The browser job is pinned to supported Ubuntu 24.04. Recovery is complete; the model-quality/device gate remains unresolved. Revise the profile/device experiment before public chat and keep the 1 GiB default/larger-download opt-in contract.
