@@ -1,6 +1,6 @@
 # Conversational Everything Skill discovery
 
-Research date 7 November 2026. This is an initial discovery record. The audience and model hosting choice are pending.
+Research date 7 November 2026. This discovery record now includes the confirmed public demo and local desktop modes. Demo inference placement is pending.
 
 ## Scope and access
 
@@ -25,7 +25,7 @@ Propose a conversational research assistant with a chat interface, a small Node.
 
 The existing catalogue primarily supplies metadata and summaries. Scientific conclusions need supporting article evidence. The chatbot should distinguish source discovery from conclusions supported by retrieved text, and ask before a required external lookup. Model-generated citation IDs must be checked against the actual evidence bundle. Retrieved source instructions remain untrusted.
 
-Two deployment approaches remain open. A private installation can keep inference and history on the user's machine with a local model. A hosted service can offer access through a public website, with authentication, private storage and model-usage controls sized for its audience. The next user preference is whether the first version is personal or publicly accessible. That determines the model, hosting, privacy and budget research needed next.
+Two deployment approaches remain open. A private installation can keep inference and history on the user's machine with a local model. A hosted service can offer access through a public website, with authentication, private storage and model-usage controls sized for its audience. The user has selected a public demo with memory limited to the open tab, plus a local desktop version that retains memory on the device. Demo inference placement still determines model, hosting and hardware requirements.
 
 ## First experiment
 
@@ -36,3 +36,16 @@ Compare the existing shortlist with a chat answer and follow-up on a fixed set o
 Acceptance requires citations resolving only to supplied source IDs, no unsupported claim of having read full papers, permission respected when web access is refused, usable follow-up context, working cancellation and private conversation persistence. Measure latency, token use, citation support and answer usefulness. These are proposed checks. The conversation experiment has not run.
 
 Next action is to establish the audience, choose the execution approach, and turn the agreed behavior into a reviewed chat design before implementation.
+
+
+## Confirmed access and memory behavior
+
+The demo is publicly accessible. Conversation memory is limited to the open tab. The desktop version runs locally and keeps persistent memory on the user's device.
+
+Propose keeping demo messages, conversation context and temporary preferences in JavaScript memory. A page refresh would also reset that context. Persistent browser conversation storage and a shared service-worker conversation store would conflict with this proposal. The desktop can extend the existing private SQLite store for conversations and preferences, with explicit export, deletion and backup controls.
+
+The source index and model assets are distinct from personal conversation memory. Their caching policy must be stated separately during design. A hosted inference provider could receive messages despite application-side ephemeral storage, so its privacy and retention terms must be established before any promise about message retention.
+
+[WebLLM's official documentation](https://webllm.mlc.ai/docs/) describes browser inference accelerated with WebGPU. Its [basic usage guide](https://webllm.mlc.ai/docs/user/basic_usage.html) documents the initial model download and loading progress. The runtime and model licences and actual device performance remain unreviewed for adoption. Browser inference is a candidate that fits the earlier zero-hosted-inference-cost preference, with device compatibility and download requirements to test.
+
+The next question concerns whether the demo's generation runs in the visitor's browser or through a hosted model. The selected desktop execution is local in either case. After this choice, compare the practical implementation approaches and write the design for review.

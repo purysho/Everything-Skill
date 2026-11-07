@@ -223,3 +223,8 @@ Lint, build and all 33 tests passed locally and in the [Windows, macOS and Linux
 ## 2026-11-07 · Conversational interface discovery
 
 The maintainer wants a chatbot experience with the current resource engine acting as its backend. Inspected the implemented retrieval, optional transformer reranking, policy records, architecture and package. Reviewed official GitHub Pages and Ollama documentation. Saved the initial evidence and proposed experiment in docs/chat/DISCOVERY.md. Conversation storage, answer generation, a chat API and model integration are the next implementation areas. The first unresolved decision is whether the first release is personal or publicly accessible. Resolve that preference, choose the model execution approach, and write the reviewed design before building the chat loop.
+
+
+## 2026-11-07 · Chat access and memory preferences
+
+The maintainer selected a public chat demo with conversation memory limited to its open tab, plus a local desktop version that retains memory on the user's device. Recorded the distinction in docs/chat/DISCOVERY.md and inspected official WebLLM browser-inference documentation. Proposed RAM-only demo context, with page refresh also resetting it, and reuse of the private desktop SQLite store for durable history and preferences. The remaining choice is whether demo generation also runs in the browser or uses hosted inference. Browser inference needs a model download and compatible hardware. Runtime/model licences, performance and any external-provider retention policy remain to verify before adoption.
